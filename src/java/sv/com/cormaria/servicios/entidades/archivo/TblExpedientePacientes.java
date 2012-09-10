@@ -116,32 +116,18 @@ public class TblExpedientePacientes implements Serializable {
     @ManyToOne
     @JoinColumn(name="COD_SEX_PACIENTE",referencedColumnName="COD_SEX_PACIENTE",insertable=false, updatable=false)
     private CatSexo catSexo;
-
-
+    
+    @Column(name = "ENF_CRO_PACIENTE")
+    private String enfCroPaciente;
+    
+    @Column(name = "ALE_PACIENTE")
+    private String alePaciente;
 
     public TblExpedientePacientes() {
     }
 
     public TblExpedientePacientes(Integer numExpediente) {
         this.numExpediente = numExpediente;
-    }
-
-    public TblExpedientePacientes(Integer numExpediente, int codOcupacion, int codEstCivil, int codSexPaciente, int codParResponsable, Date fecRegExpediente, String nomPaciente, String priApePaciente, Date fecNacPaciente, short edaPaciente, String lugProcPaciente, String dirPaciente, String nomResPaciente, String dirResPaciente, Estado estPaciente) {
-        this.numExpediente = numExpediente;
-        this.codOcupacion = codOcupacion;
-        this.codEstCivil = codEstCivil;
-        this.codSexPaciente = codSexPaciente;
-        this.codParResponsable = codParResponsable;
-        this.fecRegExpediente = fecRegExpediente;
-        this.nomPaciente = nomPaciente;
-        this.priApePaciente = priApePaciente;
-        this.fecNacPaciente = fecNacPaciente;
-        this.edaPaciente = edaPaciente;
-        this.lugProcPaciente = lugProcPaciente;
-        this.dirPaciente = dirPaciente;
-        this.nomResPaciente = nomResPaciente;
-        this.dirResPaciente = dirResPaciente;
-        this.estPaciente = estPaciente;
     }
 
     public CatSexo getCatSexo() {
@@ -353,10 +339,27 @@ public class TblExpedientePacientes implements Serializable {
         this.codUbiFisica = codUbiFisica;
     }
 
+    public String getEnfCroPaciente() {
+        return enfCroPaciente;
+    }
+
+    public void setEnfCroPaciente(String enfCroPaciente) {
+        this.enfCroPaciente = enfCroPaciente;
+    }
+
+    public String getAlePaciente() {
+        return alePaciente;
+    }
+
+    public void setAlePaciente(String alePaciente) {
+        this.alePaciente = alePaciente;
+    }
+    
     @PrePersist
     public void prePersist(){
       this.fecRegExpediente = new java.util.Date();
     }
+    
     @Override
     public int hashCode() {
         int hash = 0;
