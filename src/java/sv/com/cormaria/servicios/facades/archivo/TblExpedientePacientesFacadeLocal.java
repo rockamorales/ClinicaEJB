@@ -6,6 +6,7 @@ package sv.com.cormaria.servicios.facades.archivo;
 
 import java.util.List;
 import javax.ejb.Local;
+import sv.com.cormaria.servicios.criteria.ISearchable;
 import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
@@ -16,7 +17,7 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
  * @author Mackk
  */
 @Local
-public interface TblExpedientePacientesFacadeLocal {
+public interface TblExpedientePacientesFacadeLocal extends ISearchable<TblExpedientePacientes>{
 
     void create(TblExpedientePacientes tblExpedientePacientes) throws ClinicaModelexception;
 
@@ -24,6 +25,8 @@ public interface TblExpedientePacientesFacadeLocal {
 
     void remove(TblExpedientePacientes tblExpedientePacientes) throws ClinicaModelexception;
 
+    public void remove(Long expedienteid) throws ClinicaModelexception;    
+    
     TblExpedientePacientes find(Object id) throws ClinicaModelexception;
 
     List<TblExpedientePacientes> findAll() throws ClinicaModelexception;

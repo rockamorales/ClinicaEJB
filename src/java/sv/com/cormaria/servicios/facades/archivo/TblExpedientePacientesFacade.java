@@ -19,6 +19,7 @@ import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonac
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
 import sv.com.cormaria.servicios.entidades.farmacia.TblProducto;
 import sv.com.cormaria.servicios.enums.CategoriasProducto;
+import sv.com.cormaria.servicios.enums.Estado;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
 import sv.com.cormaria.servicios.enums.EstadoConsultas;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelValidationException;
@@ -156,4 +157,24 @@ public class TblExpedientePacientesFacade extends AbstractFacade<TblExpedientePa
            ex.printStackTrace();
        }
    } 
+   
+    @Override
+   public void remove(TblExpedientePacientes expediente) throws ClinicaModelexception{
+       try{
+            TblExpedientePacientes expediente1 = em.find(TblExpedientePacientes.class, expediente.getNumExpediente());
+            expediente1.setEstPaciente(Estado.INACTIVO);
+       }catch(Exception ex){
+           throw new ClinicaModelexception(ex.getMessage(), ex);
+       }
+   }
+    
+   public void remove(Long expedienteid) throws ClinicaModelexception{
+       try{
+            TblExpedientePacientes expediente1 = em.find(TblExpedientePacientes.class, expedienteid);
+            expediente1.setEstPaciente(Estado.INACTIVO);
+       }catch(Exception ex){
+           throw new ClinicaModelexception(ex.getMessage(), ex);
+       }
+   }
+   
 }
