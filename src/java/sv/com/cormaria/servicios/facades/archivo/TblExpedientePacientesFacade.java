@@ -100,7 +100,7 @@ public class TblExpedientePacientesFacade extends AbstractFacade<TblExpedientePa
     }
     
    @Override
-   public void generarConsulta(TblConsultas consulta, TblExpedientePacientes expediente, Integer codEspecialidad) throws ClinicaModelexception{
+   public TblConsultas generarConsulta(TblConsultas consulta, TblExpedientePacientes expediente, Integer codEspecialidad) throws ClinicaModelexception{
        try{
            //creando la consulta
            consulta.setEdaConsulta((short)DateUtils.yearDateDiff(expediente.getFecNacPaciente(), new java.util.Date()));
@@ -153,8 +153,10 @@ public class TblExpedientePacientesFacade extends AbstractFacade<TblExpedientePa
                    detalleComprobanteFacade.create(detalleComprobante);
                }
            }
+           return consulta;
        }catch(Exception ex){
            ex.printStackTrace();
+           throw new ClinicaModelexception(ex.getMessage(), ex);
        }
    } 
    

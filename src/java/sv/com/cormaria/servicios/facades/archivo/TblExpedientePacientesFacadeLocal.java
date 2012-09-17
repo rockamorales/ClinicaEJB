@@ -35,5 +35,5 @@ public interface TblExpedientePacientesFacadeLocal extends ISearchable<TblExpedi
 
     int count() throws ClinicaModelexception;
 
-    public void generarConsulta(TblConsultas consulta, TblExpedientePacientes expediente, Integer codEspecialidad) throws ClinicaModelexception;
+    public TblConsultas generarConsulta(TblConsultas consulta, TblExpedientePacientes expediente, Integer codEspecialidad) throws ClinicaModelexception;
 }

@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,24 +29,38 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "tbl_movimientos_expediente")
 @NamedQueries({
-    @NamedQuery(name = "TblMovimientosExpediente.findAll", query = "SELECT t FROM TblMovimientosExpediente t")})
+    @NamedQuery(name = "TblMovimientosExpediente.findAll", query = "SELECT t FROM TblMovimientosExpediente t"),
+    @NamedQuery(name = "TblMovimientosExpediente.findLastRecord", query = "SELECT t FROM TblMovimientosExpediente t where numTransaccion = (select max(numTransaccion) from TblMovimientosExpediente t1 where t1.numExpediente=:numExpediente)")
+})
 public class TblMovimientosExpediente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull(message = "Ingrese el numbero de transccion")
+    @NotNull(message = "Ingrese el numbero de transaccion")
     @Column(name = "NUM_TRANSACCION")
     private Integer numTransaccion;
+
     @Basic(optional = false)
-    @NotNull(message = "Ingrese la fecha de transaccion")
     @Column(name = "FEC_TRANSACCION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecTransaccion;
-    @JoinColumn(name = "NUM_EMPLEADO", referencedColumnName = "NUM_EMPLEADO")
-    @ManyToOne(optional = false)
-    private TblEmpleado numEmpleado;
 
+    @Column(name = "NUM_EMPLEADO")
+    private Integer numEmpleado;
+
+    @Column(name = "COD_AREA")
+    private Integer codArea;
+
+    @Column(name = "NUM_EXPEDIENTE")
+    private Integer numExpediente;
+
+    @Column(name = "COD_TIP_TRANSACCION")
+    private Integer codTipTransaccion;
+
+    @Column(name = "CAT_COD_AREA")
+    private Integer catCodArea;
+    
     public TblMovimientosExpediente() {
     }
 
@@ -74,12 +89,49 @@ public class TblMovimientosExpediente implements Serializable {
         this.fecTransaccion = fecTransaccion;
     }
 
-    public TblEmpleado getNumEmpleado() {
+    public Integer getNumEmpleado() {
         return numEmpleado;
     }
 
-    public void setNumEmpleado(TblEmpleado numEmpleado) {
+    public void setNumEmpleado(Integer numEmpleado) {
         this.numEmpleado = numEmpleado;
+    }
+
+    public Integer getCodArea() {
+        return codArea;
+    }
+
+    public void setCodArea(Integer codArea) {
+        this.codArea = codArea;
+    }
+
+    public Integer getNumExpediente() {
+        return numExpediente;
+    }
+
+    public void setNumExpediente(Integer numExpediente) {
+        this.numExpediente = numExpediente;
+    }
+
+    public Integer getCodTipTransaccion() {
+        return codTipTransaccion;
+    }
+
+    public void setCodTipTransaccion(Integer codTipTransaccion) {
+        this.codTipTransaccion = codTipTransaccion;
+    }
+
+    public Integer getCatCodArea() {
+        return catCodArea;
+    }
+
+    public void setCatCodArea(Integer catCodArea) {
+        this.catCodArea = catCodArea;
+    }
+    
+    @PrePersist
+    public void prePersist(){
+        this.fecTransaccion = new java.util.Date();
     }
 
     @Override

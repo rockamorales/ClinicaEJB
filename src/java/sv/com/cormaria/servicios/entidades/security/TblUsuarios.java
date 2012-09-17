@@ -29,6 +29,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import sv.com.cormaria.servicios.entidades.administracion.TblEmpleado;
 import sv.com.cormaria.servicios.enums.EstadoUsuario;
 
 /**
@@ -111,6 +112,10 @@ public class TblUsuarios implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date ultFecIniSesion;
     
+    @ManyToOne
+    @JoinColumn(name="NUM_EMPLEADO", referencedColumnName="NUM_EMPLEADO", insertable=false, updatable=false)
+    private TblEmpleado empleado;
+    
     @OneToMany(mappedBy="usuario",fetch= FetchType.EAGER)
     private Set<CatRolesUsuario> rolesusuario;
 
@@ -151,6 +156,14 @@ public class TblUsuarios implements Serializable {
         this.fecModificacion = fecModificacion;
         this.fecUltCamContrasena = fecUltCamContrasena;
         this.modPor = modPor;
+    }
+
+    public TblEmpleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(TblEmpleado empleado) {
+        this.empleado = empleado;
     }
 
     public Long getNumUsuario() {

@@ -40,6 +40,15 @@ public class CatTipoTransaccionFacade extends AbstractFacade<CatTipoTransaccion>
         }
     }
 
+    public List<CatTipoTransaccion> findAllActive() throws ClinicaModelexception {
+        try{
+            Query q = em.createNamedQuery("CatTipoTransaccion.findAllActive");
+            return q.getResultList();
+        }catch(Exception ex){
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
+    
     @Override
     public List<CatTipoTransaccion> findRange(int[] range) throws ClinicaModelexception {
         try{

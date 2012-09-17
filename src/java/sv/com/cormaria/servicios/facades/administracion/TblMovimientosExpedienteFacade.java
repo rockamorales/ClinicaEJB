@@ -7,8 +7,12 @@ package sv.com.cormaria.servicios.facades.administracion;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import sv.com.cormaria.servicios.entidades.administracion.TblMovimientosExpediente;
+import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
 
@@ -27,6 +31,39 @@ public class TblMovimientosExpedienteFacade extends AbstractFacade<TblMovimiento
 
     public TblMovimientosExpedienteFacade() {
         super(TblMovimientosExpediente.class);
+    }
+    
+    public TblMovimientosExpediente findLastRegistry(Integer numExpediente) throws ClinicaModelexception{
+        try{
+            Query q = em.createNamedQuery("TblMovimientosExpediente.findLastRecord");
+            q.setParameter("numExpediente", numExpediente);
+            return (TblMovimientosExpediente) q.getSingleResult();
+        }catch(NoResultException ex){
+            return null;
+        }catch(EntityNotFoundException ex){
+            return null;
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
+    
+    public TblMovimientosExpediente generarMovimiento(TblExpedientePacientes tblExpediente, TblMovimientosExpediente movimientoExp, Integer numEmpleado) throws ClinicaModelexception{
+        try{
+            TblMovimientosExpediente lastMove = this.findLastRegistry(tblExpediente.getNumExpediente());
+            movimientoExp.setNumEmpleado(numEmpleado);
+            movimientoExp.setNumExpediente(tblExpediente.getNumExpediente());
+            if (lastMove != null){
+                movimientoExp.setCodArea(lastMove.getCatCodArea());
+            }else{
+                movimientoExp.setCodArea(1);
+            }
+            this.create(movimientoExp);
+            return movimientoExp;
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
     }
 
     @Override

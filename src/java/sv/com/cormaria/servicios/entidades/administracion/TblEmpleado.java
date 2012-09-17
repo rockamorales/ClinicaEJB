@@ -80,10 +80,6 @@ public class TblEmpleado implements Serializable {
     @Column(name = "DUI_EMPLEADO")
     private int duiEmpleado;
     @Basic(optional = false)
-    @NotNull(message="Ingrese el estado deL Empleado")
-    @Column(name = "ACT_EMPLEADO")
-    private Estado actEmpleado;
-    @Basic(optional = false)
     @NotNull(message="Ingrese el codigo de Profesion de Empleado")
     @Column(name = "COD_PROFESION")
     private int codProfesion;
@@ -120,17 +116,6 @@ public class TblEmpleado implements Serializable {
         this.codTipServicio = codTipServicio;
     }
 
-    public Estado getActEmpleado() {
-        return actEmpleado;
-    }
-
-    public void setActEmpleado(Estado actEmpleado) {
-        this.actEmpleado = actEmpleado;
-    }
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "numEmpleado")
-    private Collection<TblMovimientosExpediente> tblMovimientosExpedienteCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "numEmpleado")
-    private Collection<TblRequisiciones> tblRequisicionesCollection;
 
     public TblEmpleado() {
     }
@@ -235,22 +220,6 @@ public class TblEmpleado implements Serializable {
 
     public void setDuiEmpleado(int duiEmpleado) {
         this.duiEmpleado = duiEmpleado;
-    }
-
-    public Collection<TblMovimientosExpediente> getTblMovimientosExpedienteCollection() {
-        return tblMovimientosExpedienteCollection;
-    }
-
-    public void setTblMovimientosExpedienteCollection(Collection<TblMovimientosExpediente> tblMovimientosExpedienteCollection) {
-        this.tblMovimientosExpedienteCollection = tblMovimientosExpedienteCollection;
-    }
-
-    public Collection<TblRequisiciones> getTblRequisicionesCollection() {
-        return tblRequisicionesCollection;
-    }
-
-    public void setTblRequisicionesCollection(Collection<TblRequisiciones> tblRequisicionesCollection) {
-        this.tblRequisicionesCollection = tblRequisicionesCollection;
     }
 
     @Override

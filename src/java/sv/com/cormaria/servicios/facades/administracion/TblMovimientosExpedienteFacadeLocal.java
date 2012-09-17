@@ -7,6 +7,7 @@ package sv.com.cormaria.servicios.facades.administracion;
 import java.util.List;
 import javax.ejb.Local;
 import sv.com.cormaria.servicios.entidades.administracion.TblMovimientosExpediente;
+import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 
 /**
@@ -29,5 +30,7 @@ public interface TblMovimientosExpedienteFacadeLocal {
     List<TblMovimientosExpediente> findRange(int[] range) throws ClinicaModelexception;
 
     int count() throws ClinicaModelexception;
+    
+    public TblMovimientosExpediente generarMovimiento(TblExpedientePacientes tblExpediente, TblMovimientosExpediente movimientoExp, Integer numEmpleado) throws ClinicaModelexception;
     
 }
