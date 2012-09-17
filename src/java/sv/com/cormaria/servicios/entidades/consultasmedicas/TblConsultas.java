@@ -89,7 +89,6 @@ public class TblConsultas implements Serializable {
     private short edaConsulta;
     @Basic
     @Column(name = "EST_CONSULTA")
-    @Enumerated(EnumType.ORDINAL)
     private EstadoConsultas estConsulta;
     @JoinColumn(name = "NUM_MEDICO", referencedColumnName = "NUM_MEDICO", insertable=false, updatable=false)
     @ManyToOne(optional = false)

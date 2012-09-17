@@ -6,7 +6,10 @@ package sv.com.cormaria.servicios.facades.common;
 
 import java.util.List;
 import java.util.Map;
+import javax.ejb.NoSuchEntityException;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import sv.com.cormaria.servicios.criteria.SearchCriteria;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
@@ -51,6 +54,12 @@ public abstract class AbstractFacade<T> {
     public T find(Object id) throws ClinicaModelexception {
         try{
             return getEntityManager().find(entityClass, id);
+        }catch(NoResultException ex){
+            return null;
+        }catch(EntityNotFoundException ex){
+            return null;
+        }catch(NoSuchEntityException ex){
+            return null;
         }catch(Exception ex){
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
