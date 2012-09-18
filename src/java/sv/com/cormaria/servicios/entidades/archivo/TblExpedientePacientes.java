@@ -33,6 +33,7 @@ import sv.com.cormaria.servicios.enums.Estado;
 @Table(name = "tbl_expediente_pacientes")
 @NamedQueries({
     @NamedQuery(name = "TblExpedientePacientes.findAll", query = "SELECT t FROM TblExpedientePacientes t where t.estPaciente = 1")})
+
 public class TblExpedientePacientes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

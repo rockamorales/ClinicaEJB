@@ -4,15 +4,12 @@
  */
 package sv.com.cormaria.servicios.entidades.consultasmedicas;
 
-import sv.com.cormaria.servicios.entidades.administracion.TblMedico;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +22,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
+import sv.com.cormaria.servicios.entidades.administracion.TblMedico;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoConsulta;
 import sv.com.cormaria.servicios.enums.EstadoConsultas;
 
@@ -99,7 +96,7 @@ public class TblConsultas implements Serializable {
     private Integer codEspecialidad;
     @JoinColumn(name = "NUM_EXPEDIENTE", referencedColumnName = "NUM_EXPEDIENTE",insertable=false, updatable=false)
     @ManyToOne(optional = false)
-    private TblExpedientePacientes tblExpediente;
+    private sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes tblExpediente;
     
     @ManyToOne
     @JoinColumn(name = "COD_TIP_CONSULTA", referencedColumnName = "COD_TIP_CONSULTA",insertable=false, updatable=false)
@@ -179,11 +176,11 @@ public class TblConsultas implements Serializable {
         this.numExpediente = numExpediente;
     }
 
-    public TblExpedientePacientes getTblExpediente() {
+    public sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes getTblExpediente() {
         return tblExpediente;
     }
 
-    public void setTblExpediente(TblExpedientePacientes tblExpediente) {
+    public void setTblExpediente(sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes tblExpediente) {
         this.tblExpediente = tblExpediente;
     }
 

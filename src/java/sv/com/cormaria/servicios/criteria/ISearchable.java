@@ -5,8 +5,6 @@
 package sv.com.cormaria.servicios.criteria;
 
 import java.util.List;
-import java.util.Map;
-import javax.persistence.Query;
 
 /**
  *

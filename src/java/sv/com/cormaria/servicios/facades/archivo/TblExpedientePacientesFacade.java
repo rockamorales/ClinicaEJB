@@ -18,11 +18,9 @@ import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonac
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacionPK;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
 import sv.com.cormaria.servicios.entidades.farmacia.TblProducto;
-import sv.com.cormaria.servicios.enums.CategoriasProducto;
 import sv.com.cormaria.servicios.enums.Estado;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
 import sv.com.cormaria.servicios.enums.EstadoConsultas;
-import sv.com.cormaria.servicios.exceptions.ClinicaModelValidationException;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.catalogos.CatEspecialidadFacadeLocal;
 import sv.com.cormaria.servicios.facades.colecturia.TblComprobanteDonacionFacadeLocal;
