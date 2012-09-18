@@ -24,6 +24,7 @@ import javax.persistence.TemporalType;
 import sv.com.cormaria.servicios.entidades.catalogos.CatSexo;
 import sv.com.cormaria.servicios.entidades.catalogos.CatUbicacionFisica;
 import sv.com.cormaria.servicios.enums.Estado;
+import sv.com.cormaria.servicios.helpers.DateUtils;
 
 /**
  *
@@ -225,6 +226,13 @@ public class TblExpedientePacientes implements Serializable {
 
     public short getEdaPaciente() {
         return edaPaciente;
+    } 
+    
+    public int getEdadPaciente() {
+        if(fecNacPaciente != null){
+            return DateUtils.yearDateDiff(fecNacPaciente, new java.util.Date());
+        }
+        return 0;
     }
 
     public void setEdaPaciente(short edaPaciente) {
