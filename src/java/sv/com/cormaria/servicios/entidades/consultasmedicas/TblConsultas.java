@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import sv.com.cormaria.servicios.entidades.administracion.TblMedico;
+import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoConsulta;
 import sv.com.cormaria.servicios.enums.EstadoConsultas;
 
@@ -41,21 +42,17 @@ public class TblConsultas implements Serializable {
     @Basic(optional = false)
     @Column(name = "NUM_CONSULTA")
     private Integer numConsulta;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la fecha de la consulta")
     @Column(name = "FEC_CONSULTA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecConsulta;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "NUM_EXPEDIENTE")
     private Integer numExpediente;
     @Basic
     @Column(name = "TEM_PACIENTE")
-    private BigDecimal temPaciente;
+    private Double temPaciente;
     @Basic
     @Column(name = "PUL_PACIENTE")
-    private short pulPaciente;
+    private Integer pulPaciente;
     @Basic
     @Column(name = "PRE_ARTERIAL")
     private String preArterial;
@@ -77,11 +74,8 @@ public class TblConsultas implements Serializable {
     @Basic
     @Column(name = "DIA_PACIENTE")
     private String diaPaciente;
-    @Size(max = 1000, message = "Las observaciones no deben ser mayor a 1000 caracteres")
     @Column(name = "OBS_CLI_PACIENTE")
     private String obsCliPaciente;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la edad del paciente")
     @Column(name = "EDA_CONSULTA")
     private short edaConsulta;
     @Basic
@@ -96,7 +90,7 @@ public class TblConsultas implements Serializable {
     private Integer codEspecialidad;
     @JoinColumn(name = "NUM_EXPEDIENTE", referencedColumnName = "NUM_EXPEDIENTE",insertable=false, updatable=false)
     @ManyToOne(optional = false)
-    private sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes tblExpediente;
+    private TblExpedientePacientes tblExpediente;
     
     @ManyToOne
     @JoinColumn(name = "COD_TIP_CONSULTA", referencedColumnName = "COD_TIP_CONSULTA",insertable=false, updatable=false)
@@ -112,7 +106,7 @@ public class TblConsultas implements Serializable {
         this.numConsulta = numConsulta;
     }
 
-    public TblConsultas(Integer numConsulta, Date fecConsulta, BigDecimal temPaciente, short pulPaciente, String preArterial, Double pesPaciente, Double talPaciente, String hisCliPaciente, String anaPaciente, String exaFisPaciente, String diaPaciente, short edaConsulta, EstadoConsultas estConsulta) {
+    public TblConsultas(Integer numConsulta, Date fecConsulta, Double temPaciente, Integer pulPaciente, String preArterial, Double pesPaciente, Double talPaciente, String hisCliPaciente, String anaPaciente, String exaFisPaciente, String diaPaciente, short edaConsulta, EstadoConsultas estConsulta) {
         this.numConsulta = numConsulta;
         this.fecConsulta = fecConsulta;
         this.temPaciente = temPaciente;
@@ -200,19 +194,19 @@ public class TblConsultas implements Serializable {
         this.fecConsulta = fecConsulta;
     }
 
-    public BigDecimal getTemPaciente() {
+    public Double getTemPaciente() {
         return temPaciente;
     }
 
-    public void setTemPaciente(BigDecimal temPaciente) {
+    public void setTemPaciente(Double temPaciente) {
         this.temPaciente = temPaciente;
     }
 
-    public short getPulPaciente() {
+    public Integer getPulPaciente() {
         return pulPaciente;
     }
 
-    public void setPulPaciente(short pulPaciente) {
+    public void setPulPaciente(Integer pulPaciente) {
         this.pulPaciente = pulPaciente;
     }
 

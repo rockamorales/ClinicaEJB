@@ -114,6 +114,11 @@ public class ConsultasSearchCriteria implements SearchCriteria {
     }
 
     private String createWhere(){
+        System.out.println("Creando el where: ");
+        if (this.getEstadoConsultas().isEmpty()){
+            System.out.println("Estado: "+getEstadoConsultas().get(0));
+        }
+        System.out.println("Num medico: "+getNumMedico());
         StringBuffer strWhere = new StringBuffer();
         if (this.getNumExpediente()!=null){
            strWhere.append(" c.numExpediente = :numExpediente");
@@ -194,7 +199,7 @@ public class ConsultasSearchCriteria implements SearchCriteria {
         }
         if (this.getEstadoConsultas()!=null && !this.getEstadoConsultas().isEmpty()){
             parameters.put("estados",this.getEstadoConsultasEnum());
-        }        
+        }
         if (this.getNumMedico()!=null){
             parameters.put("numMedico",this.getNumMedico());
         }        

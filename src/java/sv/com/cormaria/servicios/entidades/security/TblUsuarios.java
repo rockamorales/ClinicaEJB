@@ -111,6 +111,9 @@ public class TblUsuarios implements Serializable {
     @Column(name = "ULT_FEC_INI_SESION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ultFecIniSesion;
+
+    @Column(name = "NUM_MEDICO")
+    private Integer numMedico;
     
     @ManyToOne
     @JoinColumn(name="NUM_EMPLEADO", referencedColumnName="NUM_EMPLEADO", insertable=false, updatable=false)
@@ -156,6 +159,14 @@ public class TblUsuarios implements Serializable {
         this.fecModificacion = fecModificacion;
         this.fecUltCamContrasena = fecUltCamContrasena;
         this.modPor = modPor;
+    }
+
+    public Integer getNumMedico() {
+        return numMedico;
+    }
+
+    public void setNumMedico(Integer numMedico) {
+        this.numMedico = numMedico;
     }
 
     public TblEmpleado getEmpleado() {
