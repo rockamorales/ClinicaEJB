@@ -100,7 +100,7 @@ public class ConsultasSearchCriteria implements SearchCriteria {
     @Override
     public String createQuery() {
         StringBuffer strSelect = new StringBuffer("Select c from TblConsultas c ");
-        StringBuffer strSort = new StringBuffer(" order by c.numConsulta desc ");
+        StringBuffer strSort = new StringBuffer(" order by c.fecConsulta ");
         String strWhere = createWhere();
         return strSelect + " " + strWhere + " " + strSort;
     }

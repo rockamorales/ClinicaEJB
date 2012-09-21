@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
+import sv.com.cormaria.servicios.enums.EstadoConsultas;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
 
@@ -63,6 +64,16 @@ public class TblConsultasFacade extends AbstractFacade<TblConsultas> implements 
                 return count.intValue();
             }
             return 0;
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
+    
+    public TblConsultas editSigVitalesInfo(TblConsultas consulta) throws ClinicaModelexception{
+        try{
+            consulta.setEstConsulta(EstadoConsultas.SIGNOS_VITALES);
+            return em.merge(consulta);
         }catch(Exception ex){
             ex.printStackTrace();
             throw new ClinicaModelexception(ex.getMessage(), ex);

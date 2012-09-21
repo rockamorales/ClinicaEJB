@@ -9,5 +9,5 @@ package sv.com.cormaria.servicios.enums;
  * @author Mackk
  */
 public enum EstadoConsultas {
-    EMITIDA, PAGADA, EN_PROCESO, FINALIZADA, CANCELADA, ABANDONADA
+    EMITIDA, PAGADA, SIGNOS_VITALES, EN_PROCESO, FINALIZADA, CANCELADA, ABANDONADA
 }

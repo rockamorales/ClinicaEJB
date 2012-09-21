@@ -30,5 +30,6 @@ public interface TblConsultasFacadeLocal extends ISearchable<TblConsultas> {
     List<TblConsultas> findRange(int[] range) throws ClinicaModelexception;
 
     int count() throws ClinicaModelexception;
-    
+
+    public TblConsultas editSigVitalesInfo(TblConsultas consulta) throws ClinicaModelexception;
 }
