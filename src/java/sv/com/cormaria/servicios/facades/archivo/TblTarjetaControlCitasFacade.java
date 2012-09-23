@@ -5,15 +5,25 @@
 package sv.com.cormaria.servicios.facades.archivo;
 
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.entidades.archivo.TblTarjetaControlCitas;
+import sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion;
+import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacion;
+import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacionPK;
+import sv.com.cormaria.servicios.entidades.farmacia.TblProducto;
 import sv.com.cormaria.servicios.enums.Estado;
+import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
 import sv.com.cormaria.servicios.enums.EstadoTarjeta;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
+import sv.com.cormaria.servicios.facades.colecturia.TblComprobanteDonacionFacadeLocal;
+import sv.com.cormaria.servicios.facades.colecturia.TblDetalleComprobanteDonacionFacadeLocal;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
+import sv.com.cormaria.servicios.facades.farmacia.TblProductoFacadeLocal;
 
 /**
  *
@@ -24,6 +34,15 @@ public class TblTarjetaControlCitasFacade extends AbstractFacade<TblTarjetaContr
     @PersistenceContext(unitName = "ClinicaEJBPU")
     private EntityManager em;
 
+    @EJB
+    private TblComprobanteDonacionFacadeLocal comprobanteFacade;
+    
+    @EJB
+    private TblProductoFacadeLocal productoFacade;
+
+    @EJB
+    private TblDetalleComprobanteDonacionFacadeLocal detalleComprobanteFacade;
+    
     protected EntityManager getEntityManager() {
         return em;
     }
@@ -102,6 +121,7 @@ public class TblTarjetaControlCitasFacade extends AbstractFacade<TblTarjetaContr
     @Override
     public void create(TblTarjetaControlCitas entity) throws ClinicaModelexception{
         try{
+            TblExpedientePacientes expediente = em.find(TblExpedientePacientes.class, entity.getNumExpediente());
             List<TblTarjetaControlCitas> tarjetasList = this.findActiveByNumExpediente(entity.getNumExpediente());
             if (!tarjetasList.isEmpty()){
                 TblTarjetaControlCitas control = tarjetasList.get(0);
@@ -110,12 +130,35 @@ public class TblTarjetaControlCitasFacade extends AbstractFacade<TblTarjetaContr
             entity.setActTarjeta(Estado.ACTIVO);
             entity.setEstTarjeta(EstadoTarjeta.NOPAGADO);
             getEntityManager().persist(entity);
+            
+           TblComprobanteDonacion tblComprobante = new TblComprobanteDonacion();
+           tblComprobante.setCodCarisma(1);
+           tblComprobante.setCodTipDonacion(2);
+           tblComprobante.setCodTipDonante(2);
+           tblComprobante.setEstComDonacion(EstadoComprobanteDonacion.EMITIDO);
+           tblComprobante.setFecComDonacion(new java.util.Date());
+           tblComprobante.setCanLetras("Cero");
+           tblComprobante.setNumExpediente(expediente.getNumExpediente());
+           tblComprobante.setNomComDonacion(expediente.getNomPaciente() + " " + expediente.getPriApePaciente() + " " + expediente.getSecApePaciente());
+           comprobanteFacade.create(tblComprobante);
+
+           TblDetalleComprobanteDonacion detalleComprobante = new TblDetalleComprobanteDonacion();
+           List<TblProducto> productosList = productoFacade.findTarjetaControl();
+           if (!tarjetasList.isEmpty()){
+            TblProducto tarjeta = productosList.get(0);
+            detalleComprobante.setCanProComDonacion(1);
+            detalleComprobante.setPreUniComDonacion(tarjeta.getPreFinProducto());
+            TblDetalleComprobanteDonacionPK pk = new TblDetalleComprobanteDonacionPK();
+            pk.setNumComDonacion(tblComprobante.getNumComDonacion());
+            pk.setNumProducto(tarjeta.getNumProducto());
+            detalleComprobante.setTblDetalleComprobanteDonacionPK(pk);
+            detalleComprobante.setTotIteComDonacion(tarjeta.getPreFinProducto());
+            detalleComprobanteFacade.create(detalleComprobante);
+          }
         }catch(Exception ex){
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
-    }
-    
-    
+    }    
   }
     
 
