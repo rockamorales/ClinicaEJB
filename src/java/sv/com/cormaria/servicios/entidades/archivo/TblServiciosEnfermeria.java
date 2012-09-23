@@ -9,16 +9,22 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import sv.com.cormaria.servicios.entidades.catalogos.CatTipoServiciosEnfermeria;
 
 /**
  *
@@ -32,22 +38,37 @@ public class TblServiciosEnfermeria implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "NUM_SER_ENFERMERIA")
     private Integer numSerEnfermeria;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la fecha de realización del servicio de enferia")
+    
+    @Column(name="COD_SER_ENFERMERIA")
+    private Integer codServEnfermeria;
+
+    @Column(name="NUM_EMPLEADO")
+    private Integer numEmpleado;
+
+    @Column(name="NUM_EXPEDIENTE")
+    private Integer numExpediente;
+    
     @Column(name = "FEC_SER_ENFERMERIA")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fecSerEnfermeria;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese los medicamenteos aplicados")
-    @Size(min = 1, max = 250, message = "Los medicamentos aplicados de deben ser mayor de 250 caracteres")
     @Column(name = "MED_APLICADOS")
     private String medAplicados;
-    @Size(max = 500, message = "Las observaciones no deben ser mayores de 500 caracteres")
     @Column(name = "OBS_SER_ENFERMERIA")
     private String obsSerEnfermeria;
+
+    @Column(name = "EST_SER_ENFERMERIA")
+    @Enumerated(EnumType.ORDINAL)
+    private EstadoServiciosEnfermeria estSerEnfermeria;
+    
+    @ManyToOne
+    @JoinColumn(name="NUM_EXPEDIENTE", referencedColumnName="NUM_EXPEDIENTE", insertable=false, updatable=false)
+    private TblExpedientePacientes expediente;
+    
+    @ManyToOne
+    @JoinColumn(name="COD_SER_ENFERMERIA", referencedColumnName="COD_SER_ENFERMERIA", insertable=false, updatable=false)
+    private CatTipoServiciosEnfermeria tipoServicio;
 
     public TblServiciosEnfermeria() {
     }
@@ -68,6 +89,54 @@ public class TblServiciosEnfermeria implements Serializable {
 
     public void setNumSerEnfermeria(Integer numSerEnfermeria) {
         this.numSerEnfermeria = numSerEnfermeria;
+    }
+
+    public Integer getNumEmpleado() {
+        return numEmpleado;
+    }
+
+    public void setNumEmpleado(Integer numEmpleado) {
+        this.numEmpleado = numEmpleado;
+    }
+    
+    public EstadoServiciosEnfermeria getEstSerEnfermeria() {
+        return estSerEnfermeria;
+    }
+
+    public void setEstSerEnfermeria(EstadoServiciosEnfermeria estSerEnfermeria) {
+        this.estSerEnfermeria = estSerEnfermeria;
+    }
+   
+    public Integer getCodServEnfermeria() {
+        return codServEnfermeria;
+    }
+
+    public void setCodServEnfermeria(Integer codServEnfermeria) {
+        this.codServEnfermeria = codServEnfermeria;
+    }
+
+    public Integer getNumExpediente() {
+        return numExpediente;
+    }
+
+    public void setNumExpediente(Integer numExpediente) {
+        this.numExpediente = numExpediente;
+    }
+
+    public TblExpedientePacientes getExpediente() {
+        return expediente;
+    }
+
+    public void setExpediente(TblExpedientePacientes expediente) {
+        this.expediente = expediente;
+    }
+
+    public CatTipoServiciosEnfermeria getTipoServicio() {
+        return tipoServicio;
+    }
+
+    public void setTipoServicio(CatTipoServiciosEnfermeria tipoServicio) {
+        this.tipoServicio = tipoServicio;
     }
 
     public Date getFecSerEnfermeria() {
@@ -92,6 +161,11 @@ public class TblServiciosEnfermeria implements Serializable {
 
     public void setObsSerEnfermeria(String obsSerEnfermeria) {
         this.obsSerEnfermeria = obsSerEnfermeria;
+    }
+    
+    @PrePersist
+    public void prePersist(){
+        this.fecSerEnfermeria = new java.util.Date();
     }
 
     @Override

@@ -12,6 +12,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import sv.com.cormaria.servicios.entidades.archivo.EstadoServiciosEnfermeria;
+import sv.com.cormaria.servicios.entidades.archivo.TblServiciosEnfermeria;
 import sv.com.cormaria.servicios.entidades.archivo.TblTarjetaControlCitas;
 import sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacion;
@@ -88,9 +90,7 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
             this.edit(comprobante);
             List<TblDetalleComprobanteDonacion> detalleList = detalleFacade.findByComprobanteDonacion(comprobante.getNumComDonacion());
             for (TblDetalleComprobanteDonacion detalle : detalleList) {
-                System.out.println("Detalle antes de tarjeta: "+detalle.getTblProducto().getCatProducto());
                 if (detalle.getTblProducto().getCatProducto() == CategoriasProducto.TARJETA){
-                    System.out.println("Cambiando el estado de la tarjeta");
                     List<TblTarjetaControlCitas> tarjetasList = tarjetaFacade.findNoPagadoByNumExpediente(comprobante.getNumExpediente());
                     if (tarjetasList.isEmpty()){
                         throw new ClinicaModelValidationException("No existe registros de tarjetas pendientes de pago en el expediente");
@@ -98,12 +98,17 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
                     TblTarjetaControlCitas tarjeta = tarjetasList.get(0);
                     tarjeta.setEstTarjeta(EstadoTarjeta.PAGADO);
                 }
-                System.out.println("Detalle antes de consulta: "+detalle.getTblProducto().getCatProducto());
                 if (detalle.getNumConsulta()!=null){
                     System.out.println("Cambiando el estado de la consulta");
                     TblConsultas consulta = em.find(TblConsultas.class, detalle.getNumConsulta());
                     consulta.setEstConsulta(EstadoConsultas.PAGADA);
                 }
+                
+                if (detalle.getNumSerEnfermeria()!=null){
+                    TblServiciosEnfermeria serviciosEnfermeria = em.find(TblServiciosEnfermeria.class, detalle.getNumSerEnfermeria());
+                    serviciosEnfermeria.setEstSerEnfermeria(EstadoServiciosEnfermeria.PAGADO);
+                }
+
             }
         }catch(Exception ex){
             ex.printStackTrace();

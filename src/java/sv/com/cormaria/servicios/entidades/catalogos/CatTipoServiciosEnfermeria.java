@@ -11,11 +11,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import sv.com.cormaria.servicios.entidades.farmacia.TblProducto;
 import sv.com.cormaria.servicios.enums.Estado;
 
 /**
@@ -46,6 +49,13 @@ public class CatTipoServiciosEnfermeria implements Serializable {
     @Column(name = "ACT_SER_ENFERMERIA")
     private Estado actSerEnfermeria;
 
+    @Column(name = "NUM_PRODUCTO")
+    private Integer numProducto;
+    
+    @ManyToOne
+    @JoinColumn(name="NUM_PRODUCTO", referencedColumnName="NUM_PRODUCTO", insertable=false, updatable=false)
+    private TblProducto producto;
+
     public CatTipoServiciosEnfermeria() {
     }
 
@@ -65,6 +75,22 @@ public class CatTipoServiciosEnfermeria implements Serializable {
 
     public void setCodSerEnfermeria(Integer codSerEnfermeria) {
         this.codSerEnfermeria = codSerEnfermeria;
+    }
+
+    public Integer getNumProducto() {
+        return numProducto;
+    }
+
+    public void setNumProducto(Integer numProducto) {
+        this.numProducto = numProducto;
+    }
+
+    public TblProducto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(TblProducto producto) {
+        this.producto = producto;
     }
 
     public String getNomSerEnfermeria() {

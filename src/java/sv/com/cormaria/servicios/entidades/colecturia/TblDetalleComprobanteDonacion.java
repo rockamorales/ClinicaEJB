@@ -47,12 +47,18 @@ public class TblDetalleComprobanteDonacion implements Serializable {
     @Basic
     @Column(name = "NUM_CONSULTA")
     private Integer numConsulta;
+    
+    @Basic
+    @Column(name = "NUM_SER_ENFERMERIA")
+    private Integer numSerEnfermeria;
+    
     @ManyToOne    
     @JoinColumn(name = "NUM_PRODUCTO", referencedColumnName = "NUM_PRODUCTO", insertable = false, updatable = false)
     private TblProducto tblProducto;
     @JoinColumn(name = "NUM_COM_DONACION", referencedColumnName = "NUM_COM_DONACION", insertable = false, updatable = false)
     @ManyToOne
     private TblComprobanteDonacion tblComprobanteDonacion;
+
     @Transient
     private String presentacion;
 
@@ -81,6 +87,14 @@ public class TblDetalleComprobanteDonacion implements Serializable {
 
     public void setNumConsulta(Integer numConsulta) {
         this.numConsulta = numConsulta;
+    }
+
+    public Integer getNumSerEnfermeria() {
+        return numSerEnfermeria;
+    }
+
+    public void setNumSerEnfermeria(Integer numSerEnfermeria) {
+        this.numSerEnfermeria = numSerEnfermeria;
     }
 
     public String getPresentacion() {
