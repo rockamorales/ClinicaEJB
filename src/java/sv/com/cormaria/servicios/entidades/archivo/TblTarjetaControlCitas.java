@@ -28,7 +28,7 @@ import sv.com.cormaria.servicios.enums.EstadoTarjeta;
 @Table(name = "tbl_tarjeta_control_citas")
 @NamedQueries({
     @NamedQuery(name = "TblTarjetaControlCitas.findAll", query = "SELECT t FROM TblTarjetaControlCitas t"),
-    @NamedQuery(name = "TblTarjetaControlCitas.findByNumExpediente", query = "SELECT c FROM TblTarjetaControlCitas c where c.numExpediente=:numExpediente "),
+    @NamedQuery(name = "TblTarjetaControlCitas.findByNumExpediente", query = "SELECT c FROM TblTarjetaControlCitas c where c.numExpediente=:numExpediente order by c.fecExpTarjeta desc"),
     @NamedQuery(name = "TblTarjetaControlCitas.findActiveByNumExpediente", query = "SELECT c FROM TblTarjetaControlCitas c where c.numExpediente=:numExpediente and c.actTarjeta = 1"),
     @NamedQuery(name = "TblTarjetaControlCitas.findNoPagadoByNumExpediente", query = "SELECT c FROM TblTarjetaControlCitas c where c.numExpediente=:numExpediente and c.estTarjeta = 1 and c.actTarjeta = 1")
 })

@@ -21,6 +21,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.ManyToAny;
+import sv.com.cormaria.servicios.entidades.catalogos.CatAreas;
+import sv.com.cormaria.servicios.entidades.catalogos.CatTipoTransaccion;
 
 /**
  *
@@ -30,14 +33,15 @@ import javax.validation.constraints.NotNull;
 @Table(name = "tbl_movimientos_expediente")
 @NamedQueries({
     @NamedQuery(name = "TblMovimientosExpediente.findAll", query = "SELECT t FROM TblMovimientosExpediente t"),
-    @NamedQuery(name = "TblMovimientosExpediente.findLastRecord", query = "SELECT t FROM TblMovimientosExpediente t where numTransaccion = (select max(numTransaccion) from TblMovimientosExpediente t1 where t1.numExpediente=:numExpediente)")
+    @NamedQuery(name = "TblMovimientosExpediente.findLastRecord", query = "SELECT t FROM TblMovimientosExpediente t where t.numTransaccion = (select max(t1.numTransaccion) from TblMovimientosExpediente t1 where t1.numExpediente = :numExpediente)"),
+    @NamedQuery(name = "TblMovimientosExpediente.findByNumExpediente", query = "SELECT t FROM TblMovimientosExpediente t where t.numExpediente = :numExpediente order by t.fecTransaccion desc")
 })
 public class TblMovimientosExpediente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull(message = "Ingrese el numbero de transaccion")
+    @NotNull(message = "Ingrese el numero de transaccion")
     @Column(name = "NUM_TRANSACCION")
     private Integer numTransaccion;
 
@@ -60,6 +64,22 @@ public class TblMovimientosExpediente implements Serializable {
 
     @Column(name = "CAT_COD_AREA")
     private Integer catCodArea;
+   
+    @ManyToOne
+    @JoinColumn(name="COD_AREA",referencedColumnName="COD_AREA", insertable=false, updatable=false)
+    private CatAreas catAreaOrigen;
+
+    @ManyToOne
+    @JoinColumn(name="CAT_COD_AREA",referencedColumnName="COD_AREA", insertable=false, updatable=false)
+    private CatAreas catAreaDestino;
+    
+    @ManyToOne
+    @JoinColumn(name="NUM_EMPLEADO",referencedColumnName="NUM_EMPLEADO", insertable=false, updatable=false)
+    private TblEmpleado registradoPor;
+
+    @ManyToOne
+    @JoinColumn(name="COD_TIP_TRANSACCION",referencedColumnName="COD_TIP_TRANSACCION", insertable=false, updatable=false)
+    private CatTipoTransaccion tipTransaccion;
     
     public TblMovimientosExpediente() {
     }
@@ -79,6 +99,38 @@ public class TblMovimientosExpediente implements Serializable {
 
     public void setNumTransaccion(Integer numTransaccion) {
         this.numTransaccion = numTransaccion;
+    }
+
+    public TblEmpleado getRegistradoPor() {
+        return registradoPor;
+    }
+
+    public void setRegistradoPor(TblEmpleado registradoPor) {
+        this.registradoPor = registradoPor;
+    }
+
+    public CatTipoTransaccion getTipTransaccion() {
+        return tipTransaccion;
+    }
+
+    public void setTipTransaccion(CatTipoTransaccion tipTransaccion) {
+        this.tipTransaccion = tipTransaccion;
+    }
+    
+    public CatAreas getCatAreaOrigen() {
+        return catAreaOrigen;
+    }
+
+    public void setCatAreaOrigen(CatAreas catAreaOrigen) {
+        this.catAreaOrigen = catAreaOrigen;
+    }
+
+    public CatAreas getCatAreaDestino() {
+        return catAreaDestino;
+    }
+
+    public void setCatAreaDestino(CatAreas catAreaDestino) {
+        this.catAreaDestino = catAreaDestino;
     }
 
     public Date getFecTransaccion() {

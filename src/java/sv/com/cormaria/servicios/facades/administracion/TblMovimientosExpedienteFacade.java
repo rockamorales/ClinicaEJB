@@ -65,6 +65,17 @@ public class TblMovimientosExpedienteFacade extends AbstractFacade<TblMovimiento
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
     }
+    
+    public List<TblMovimientosExpediente> findByNumExpediente(Integer numExpediente) throws ClinicaModelexception{
+        try{
+            Query q = em.createNamedQuery("TblMovimientosExpediente.findByNumExpediente");
+            q.setParameter("numExpediente", numExpediente);
+            return q.getResultList();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
 
     @Override
     public List<TblMovimientosExpediente> findAll() throws ClinicaModelexception {

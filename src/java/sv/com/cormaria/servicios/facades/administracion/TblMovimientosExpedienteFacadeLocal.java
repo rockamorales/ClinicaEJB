@@ -32,5 +32,5 @@ public interface TblMovimientosExpedienteFacadeLocal {
     int count() throws ClinicaModelexception;
     
     public TblMovimientosExpediente generarMovimiento(TblExpedientePacientes tblExpediente, TblMovimientosExpediente movimientoExp, Integer numEmpleado) throws ClinicaModelexception;
-    
+    public List<TblMovimientosExpediente> findByNumExpediente(Integer numExpediente) throws ClinicaModelexception;    
 }
