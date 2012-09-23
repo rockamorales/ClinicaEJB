@@ -4,15 +4,18 @@
  */
 package sv.com.cormaria.servicios.criteria;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import sv.com.cormaria.servicios.entidades.archivo.EstadoServiciosEnfermeria;
 
 /**
  *
  * @author romorales
  */
 public class ServiciosEnfermeriaSearchCriteria implements SearchCriteria {
-
+    private static EstadoServiciosEnfermeria ESTADO_ELIMINADO = EstadoServiciosEnfermeria.ELIMINADO;
     private String nombres;
     private String primerApellido;
     private String segundoApellido;
@@ -20,6 +23,32 @@ public class ServiciosEnfermeriaSearchCriteria implements SearchCriteria {
     private String dui;
     private Integer numExpediente;
     private Integer codTipoServicio;
+    private Boolean showDeleted = false;
+    private List<String> estados = new ArrayList<String>();
+
+    public List<String> getEstados(){
+        return estados;
+    }
+
+    public void setEstados(List<String> estados) {
+        this.estados = estados;
+    }
+
+    public Boolean getShowDeleted() {
+        return showDeleted;
+    }
+
+    public void setShowDeleted(Boolean showDeleted) {
+        this.showDeleted = showDeleted;
+    }
+    
+    public List<EstadoServiciosEnfermeria> getEstadosEnum(){
+        List<EstadoServiciosEnfermeria> estadosEnum = new ArrayList<EstadoServiciosEnfermeria>();
+        for (String estado : estados) {
+            estadosEnum.add(EstadoServiciosEnfermeria.valueOf(estado));
+        }
+        return estadosEnum;
+    }
 
     public String getNombres() {
         return nombres;
@@ -88,9 +117,8 @@ public class ServiciosEnfermeriaSearchCriteria implements SearchCriteria {
     @Override
     public String createCountQuery() {
         StringBuffer strSelect = new StringBuffer("Select count(*) from TblServiciosEnfermeria s ");
-        StringBuffer strSort = new StringBuffer(" order by s.numConsulta desc ");
         String strWhere = createWhere();
-        return strSelect + " " + strWhere + " " + strSort;
+        return strSelect + " " + strWhere;
     }
 
     private String createWhere(){
@@ -136,6 +164,19 @@ public class ServiciosEnfermeriaSearchCriteria implements SearchCriteria {
             }
             strWhere.append(" s.codServEnfermeria = :codTipoServicio");
         }
+
+        if (this.getEstados()!=null && !this.getEstados().isEmpty()){
+            if (strWhere.length() > 0){
+                    strWhere.append(" and ");
+            }
+            strWhere.append(" s.estSerEnfermeria in (:estados)");
+        }
+        if (this.getShowDeleted()!=null && !this.getShowDeleted()){
+            if (strWhere.length() > 0){
+                    strWhere.append(" and ");
+            }
+            strWhere.append(" s.estSerEnfermeria not in (:eliminado)");
+        }
         
         if (strWhere.length() > 0){
                 return " where "+strWhere.toString();
@@ -169,6 +210,13 @@ public class ServiciosEnfermeriaSearchCriteria implements SearchCriteria {
         
         if (this.getCodTipoServicio()!=null && this.getCodTipoServicio()>0){
             parameters.put("codTipoServicio",this.getCodTipoServicio());
+        }
+        
+        if (this.getEstados()!=null && !this.getEstados().isEmpty()){
+            parameters.put("estados", this.getEstadosEnum());
+        }
+        if (this.getShowDeleted()!=null && !this.getShowDeleted()){
+            parameters.put("eliminado", ESTADO_ELIMINADO);
         }
         return parameters;
     }

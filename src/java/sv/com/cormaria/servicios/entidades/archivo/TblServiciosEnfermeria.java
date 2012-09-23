@@ -53,8 +53,10 @@ public class TblServiciosEnfermeria implements Serializable {
     @Column(name = "FEC_SER_ENFERMERIA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecSerEnfermeria;
+    
     @Column(name = "MED_APLICADOS")
     private String medAplicados;
+    
     @Column(name = "OBS_SER_ENFERMERIA")
     private String obsSerEnfermeria;
 

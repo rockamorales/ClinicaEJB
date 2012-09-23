@@ -119,4 +119,15 @@ public class TblServiciosEnfermeriaFacade extends AbstractFacade<TblServiciosEnf
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
     }
+    
+    @Override
+    public void remove(TblServiciosEnfermeria entity) throws ClinicaModelexception {
+        try{
+            entity.setEstSerEnfermeria(EstadoServiciosEnfermeria.ELIMINADO);
+            getEntityManager().merge(entity);
+        }catch(Exception ex){
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }        
+    }
+
 }

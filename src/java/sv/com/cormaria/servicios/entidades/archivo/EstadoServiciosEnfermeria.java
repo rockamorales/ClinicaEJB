@@ -9,5 +9,5 @@ package sv.com.cormaria.servicios.entidades.archivo;
  * @author romorales
  */
 public enum EstadoServiciosEnfermeria {
-    CREADO, PAGADO, APLICADO
+    CREADO, PAGADO, APLICADO, ELIMINADO
 }
