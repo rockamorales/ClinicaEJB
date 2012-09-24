@@ -129,5 +129,14 @@ public class TblServiciosEnfermeriaFacade extends AbstractFacade<TblServiciosEnf
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }        
     }
-
+    
+    public TblServiciosEnfermeria saveAndMarkAsApplied(TblServiciosEnfermeria servicio) throws ClinicaModelexception{
+        try{
+            servicio.setEstSerEnfermeria(EstadoServiciosEnfermeria.APLICADO);
+            return em.merge(servicio);
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
 }

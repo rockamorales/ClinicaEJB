@@ -33,5 +33,6 @@ public interface TblServiciosEnfermeriaFacadeLocal extends ISearchable<TblServic
     int count() throws ClinicaModelexception;
     
     public TblServiciosEnfermeria crearServicio(TblServiciosEnfermeria servicio, TblExpedientePacientes expediente) throws ClinicaModelexception;
-    
+
+    public TblServiciosEnfermeria saveAndMarkAsApplied(TblServiciosEnfermeria servicio) throws ClinicaModelexception;
 }
