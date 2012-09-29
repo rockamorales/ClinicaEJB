@@ -16,9 +16,9 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 @Local
 public interface TblHistorialAlertaFacadeLocal {
 
-    void create(TblHistorialAlerta tblHistorialAlerta)  throws ClinicaModelexception;
+    TblHistorialAlerta create(TblHistorialAlerta tblHistorialAlerta)  throws ClinicaModelexception;
 
-    void edit(TblHistorialAlerta tblHistorialAlerta)  throws ClinicaModelexception;
+    TblHistorialAlerta edit(TblHistorialAlerta tblHistorialAlerta)  throws ClinicaModelexception;
 
     void remove(TblHistorialAlerta tblHistorialAlerta)  throws ClinicaModelexception;
 

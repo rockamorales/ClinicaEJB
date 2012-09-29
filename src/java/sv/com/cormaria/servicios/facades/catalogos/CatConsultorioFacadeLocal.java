@@ -16,9 +16,9 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 @Local
 public interface CatConsultorioFacadeLocal {
 
-    void create(CatConsultorio catConsultorio) throws ClinicaModelexception;
+    CatConsultorio create(CatConsultorio catConsultorio) throws ClinicaModelexception;
 
-    void edit(CatConsultorio catConsultorio) throws ClinicaModelexception;
+    CatConsultorio edit(CatConsultorio catConsultorio) throws ClinicaModelexception;
 
     void remove(CatConsultorio catConsultorio) throws ClinicaModelexception;
 

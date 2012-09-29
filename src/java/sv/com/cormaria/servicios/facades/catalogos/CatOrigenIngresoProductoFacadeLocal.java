@@ -16,9 +16,9 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 @Local
 public interface CatOrigenIngresoProductoFacadeLocal {
 
-    void create(CatOrigenIngresoProducto catOrigenIngresoProducto) throws ClinicaModelexception;
+    CatOrigenIngresoProducto create(CatOrigenIngresoProducto catOrigenIngresoProducto) throws ClinicaModelexception;
 
-    void edit(CatOrigenIngresoProducto catOrigenIngresoProducto) throws ClinicaModelexception;
+    CatOrigenIngresoProducto edit(CatOrigenIngresoProducto catOrigenIngresoProducto) throws ClinicaModelexception;
 
     void remove(CatOrigenIngresoProducto catOrigenIngresoProducto) throws ClinicaModelexception;
 

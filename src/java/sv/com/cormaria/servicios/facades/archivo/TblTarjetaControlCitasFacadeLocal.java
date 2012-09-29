@@ -16,9 +16,9 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 @Local
 public interface TblTarjetaControlCitasFacadeLocal {
 
-    void create(TblTarjetaControlCitas tblTarjetaControlCitas) throws ClinicaModelexception;
+    TblTarjetaControlCitas create(TblTarjetaControlCitas tblTarjetaControlCitas) throws ClinicaModelexception;
 
-    void edit(TblTarjetaControlCitas tblTarjetaControlCitas) throws ClinicaModelexception;
+    TblTarjetaControlCitas edit(TblTarjetaControlCitas tblTarjetaControlCitas) throws ClinicaModelexception;
 
     void remove(TblTarjetaControlCitas tblTarjetaControlCitas) throws ClinicaModelexception;
 

@@ -119,7 +119,7 @@ public class TblTarjetaControlCitasFacade extends AbstractFacade<TblTarjetaContr
     }
     
     @Override
-    public void create(TblTarjetaControlCitas entity) throws ClinicaModelexception{
+    public TblTarjetaControlCitas create(TblTarjetaControlCitas entity) throws ClinicaModelexception{
         try{
             TblExpedientePacientes expediente = em.find(TblExpedientePacientes.class, entity.getNumExpediente());
             List<TblTarjetaControlCitas> tarjetasList = this.findActiveByNumExpediente(entity.getNumExpediente());
@@ -155,6 +155,7 @@ public class TblTarjetaControlCitasFacade extends AbstractFacade<TblTarjetaContr
             detalleComprobante.setTotIteComDonacion(tarjeta.getPreFinProducto());
             detalleComprobanteFacade.create(detalleComprobante);
           }
+          return entity;
         }catch(Exception ex){
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }

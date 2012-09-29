@@ -177,7 +177,7 @@ public class TblExpedientePacientesFacade extends AbstractFacade<TblExpedientePa
        }
    }
    
-       public TblExpedientePacientes create1(TblExpedientePacientes entity) throws ClinicaModelexception{
+   public TblExpedientePacientes create1(TblExpedientePacientes entity) throws ClinicaModelexception{
         try{
             getEntityManager().persist(entity);
             return entity;

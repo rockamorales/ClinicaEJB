@@ -18,7 +18,7 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
  *
  * @author Claudia
  */
-public abstract class AbstractFacade<T> {
+public abstract class AbstractFacade<T extends Object> {
     private Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
@@ -27,17 +27,18 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    public void create(T entity) throws ClinicaModelexception{
+    public T create(T entity) throws ClinicaModelexception{
         try{
             getEntityManager().persist(entity);
+            return entity;
         }catch(Exception ex){
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
     }
 
-    public void edit(T entity) throws ClinicaModelexception {
+    public T edit(T entity) throws ClinicaModelexception {
         try{
-            getEntityManager().merge(entity);
+            return getEntityManager().merge(entity);
          }catch(Exception ex){
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }

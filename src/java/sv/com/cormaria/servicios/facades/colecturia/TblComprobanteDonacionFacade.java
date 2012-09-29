@@ -72,14 +72,16 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
     public int count() throws ClinicaModelexception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
     @Override
-    public void create(TblComprobanteDonacion entity) throws ClinicaModelexception{
+    public TblComprobanteDonacion create(TblComprobanteDonacion entity) throws ClinicaModelexception{
         try{
             System.out.println("Codigo: "+sessionContext.getCallerPrincipal().getName());
             TblUsuarios usuario = usuarioFacade.findByCodigoUsuario(sessionContext.getCallerPrincipal().getName());
             System.out.println("Usuario: "+ usuario);
             entity.setNumEmpleado(usuario.getNumEmpleado());
             getEntityManager().persist(entity);
+            return entity;
         }catch(Exception ex){
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }

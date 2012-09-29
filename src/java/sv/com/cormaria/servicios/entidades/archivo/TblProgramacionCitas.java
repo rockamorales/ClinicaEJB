@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import sv.com.cormaria.servicios.enums.EstadoProgramacionCitas;
 
 /**
  *
@@ -31,42 +32,21 @@ public class TblProgramacionCitas implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "NUM_CITA")
     private Integer numCita;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la fecha otorgación de cita")
     @Column(name = "FEC_OTO_CITA")
     @Temporal(TemporalType.DATE)
     private Date fecOtoCita;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la fecha de la cita")
     @Column(name = "FEC_CITA")
     @Temporal(TemporalType.DATE)
     private Date fecCita;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la hora de la cita")
     @Column(name = "HOR_CITA")
     @Temporal(TemporalType.TIME)
     private Date horCita;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el estado de la cita")
     @Column(name = "EST_CITA")
-    private short estCita;
+    private EstadoProgramacionCitas estCita;
 
     public TblProgramacionCitas() {
-    }
-
-    public TblProgramacionCitas(Integer numCita) {
-        this.numCita = numCita;
-    }
-
-    public TblProgramacionCitas(Integer numCita, Date fecOtoCita, Date fecCita, Date horCita, short estCita) {
-        this.numCita = numCita;
-        this.fecOtoCita = fecOtoCita;
-        this.fecCita = fecCita;
-        this.horCita = horCita;
-        this.estCita = estCita;
     }
 
     public Integer getNumCita() {
@@ -101,11 +81,11 @@ public class TblProgramacionCitas implements Serializable {
         this.horCita = horCita;
     }
 
-    public short getEstCita() {
+    public EstadoProgramacionCitas getEstCita() {
         return estCita;
     }
 
-    public void setEstCita(short estCita) {
+    public void setEstCita(EstadoProgramacionCitas estCita) {
         this.estCita = estCita;
     }
 

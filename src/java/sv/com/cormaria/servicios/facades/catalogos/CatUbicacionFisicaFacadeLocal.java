@@ -16,9 +16,9 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 @Local
 public interface CatUbicacionFisicaFacadeLocal {
 
-    void create(CatUbicacionFisica catUbicacionFisica) throws ClinicaModelexception;
+    CatUbicacionFisica create(CatUbicacionFisica catUbicacionFisica) throws ClinicaModelexception;
 
-    void edit(CatUbicacionFisica catUbicacionFisica) throws ClinicaModelexception;
+    CatUbicacionFisica edit(CatUbicacionFisica catUbicacionFisica) throws ClinicaModelexception;
 
     void remove(CatUbicacionFisica catUbicacionFisica) throws ClinicaModelexception;
 

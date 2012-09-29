@@ -17,9 +17,9 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 @Local
 public interface TblMovimientosExpedienteFacadeLocal {
 
-    void create(TblMovimientosExpediente tblMovimientosExpediente) throws ClinicaModelexception;
+    TblMovimientosExpediente create(TblMovimientosExpediente tblMovimientosExpediente) throws ClinicaModelexception;
 
-    void edit(TblMovimientosExpediente tblMovimientosExpediente) throws ClinicaModelexception;
+    TblMovimientosExpediente edit(TblMovimientosExpediente tblMovimientosExpediente) throws ClinicaModelexception;
 
     void remove(TblMovimientosExpediente tblMovimientosExpediente) throws ClinicaModelexception;
 

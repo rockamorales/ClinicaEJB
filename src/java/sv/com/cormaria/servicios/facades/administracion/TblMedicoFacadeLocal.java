@@ -16,9 +16,9 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 @Local
 public interface TblMedicoFacadeLocal {
 
-    void create(TblMedico tblMedico) throws ClinicaModelexception;
+    TblMedico create(TblMedico tblMedico) throws ClinicaModelexception;
 
-    void edit(TblMedico tblMedico) throws ClinicaModelexception;
+    TblMedico edit(TblMedico tblMedico) throws ClinicaModelexception;
 
     void remove(TblMedico tblMedico) throws ClinicaModelexception;
 

@@ -17,9 +17,9 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 @Local
 public interface TblConsultasFacadeLocal extends ISearchable<TblConsultas> {
 
-    void create(TblConsultas tblConsultas) throws ClinicaModelexception;
+    TblConsultas create(TblConsultas tblConsultas) throws ClinicaModelexception;
 
-    void edit(TblConsultas tblConsultas) throws ClinicaModelexception;
+    TblConsultas edit(TblConsultas tblConsultas) throws ClinicaModelexception;
 
     void remove(TblConsultas tblConsultas) throws ClinicaModelexception;
 

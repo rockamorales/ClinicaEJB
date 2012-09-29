@@ -18,9 +18,9 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 @Local
 public interface TblServiciosEnfermeriaFacadeLocal extends ISearchable<TblServiciosEnfermeria> {
 
-    void create(TblServiciosEnfermeria tblServiciosEnfermeria) throws ClinicaModelexception;
+    TblServiciosEnfermeria create(TblServiciosEnfermeria tblServiciosEnfermeria) throws ClinicaModelexception;
 
-    void edit(TblServiciosEnfermeria tblServiciosEnfermeria) throws ClinicaModelexception;
+    TblServiciosEnfermeria edit(TblServiciosEnfermeria tblServiciosEnfermeria) throws ClinicaModelexception;
 
     void remove(TblServiciosEnfermeria tblServiciosEnfermeria) throws ClinicaModelexception;
 

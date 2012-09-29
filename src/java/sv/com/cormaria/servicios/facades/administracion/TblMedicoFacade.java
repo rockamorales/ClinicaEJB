@@ -52,10 +52,11 @@ public class TblMedicoFacade extends AbstractFacade<TblMedico> implements TblMed
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    public void create(TblMedico entity) throws ClinicaModelexception{
+    public TblMedico create(TblMedico entity) throws ClinicaModelexception{
         try{
             entity.setActMedico(Estado.ACTIVO);
             getEntityManager().persist(entity);
+            return entity;
         }catch(Exception ex){
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }

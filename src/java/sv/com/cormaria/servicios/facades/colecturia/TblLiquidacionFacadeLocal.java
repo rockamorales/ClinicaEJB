@@ -16,9 +16,9 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 @Local
 public interface TblLiquidacionFacadeLocal {
 
-    void create(TblLiquidacion tblLiquidacion) throws ClinicaModelexception;
+    TblLiquidacion create(TblLiquidacion tblLiquidacion) throws ClinicaModelexception;
 
-    void edit(TblLiquidacion tblLiquidacion) throws ClinicaModelexception;
+    TblLiquidacion edit(TblLiquidacion tblLiquidacion) throws ClinicaModelexception;
 
     void remove(TblLiquidacion tblLiquidacion) throws ClinicaModelexception;
 

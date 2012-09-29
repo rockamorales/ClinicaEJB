@@ -16,9 +16,9 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 @Local
 public interface TblDetalleChequesFacadeLocal {
 
-    void create(TblDetalleCheques tblDetalleCheques) throws ClinicaModelexception;
+    TblDetalleCheques create(TblDetalleCheques tblDetalleCheques) throws ClinicaModelexception;
 
-    void edit(TblDetalleCheques tblDetalleCheques) throws ClinicaModelexception;
+    TblDetalleCheques edit(TblDetalleCheques tblDetalleCheques) throws ClinicaModelexception;
 
     void remove(TblDetalleCheques tblDetalleCheques) throws ClinicaModelexception;
 
