@@ -42,36 +42,21 @@ public class TblMedico implements Serializable {
     @Column(name = "NUM_MEDICO")
     private Integer numMedico;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "FEC_ING_MEDICO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecIngMedico;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
     @Column(name = "NOM_MEDICO")
     private String nomMedico;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 15)
     @Column(name = "PRI_APE_MEDICO")
     private String priApeMedico;
-    @Size(max = 15)
     @Column(name = "SEC_APE_MEDICO")
     private String secApeMedico;
-    @Size(max = 15)
     @Column(name = "TER_APE_MEDICO")
     private String terApeMedico;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "NUM_JUNTA")
     private int numJunta;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 250)
     @Column(name = "DIR_PER_MEDICO")
     private String dirPerMedico;
-    @Size(max = 250)
     @Column(name = "DIR_CLI_MEDICO")
     private String dirCliMedico;
     @Column(name = "TEL_PER_MEDICO")
@@ -80,28 +65,18 @@ public class TblMedico implements Serializable {
     private Integer telCliMedico;
     @Column(name = "TEL_CEL_MEDICO")
     private Integer telCelMedico;
-    @Size(max = 100)
     @Column(name = "COR_MEDICO")
     private String corMedico;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "DUI_MEDICO")
     private int duiMedico;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "NIT_MEDICO")
     private long nitMedico;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "VAL_CON_MEDICO")
     private float valConMedico;
-    @NotNull
     @Column(name = "ACT_MEDICO")
     private Estado actMedico;
-    @NotNull
     @Column(name = "COD_ESPECIALIDAD")
     private Integer codEspecialidad;
-    @NotNull
     @Column(name = "COD_TIP_SERVICIO")
     private Integer codTipServicio;
 
