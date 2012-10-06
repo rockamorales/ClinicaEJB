@@ -7,19 +7,7 @@ package sv.com.cormaria.servicios.entidades.administracion;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import sv.com.cormaria.servicios.enums.Estado;
@@ -91,7 +79,19 @@ public class TblEmpleado implements Serializable {
     @NotNull(message="Ingrese el codigo del area")
     @Column(name = "COD_AREA")
     private int codArea;
+    @Column(name = "ACT_EMPLEADO")
+    @Enumerated
+    private Estado actEmpleado;
 
+    public Estado getActEmpleado() {
+        return actEmpleado;
+    }
+
+    public void setActEmpleado(Estado actEmpleado) {
+        this.actEmpleado = actEmpleado;
+    }
+
+    
     public int getCodArea() {
         return codArea;
     }
