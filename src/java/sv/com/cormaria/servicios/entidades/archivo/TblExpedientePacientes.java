@@ -33,7 +33,10 @@ import sv.com.cormaria.servicios.helpers.DateUtils;
 @Entity
 @Table(name = "tbl_expediente_pacientes")
 @NamedQueries({
-    @NamedQuery(name = "TblExpedientePacientes.findAll", query = "SELECT t FROM TblExpedientePacientes t where t.estPaciente = 1")})
+            @NamedQuery(name = "TblExpedientePacientes.findAll", query = "SELECT t FROM TblExpedientePacientes t where t.estPaciente = 1"),
+            @NamedQuery(name = "TblExpedientePacientes.findByNamePrefix", query = "SELECT t FROM TblExpedientePacientes t where t.estPaciente = 1 "
+                                                                                  + "and concat(concat(concat(concat(concat(concat(t.nomPaciente, ' '), t.priApePaciente),' '),t.secApePaciente),' '),t.terApePaciente) like :nombres")
+        })
 
 public class TblExpedientePacientes implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -185,6 +188,32 @@ public class TblExpedientePacientes implements Serializable {
         this.fecRegExpediente = fecRegExpediente;
     }
 
+    public String getNombreCompleto(){
+        StringBuffer strBuffer = new StringBuffer();
+        if (this.nomPaciente!=null && !this.nomPaciente.trim().equals("")){
+            strBuffer.append(this.nomPaciente);
+        }
+        if (this.priApePaciente!=null && !this.priApePaciente.trim().equals("")){
+            if (strBuffer.length()>0){
+                strBuffer.append(" ");
+            }
+            strBuffer.append(this.priApePaciente);
+        }
+        if (this.secApePaciente!=null && !this.secApePaciente.trim().equals("")){
+            if (strBuffer.length()>0){
+                strBuffer.append(" ");
+            }
+            strBuffer.append(this.secApePaciente);
+        }
+        if (this.terApePaciente!=null && !this.terApePaciente.trim().equals("")){
+            if (strBuffer.length()>0){
+                strBuffer.append(" ");
+            }
+            strBuffer.append(this.terApePaciente);
+        }
+        return strBuffer.toString();
+    }
+    
     public String getNomPaciente() {
         return nomPaciente;
     }

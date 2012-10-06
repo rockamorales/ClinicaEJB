@@ -4,10 +4,13 @@
  */
 package sv.com.cormaria.servicios.facades.archivo;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Local;
 import sv.com.cormaria.servicios.entidades.archivo.TblProgramacionCitas;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
+import sv.com.cormaria.servicios.helpers.MonthDay;
 
 /**
  *
@@ -29,5 +32,6 @@ public interface TblProgramacionCitasFacadeLocal {
     List<TblProgramacionCitas> findRange(int[] range) throws ClinicaModelexception;
 
     int count() throws ClinicaModelexception;
-    
+   
+    public Map<Date, MonthDay> findScheduleByRange(Date startDate, Date endDate) throws ClinicaModelexception;
 }

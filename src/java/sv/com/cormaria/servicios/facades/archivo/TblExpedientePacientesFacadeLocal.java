@@ -38,4 +38,5 @@ public interface TblExpedientePacientesFacadeLocal extends ISearchable<TblExpedi
     public TblConsultas generarConsulta(TblConsultas consulta, TblExpedientePacientes expediente, Integer codEspecialidad) throws ClinicaModelexception;
     public TblExpedientePacientes create1(TblExpedientePacientes entity) throws ClinicaModelexception;
     public TblExpedientePacientes edit1(TblExpedientePacientes entity) throws ClinicaModelexception;
+    public List<TblExpedientePacientes> findByPrefix(String nombres) throws ClinicaModelexception;
 }
