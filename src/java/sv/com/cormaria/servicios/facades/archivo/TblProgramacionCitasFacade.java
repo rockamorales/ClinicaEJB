@@ -23,10 +23,8 @@ import sv.com.cormaria.servicios.enums.EstadoProgramacionCitas;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelValidationException;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
-import sv.com.cormaria.servicios.facades.security.TblUsuariosSessionFacade;
 import sv.com.cormaria.servicios.facades.security.TblUsuariosSessionFacadeLocal;
 import sv.com.cormaria.servicios.helpers.MonthDay;
-import sv.com.cormaria.servicios.helpers.MonthWeek;
 
 /**
  *
@@ -155,5 +153,9 @@ public class TblProgramacionCitasFacade extends AbstractFacade<TblProgramacionCi
         }
         //scheduleMap.put(oldDate, new MonthDay(daySchedule, scheduleCount));
         return scheduleMap;
+    }
+    
+    public void findByDay(Date fecha) throws ClinicaModelexception{
+        
     }
 }
