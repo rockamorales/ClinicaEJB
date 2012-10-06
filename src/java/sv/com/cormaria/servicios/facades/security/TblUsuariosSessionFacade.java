@@ -8,11 +8,13 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelValidationException;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import java.util.List;
 import javax.annotation.Resource;
+import javax.ejb.NoSuchEntityException;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -64,6 +66,15 @@ public class TblUsuariosSessionFacade implements TblUsuariosSessionFacadeLocal {
 	    	Query q = em.createNamedQuery("TblUsuarios.findCodigoUsuario");
 	    	q.setParameter("codigousuario", usuario);
 	    	return (TblUsuarios) q.getSingleResult();
+    	}catch(NoSuchEntityException ex){
+            ex.printStackTrace();
+            return null;
+    	}catch(NoResultException ex){
+            ex.printStackTrace();
+            return null;
+        }catch(EntityNotFoundException ex){
+            ex.printStackTrace();
+            return null;        
     	}catch(Exception ex){
     		ex.printStackTrace();
     		throw new ClinicaModelexception(ex.getMessage(), ex);

@@ -193,5 +193,17 @@ public class TblExpedientePacientesFacade extends AbstractFacade<TblExpedientePa
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
    }
+    
+    public List<TblExpedientePacientes> findByPrefix(String nombres) throws ClinicaModelexception{
+        try{
+            Query q = em.createNamedQuery("TblExpedientePacientes.findByNamePrefix");
+            q.setParameter("nombres", "%"+nombres+"%");
+            q.setMaxResults(10);
+            return q.getResultList();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
 
 }
