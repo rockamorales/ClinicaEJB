@@ -91,6 +91,16 @@ public class TblEmpleado implements Serializable {
     @NotNull(message="Ingrese el codigo del area")
     @Column(name = "COD_AREA")
     private int codArea;
+    @Column(name = "ACT_EMPLEADO")
+    private int actEmpleado;
+
+    public int getActEmpleado() {
+        return actEmpleado;
+    }
+
+    public void setActEmpleado(int actEmpleado) {
+        this.actEmpleado = actEmpleado;
+    }
 
     public int getCodArea() {
         return codArea;
