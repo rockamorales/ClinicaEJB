@@ -92,27 +92,27 @@ public class TblEmpleado implements Serializable {
     }
 
     
-    public int getCodArea() {
+    public Integer getCodArea() {
         return codArea;
     }
 
-    public void setCodArea(int codArea) {
+    public void setCodArea(Integer codArea) {
         this.codArea = codArea;
     }
 
-    public int getCodProfesion() {
+    public Integer getCodProfesion() {
         return codProfesion;
     }
 
-    public void setCodProfesion(int codProfesion) {
+    public void setCodProfesion(Integer codProfesion) {
         this.codProfesion = codProfesion;
     }
 
-    public int getCodTipServicio() {
+    public Integer getCodTipServicio() {
         return codTipServicio;
     }
 
-    public void setCodTipServicio(int codTipServicio) {
+    public void setCodTipServicio(Integer codTipServicio) {
         this.codTipServicio = codTipServicio;
     }
 
