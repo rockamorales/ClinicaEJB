@@ -37,4 +37,6 @@ public interface TblProductoFacadeLocal {
     public List<TblProducto> findActiveServices() throws ClinicaModelexception;    
     
     public List<TblProducto> findTarjetaControl() throws ClinicaModelexception;
+    
+    public List<TblProducto> findMedicamentos() throws ClinicaModelexception;
 }

@@ -30,4 +30,6 @@ public interface TblRecetaMedicaFacadeLocal {
 
     int count() throws ClinicaModelexception;
     
+    public TblRecetaMedica findByNumExpediente(Integer numExpediente) throws ClinicaModelexception;
+    
 }

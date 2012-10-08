@@ -25,45 +25,50 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
+import sv.com.cormaria.servicios.enums.EstadoRecetaMedica;
 
 /**
  *
  * @author Mackk
  */
-@Entity
-@Table(name = "tbl_receta_medica")
 @NamedQueries({
-    @NamedQuery(name = "TblRecetaMedica.findAll", query = "SELECT t FROM TblRecetaMedica t")})
+    @NamedQuery(name = "TblRecetaMedica.findAll", query = "SELECT t FROM TblRecetaMedica t"),
+    @NamedQuery(name = "TblRecetaMedica.findByNumExpediente", query = "SELECT t FROM TblRecetaMedica t where t.numExpediente = :numExpediente")
+})
+
+@Entity
+@Table(name = "TBL_RECETA_MEDICA")
 public class TblRecetaMedica implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "NUM_RECETA")
     private Integer numReceta;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "FEC_RECETA")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fecReceta;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 500)
     @Column(name = "OTR_RECOMENDACIONES")
     private String otrRecomendaciones;
-    @Size(max = 500)
     @Column(name = "PRE_LIB_RECETA")
     private String preLibReceta;
-    @Basic(optional = false)
-    @NotNull
+    @Column(name = "NUM_EXPEDIENTE")
+    private Integer numExpediente;
+    
     @Column(name = "EST_RECETA")
-    private int estReceta;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblRecetaMedica")
-    private Collection<TblDetalleReceta> tblDetalleRecetaCollection;
-    @JoinColumn(name = "NUM_MEDICO", referencedColumnName = "NUM_MEDICO")
-    @ManyToOne(optional = false)
-    private TblMedico numMedico;
+    private EstadoRecetaMedica estReceta;
+
+    @Column(name = "NUM_MEDICO")
+    private Integer numMedico;
+    
+    @ManyToOne
+    @JoinColumn(name = "NUM_MEDICO", referencedColumnName = "NUM_MEDICO", insertable=false, updatable=false)
+    private TblMedico medico;
+
+    @ManyToOne
+    @JoinColumn(name = "NUM_EXPEDIENTE", referencedColumnName = "NUM_EXPEDIENTE", insertable=false, updatable=false)
+    private TblExpedientePacientes expediente;
 
     public TblRecetaMedica() {
     }
@@ -72,7 +77,7 @@ public class TblRecetaMedica implements Serializable {
         this.numReceta = numReceta;
     }
 
-    public TblRecetaMedica(Integer numReceta, Date fecReceta, String otrRecomendaciones, int estReceta) {
+    public TblRecetaMedica(Integer numReceta, Date fecReceta, String otrRecomendaciones, EstadoRecetaMedica estReceta) {
         this.numReceta = numReceta;
         this.fecReceta = fecReceta;
         this.otrRecomendaciones = otrRecomendaciones;
@@ -111,30 +116,46 @@ public class TblRecetaMedica implements Serializable {
         this.preLibReceta = preLibReceta;
     }
 
-    public int getEstReceta() {
+    public Integer getNumExpediente() {
+        return numExpediente;
+    }
+
+    public void setNumExpediente(Integer numExpediente) {
+        this.numExpediente = numExpediente;
+    }
+
+    public EstadoRecetaMedica getEstReceta() {
         return estReceta;
     }
 
-    public void setEstReceta(int estReceta) {
+    public void setEstReceta(EstadoRecetaMedica estReceta) {
         this.estReceta = estReceta;
     }
 
-    public Collection<TblDetalleReceta> getTblDetalleRecetaCollection() {
-        return tblDetalleRecetaCollection;
-    }
-
-    public void setTblDetalleRecetaCollection(Collection<TblDetalleReceta> tblDetalleRecetaCollection) {
-        this.tblDetalleRecetaCollection = tblDetalleRecetaCollection;
-    }
-
-    public TblMedico getNumMedico() {
+    public Integer getNumMedico() {
         return numMedico;
     }
 
-    public void setNumMedico(TblMedico numMedico) {
+    public void setNumMedico(Integer numMedico) {
         this.numMedico = numMedico;
     }
 
+    public TblMedico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(TblMedico medico) {
+        this.medico = medico;
+    }
+
+    public TblExpedientePacientes getExpediente() {
+        return expediente;
+    }
+
+    public void setExpediente(TblExpedientePacientes expediente) {
+        this.expediente = expediente;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

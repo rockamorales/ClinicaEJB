@@ -8,6 +8,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblRecetaMedica;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
@@ -27,6 +28,17 @@ public class TblRecetaMedicaFacade extends AbstractFacade<TblRecetaMedica> imple
 
     public TblRecetaMedicaFacade() {
         super(TblRecetaMedica.class);
+    }
+    
+    public TblRecetaMedica findByNumExpediente(Integer numExpediente) throws ClinicaModelexception{
+        try{
+            Query q = em.createNamedQuery("TblRecetaMedica.findByNumExpediente");
+            q.setParameter("numExpediente", numExpediente);
+            return (TblRecetaMedica)q.getSingleResult();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
     }
 
     @Override

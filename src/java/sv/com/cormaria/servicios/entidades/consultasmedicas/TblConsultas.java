@@ -24,6 +24,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import sv.com.cormaria.servicios.entidades.administracion.TblMedico;
 import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
+import sv.com.cormaria.servicios.entidades.catalogos.CatEspecialidad;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoConsulta;
 import sv.com.cormaria.servicios.enums.EstadoConsultas;
 
@@ -81,13 +82,16 @@ public class TblConsultas implements Serializable {
     @Basic
     @Column(name = "EST_CONSULTA")
     private EstadoConsultas estConsulta;
+    @ManyToOne
     @JoinColumn(name = "NUM_MEDICO", referencedColumnName = "NUM_MEDICO", insertable=false, updatable=false)
-    @ManyToOne(optional = false)
     private TblMedico tblMedico;
+
     @Column(name="NUM_MEDICO")
     private Integer numMedico;
+    
     @Column(name="COD_ESPECIALIDAD")
     private Integer codEspecialidad;
+    
     @JoinColumn(name = "NUM_EXPEDIENTE", referencedColumnName = "NUM_EXPEDIENTE",insertable=false, updatable=false)
     @ManyToOne(optional = false)
     private TblExpedientePacientes tblExpediente;
@@ -95,6 +99,10 @@ public class TblConsultas implements Serializable {
     @ManyToOne
     @JoinColumn(name = "COD_TIP_CONSULTA", referencedColumnName = "COD_TIP_CONSULTA",insertable=false, updatable=false)
     private CatTipoConsulta catTipoConsulta;
+
+    @ManyToOne
+    @JoinColumn(name = "COD_ESPECIALIDAD", referencedColumnName = "COD_ESPECIALIDAD",insertable=false, updatable=false)
+    private CatEspecialidad catEspecialidad;
     
     @Column(name="COD_TIP_CONSULTA")
     private Integer codTipConsulta;
@@ -120,6 +128,14 @@ public class TblConsultas implements Serializable {
         this.diaPaciente = diaPaciente;
         this.edaConsulta = edaConsulta;
         this.estConsulta = estConsulta;
+    }
+
+    public CatEspecialidad getCatEspecialidad() {
+        return catEspecialidad;
+    }
+
+    public void setCatEspecialidad(CatEspecialidad catEspecialidad) {
+        this.catEspecialidad = catEspecialidad;
     }
 
     public Integer getCodEspecialidad() {
@@ -170,11 +186,11 @@ public class TblConsultas implements Serializable {
         this.numExpediente = numExpediente;
     }
 
-    public sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes getTblExpediente() {
+    public TblExpedientePacientes getTblExpediente() {
         return tblExpediente;
     }
 
-    public void setTblExpediente(sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes tblExpediente) {
+    public void setTblExpediente(TblExpedientePacientes tblExpediente) {
         this.tblExpediente = tblExpediente;
     }
 

@@ -5,7 +5,6 @@
 package sv.com.cormaria.servicios.entidades.consultasmedicas;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -14,48 +13,41 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import sv.com.cormaria.servicios.entidades.farmacia.TblProducto;
 
 /**
  *
  * @author Mackk
  */
+@NamedQueries({
+    @NamedQuery(name = "TblDetalleReceta.findAll", query = "SELECT t FROM TblDetalleReceta t"),
+    @NamedQuery(name = "TblDetalleReceta.findByNumReceta", query = "SELECT t FROM TblDetalleReceta t where t.tblDetalleRecetaPK.numReceta = :numReceta")
+})
+
 @Entity
 @Table(name = "tbl_detalle_receta")
-@NamedQueries({
-    @NamedQuery(name = "TblDetalleReceta.findAll", query = "SELECT t FROM TblDetalleReceta t")})
 public class TblDetalleReceta implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected TblDetalleRecetaPK tblDetalleRecetaPK;
-    @Basic(optional = false)
-    @NotNull
+    protected TblDetalleRecetaPK tblDetalleRecetaPK = new TblDetalleRecetaPK();
     @Column(name = "COR_DET_RECETA")
     private int corDetReceta;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "CAN_DET_RECETA")
     private short canDetReceta;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "DOS_DET_RECETA")
     private String dosDetReceta;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "FRE_DET_RECETA")
     private String freDetReceta;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "DUR_TRATAMIENTO")
     private String durTratamiento;
     @JoinColumn(name = "NUM_RECETA", referencedColumnName = "NUM_RECETA", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne
     private TblRecetaMedica tblRecetaMedica;
 
+    @JoinColumn(name = "NUM_PRODUCTO", referencedColumnName = "NUM_PRODUCTO", insertable = false, updatable = false)
+    @ManyToOne
+    private TblProducto tblProducto;
+    
     public TblDetalleReceta() {
     }
 
@@ -84,6 +76,14 @@ public class TblDetalleReceta implements Serializable {
         this.tblDetalleRecetaPK = tblDetalleRecetaPK;
     }
 
+    public TblProducto getTblProducto() {
+        return tblProducto;
+    }
+
+    public void setTblProducto(TblProducto tblProducto) {
+        this.tblProducto = tblProducto;
+    }
+    
     public int getCorDetReceta() {
         return corDetReceta;
     }

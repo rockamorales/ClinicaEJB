@@ -16,12 +16,8 @@ import javax.validation.constraints.NotNull;
  */
 @Embeddable
 public class TblDetalleRecetaPK implements Serializable {
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "NUM_RECETA")
     private int numReceta;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "NUM_PRODUCTO")
     private int numProducto;
 

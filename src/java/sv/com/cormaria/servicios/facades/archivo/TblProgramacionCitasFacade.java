@@ -57,7 +57,7 @@ public class TblProgramacionCitasFacade extends AbstractFacade<TblProgramacionCi
                 throw new ClinicaModelValidationException("No se encontro informacion para la session actual del usuario: "+sessionContext.getCallerPrincipal().getName());
             }
             if (usuario.getNumEmpleado()==null && usuario.getNumEmpleado()<=0){
-                throw new ClinicaModelValidationException("La informacion del usuario no tiene un codigo de empleado asociado: "+sessionContext.getCallerPrincipal().getName());                
+                throw new ClinicaModelValidationException("La informacion del usuario no tiene un codigo de empleado asociado: "+sessionContext.getCallerPrincipal().getName());
             }
             entity.setNumEmpleado(usuario.getNumEmpleado());
             entity.setEstCita(EstadoProgramacionCitas.PROGRAMADA);
@@ -112,7 +112,6 @@ public class TblProgramacionCitasFacade extends AbstractFacade<TblProgramacionCi
         //Date oldDate = null;
         Calendar date;
         MonthDay current;
-        int scheduleCount = 0;
         for (TblProgramacionCitas tblProgramacionCitas : citasList) {
             System.out.println("Num cita: "+tblProgramacionCitas.getNumCita());
             System.out.println("Nombres: "+tblProgramacionCitas.getExpediente().getNomPaciente());
@@ -155,7 +154,19 @@ public class TblProgramacionCitasFacade extends AbstractFacade<TblProgramacionCi
         return scheduleMap;
     }
     
-    public void findByDay(Date fecha) throws ClinicaModelexception{
+    public List<TblProgramacionCitas> findByDay(Date fecha) throws ClinicaModelexception{
+        Query q = em.createNamedQuery("TblProgramacionCitas.findByRange");
+        Calendar calStart = Calendar.getInstance();
+        Calendar calEnd = Calendar.getInstance();
+        calStart.setTime(fecha);
+        calEnd.setTime(fecha);
+        calEnd.add(Calendar.HOUR, 23);
+        calEnd.add(Calendar.MINUTE, 59);
+        calEnd.add(Calendar.SECOND, 59);
+        calEnd.add(Calendar.MILLISECOND, 999);
+        q.setParameter("startDate", calStart.getTime());
+        q.setParameter("endDate", calEnd.getTime());
+        return q.getResultList();
         
     }
 }

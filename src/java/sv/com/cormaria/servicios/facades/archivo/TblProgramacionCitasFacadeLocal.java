@@ -34,4 +34,6 @@ public interface TblProgramacionCitasFacadeLocal {
     int count() throws ClinicaModelexception;
    
     public Map<Date, MonthDay> findScheduleByRange(Date startDate, Date endDate) throws ClinicaModelexception;
+    
+    public List<TblProgramacionCitas> findByDay(Date fecha) throws ClinicaModelexception;
 }

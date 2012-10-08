@@ -86,4 +86,14 @@ public class TblProductoFacade extends AbstractFacade<TblProducto> implements Tb
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
     }
+    
+    public List<TblProducto> findMedicamentos() throws ClinicaModelexception{
+        try{
+            Query q = em.createNamedQuery("TblProducto.findMedicamentos");
+            return q.getResultList();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
 }

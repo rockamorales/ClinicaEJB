@@ -29,5 +29,6 @@ public interface TblDetalleRecetaFacadeLocal {
     List<TblDetalleReceta> findRange(int[] range) throws ClinicaModelexception;
 
     int count() throws ClinicaModelexception;
-    
+
+    public List<TblDetalleReceta> findByNumReceta(Integer numReceta) throws ClinicaModelexception;
 }

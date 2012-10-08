@@ -31,6 +31,7 @@ import sv.com.cormaria.servicios.enums.CategoriasProducto;
     @NamedQuery(name = "TblProducto.findAll", query = "SELECT t FROM TblProducto t"),
     @NamedQuery(name = "TblProdcuto.findByNombreProducto", query = "SELECT t FROM TblProducto t WHERE t.nomProducto LIKE :nomProducto"),
     @NamedQuery(name = "TblProducto.findActive", query = "SELECT t FROM TblProducto t WHERE t.estProducto = 1"),
+    @NamedQuery(name = "TblProducto.findMedicamentos", query = "SELECT t FROM TblProducto t WHERE t.estProducto = 1 and t.codTipProducto = 1"),
     @NamedQuery(name = "TblProducto.findActiveServices", query = "SELECT t FROM TblProducto t WHERE t.estProducto = 1 and t.catProducto = 1"),
     @NamedQuery(name = "TblProducto.findTarjetaControl", query = "SELECT t FROM TblProducto t WHERE t.estProducto = 1 and t.catProducto = 2")
 })
@@ -114,6 +115,9 @@ public class TblProducto implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private CategoriasProducto catProducto;
 
+    @Column(name="COD_TIP_PRODUCTO")
+    private Integer codTipProducto;
+    
     public TblProducto() {
     }
 
@@ -145,7 +149,15 @@ public class TblProducto implements Serializable {
     public void setCatProducto(CategoriasProducto catProducto) {
         this.catProducto = catProducto;
     }
-    
+
+    public Integer getCodTipProducto() {
+        return codTipProducto;
+    }
+
+    public void setCodTipProducto(Integer codTipProducto) {
+        this.codTipProducto = codTipProducto;
+    }
+
     public Integer getNumProducto() {
         return numProducto;
     }
