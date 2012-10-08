@@ -19,12 +19,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.enums.EstadoRecetaMedica;
 
@@ -34,7 +32,7 @@ import sv.com.cormaria.servicios.enums.EstadoRecetaMedica;
  */
 @NamedQueries({
     @NamedQuery(name = "TblRecetaMedica.findAll", query = "SELECT t FROM TblRecetaMedica t"),
-    @NamedQuery(name = "TblRecetaMedica.findByNumExpediente", query = "SELECT t FROM TblRecetaMedica t where t.numExpediente = :numExpediente")
+    @NamedQuery(name = "TblRecetaMedica.findByNumConsulta", query = "SELECT t FROM TblRecetaMedica t where t.numConsulta = :numConsulta")
 })
 
 @Entity
@@ -55,6 +53,9 @@ public class TblRecetaMedica implements Serializable {
     private String preLibReceta;
     @Column(name = "NUM_EXPEDIENTE")
     private Integer numExpediente;
+
+    @Column(name="NUM_CONSULTA")
+    private Integer numConsulta;
     
     @Column(name = "EST_RECETA")
     private EstadoRecetaMedica estReceta;
@@ -82,6 +83,14 @@ public class TblRecetaMedica implements Serializable {
         this.fecReceta = fecReceta;
         this.otrRecomendaciones = otrRecomendaciones;
         this.estReceta = estReceta;
+    }
+
+    public Integer getNumConsulta() {
+        return numConsulta;
+    }
+
+    public void setNumConsulta(Integer numConsulta) {
+        this.numConsulta = numConsulta;
     }
 
     public Integer getNumReceta() {
@@ -154,6 +163,11 @@ public class TblRecetaMedica implements Serializable {
 
     public void setExpediente(TblExpedientePacientes expediente) {
         this.expediente = expediente;
+    }
+    
+    @PrePersist
+    public void prePersist(){
+        this.fecReceta = new java.util.Date();
     }
     
     @Override

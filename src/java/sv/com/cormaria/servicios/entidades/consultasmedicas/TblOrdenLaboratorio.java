@@ -20,11 +20,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 
 /**
  *
@@ -33,38 +35,43 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "tbl_orden_laboratorio")
 @NamedQueries({
-    @NamedQuery(name = "TblOrdenLaboratorio.findAll", query = "SELECT t FROM TblOrdenLaboratorio t")})
+    @NamedQuery(name = "TblOrdenLaboratorio.findAll", query = "SELECT t FROM TblOrdenLaboratorio t"),
+    @NamedQuery(name = "TblOrdenLaboratorio.findByNumConsulta", query = "SELECT t FROM TblOrdenLaboratorio t where t.numConsulta = :numConsulta")
+})
 public class TblOrdenLaboratorio implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @NotNull
+    @Basic
     @Column(name = "NUM_ORD_LABORATORIO")
     private Integer numOrdLaboratorio;
-    @Basic(optional = false)
-    @NotNull
+    @Basic
+    @Column(name = "NUM_EXPEDIENTE")
+    private Integer numExpediente;
+    @Basic
+    @Column(name = "NUM_CONSULTA")
+    private Integer numConsulta;
+    @Basic
+    @Column(name = "NUM_MEDICO")
+    private Integer numMedico;
+    @Basic
     @Column(name = "FEC_ORD_LABORATORIO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecOrdLaboratorio;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 500)
+    @Basic
     @Column(name = "DIA_LABORATORIO")
     private String diaLaboratorio;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 500)
+    @Basic
     @Column(name = "IND_LABORATORIO")
     private String indLaboratorio;
-    @Size(max = 500)
     @Column(name = "OBS_LABORATORIO")
     private String obsLaboratorio;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblOrdenLaboratorio")
-    private Collection<TblDetalleOrdenLaboratorio> tblDetalleOrdenLaboratorioCollection;
-    @JoinColumn(name = "NUM_MEDICO", referencedColumnName = "NUM_MEDICO")
-    @ManyToOne(optional = false)
-    private TblMedico numMedico;
+    @JoinColumn(name = "NUM_MEDICO", referencedColumnName = "NUM_MEDICO", updatable=false, insertable=false)
+    @ManyToOne
+    private TblMedico tblMedico;
+    @JoinColumn(name = "NUM_EXPEDIENTE", referencedColumnName = "NUM_EXPEDIENTE", updatable=false, insertable=false)
+    @ManyToOne
+    private TblExpedientePacientes tblExpediente;
 
     public TblOrdenLaboratorio() {
     }
@@ -86,6 +93,46 @@ public class TblOrdenLaboratorio implements Serializable {
 
     public void setNumOrdLaboratorio(Integer numOrdLaboratorio) {
         this.numOrdLaboratorio = numOrdLaboratorio;
+    }
+
+    public Integer getNumMedico() {
+        return numMedico;
+    }
+
+    public void setNumMedico(Integer numMedico) {
+        this.numMedico = numMedico;
+    }
+
+    public Integer getNumConsulta() {
+        return numConsulta;
+    }
+
+    public void setNumConsulta(Integer numConsulta) {
+        this.numConsulta = numConsulta;
+    }
+
+    public Integer getNumExpediente() {
+        return numExpediente;
+    }
+
+    public void setNumExpediente(Integer numExpediente) {
+        this.numExpediente = numExpediente;
+    }
+
+    public TblMedico getTblMedico() {
+        return tblMedico;
+    }
+
+    public void setTblMedico(TblMedico tblMedico) {
+        this.tblMedico = tblMedico;
+    }
+
+    public TblExpedientePacientes getTblExpediente() {
+        return tblExpediente;
+    }
+
+    public void setTblExpediente(TblExpedientePacientes tblExpediente) {
+        this.tblExpediente = tblExpediente;
     }
 
     public Date getFecOrdLaboratorio() {
@@ -119,21 +166,10 @@ public class TblOrdenLaboratorio implements Serializable {
     public void setObsLaboratorio(String obsLaboratorio) {
         this.obsLaboratorio = obsLaboratorio;
     }
-
-    public Collection<TblDetalleOrdenLaboratorio> getTblDetalleOrdenLaboratorioCollection() {
-        return tblDetalleOrdenLaboratorioCollection;
-    }
-
-    public void setTblDetalleOrdenLaboratorioCollection(Collection<TblDetalleOrdenLaboratorio> tblDetalleOrdenLaboratorioCollection) {
-        this.tblDetalleOrdenLaboratorioCollection = tblDetalleOrdenLaboratorioCollection;
-    }
-
-    public TblMedico getNumMedico() {
-        return numMedico;
-    }
-
-    public void setNumMedico(TblMedico numMedico) {
-        this.numMedico = numMedico;
+    
+    @PrePersist
+    public void prePersist(){
+        this.fecOrdLaboratorio = new java.util.Date();
     }
 
     @Override

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblOrdenLaboratorio;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
@@ -28,6 +29,18 @@ public class TblOrdenLaboratorioFacade extends AbstractFacade<TblOrdenLaboratori
     public TblOrdenLaboratorioFacade() {
         super(TblOrdenLaboratorio.class);
     }
+    
+    public TblOrdenLaboratorio findByNumConsulta(Integer numConsulta) throws ClinicaModelexception{
+        try{
+            Query q = em.createNamedQuery("TblOrdenLaboratorio.findByNumConsulta");
+            q.setParameter("numConsulta", numConsulta);
+            return (TblOrdenLaboratorio)q.getSingleResult();
+        }catch(Exception ex){
+            ex.printStackTrace();;
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
+
 
     @Override
     public List<TblOrdenLaboratorio> findAll() throws ClinicaModelexception {
