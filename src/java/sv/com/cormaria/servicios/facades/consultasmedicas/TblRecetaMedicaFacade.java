@@ -30,10 +30,10 @@ public class TblRecetaMedicaFacade extends AbstractFacade<TblRecetaMedica> imple
         super(TblRecetaMedica.class);
     }
     
-    public TblRecetaMedica findByNumExpediente(Integer numExpediente) throws ClinicaModelexception{
+    public TblRecetaMedica findByNumConsulta(Integer numConsulta) throws ClinicaModelexception{
         try{
-            Query q = em.createNamedQuery("TblRecetaMedica.findByNumExpediente");
-            q.setParameter("numExpediente", numExpediente);
+            Query q = em.createNamedQuery("TblRecetaMedica.findByNumConsulta");
+            q.setParameter("numConsulta", numConsulta);
             return (TblRecetaMedica)q.getSingleResult();
         }catch(Exception ex){
             ex.printStackTrace();

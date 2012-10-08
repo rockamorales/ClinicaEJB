@@ -8,7 +8,9 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblDetalleOrdenLaboratorio;
+import sv.com.cormaria.servicios.entidades.consultasmedicas.TblOrdenLaboratorio;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
 
@@ -29,6 +31,17 @@ public class TblDetalleOrdenLaboratorioFacade extends AbstractFacade<TblDetalleO
         super(TblDetalleOrdenLaboratorio.class);
     }
 
+    public List<TblDetalleOrdenLaboratorio> findByNumOrdenLaboratorio(Integer numOrdLaboratorio) throws ClinicaModelexception{
+        try{
+            Query q = em.createNamedQuery("TblDetalleOrdenLaboratorio.findByNumOrdenLaboratorio");
+            q.setParameter("numOrdLaboratorio", numOrdLaboratorio);
+            return  q.getResultList();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
+    
     @Override
     public List<TblDetalleOrdenLaboratorio> findAll() throws ClinicaModelexception {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -43,5 +56,4 @@ public class TblDetalleOrdenLaboratorioFacade extends AbstractFacade<TblDetalleO
     public int count() throws ClinicaModelexception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
 }

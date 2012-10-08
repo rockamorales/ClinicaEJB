@@ -29,5 +29,7 @@ public interface TblOrdenLaboratorioFacadeLocal {
     List<TblOrdenLaboratorio> findRange(int[] range) throws ClinicaModelexception;
 
     int count() throws ClinicaModelexception;
+    public TblOrdenLaboratorio findByNumConsulta(Integer numConsulta) throws ClinicaModelexception;
+
     
 }

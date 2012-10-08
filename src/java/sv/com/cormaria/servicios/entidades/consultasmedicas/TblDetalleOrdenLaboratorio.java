@@ -16,6 +16,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import sv.com.cormaria.servicios.entidades.catalogos.CatExamenesMedicos;
 
 /**
  *
@@ -24,24 +25,27 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "tbl_detalle_orden_laboratorio")
 @NamedQueries({
-    @NamedQuery(name = "TblDetalleOrdenLaboratorio.findAll", query = "SELECT t FROM TblDetalleOrdenLaboratorio t")})
+    @NamedQuery(name = "TblDetalleOrdenLaboratorio.findAll", query = "SELECT t FROM TblDetalleOrdenLaboratorio t"),
+    @NamedQuery(name = "TblDetalleOrdenLaboratorio.findByNumOrdenLaboratorio", query = "SELECT t FROM TblDetalleOrdenLaboratorio t where t.tblDetalleOrdenLaboratorioPK.numOrdLaboratorio = :numOrdLaboratorio")
+})
 public class TblDetalleOrdenLaboratorio implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected TblDetalleOrdenLaboratorioPK tblDetalleOrdenLaboratorioPK;
-    @Basic(optional = false)
-    @NotNull
+    protected TblDetalleOrdenLaboratorioPK tblDetalleOrdenLaboratorioPK = new TblDetalleOrdenLaboratorioPK();
+    @Basic
     @Column(name = "COR_DET_LABORATORIO")
     private int corDetLaboratorio;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 500)
+    @Basic
     @Column(name = "OBS_DET_LABORATORIO")
     private String obsDetLaboratorio;
     @JoinColumn(name = "NUM_ORD_LABORATORIO", referencedColumnName = "NUM_ORD_LABORATORIO", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne
     private TblOrdenLaboratorio tblOrdenLaboratorio;
 
+    @JoinColumn(name = "COD_EXA_MEDICO", referencedColumnName = "COD_EXA_MEDICO", insertable = false, updatable = false)
+    @ManyToOne
+    private CatExamenesMedicos catExamenesMedicos;
+    
     public TblDetalleOrdenLaboratorio() {
     }
 
@@ -67,6 +71,14 @@ public class TblDetalleOrdenLaboratorio implements Serializable {
         this.tblDetalleOrdenLaboratorioPK = tblDetalleOrdenLaboratorioPK;
     }
 
+    public CatExamenesMedicos getCatExamenesMedicos() {
+        return catExamenesMedicos;
+    }
+
+    public void setCatExamenesMedicos(CatExamenesMedicos catExamenesMedicos) {
+        this.catExamenesMedicos = catExamenesMedicos;
+    }
+    
     public int getCorDetLaboratorio() {
         return corDetLaboratorio;
     }
