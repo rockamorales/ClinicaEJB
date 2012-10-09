@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,38 +31,39 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "tbl_referencia")
 @NamedQueries({
-    @NamedQuery(name = "TblReferencia.findAll", query = "SELECT t FROM TblReferencia t")})
+    @NamedQuery(name = "TblReferencia.findAll", query = "SELECT t FROM TblReferencia t"),
+    @NamedQuery(name = "TblReferencia.findByNumConsulta", query = "SELECT t FROM TblReferencia t where t.numConsulta=:numConsulta")
+})
 public class TblReferencia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "NUM_REFERENCIA")
     private Integer numReferencia;
-    @Basic(optional = false)
-    @NotNull
+    @Column(name = "COD_TIP_REFERENCIA")
+    private Integer codTipReferencia;
+    @Column(name = "NUM_EXPEDIENTE")
+    private Integer numExpediente;
+    @Column(name = "NUM_CONSULTA")
+    private Integer numConsulta;
+    @Column(name = "NUM_EMPLEADO")
+    private Integer numEmpleado;
+    @Column(name = "COD_ESPECIALIDAD")
+    private Integer codEspecialidad;
+    @Column(name = "NUM_MEDICO")
+    private Integer numMedico;
     @Column(name = "FEC_REFERENCIA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecReferencia;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 500)
     @Column(name = "DIA_REFERENCIA")
     private String diaReferencia;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "REF_A")
     private String refA;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "MOT_REFERENCIA")
     private String motReferencia;
-    @JoinColumn(name = "NUM_MEDICO", referencedColumnName = "NUM_MEDICO")
-    @ManyToOne(optional = false)
-    private TblMedico numMedico;
+    @JoinColumn(name = "NUM_MEDICO", referencedColumnName = "NUM_MEDICO", insertable=false, updatable=false)
+    @ManyToOne
+    private TblMedico tblMedico;
 
     public TblReferencia() {
     }
@@ -84,6 +86,22 @@ public class TblReferencia implements Serializable {
 
     public void setNumReferencia(Integer numReferencia) {
         this.numReferencia = numReferencia;
+    }
+
+    public Integer getNumConsulta() {
+        return numConsulta;
+    }
+
+    public void setNumConsulta(Integer numConsulta) {
+        this.numConsulta = numConsulta;
+    }
+    
+    public Integer getCodTipReferencia() {
+        return codTipReferencia;
+    }
+
+    public void setCodTipReferencia(Integer codTipReferencia) {
+        this.codTipReferencia = codTipReferencia;
     }
 
     public Date getFecReferencia() {
@@ -118,12 +136,49 @@ public class TblReferencia implements Serializable {
         this.motReferencia = motReferencia;
     }
 
-    public TblMedico getNumMedico() {
+    public Integer getNumExpediente() {
+        return numExpediente;
+    }
+
+    public void setNumExpediente(Integer numExpediente) {
+        this.numExpediente = numExpediente;
+    }
+
+    public Integer getNumEmpleado() {
+        return numEmpleado;
+    }
+
+    public void setNumEmpleado(Integer numEmpleado) {
+        this.numEmpleado = numEmpleado;
+    }
+
+    public Integer getCodEspecialidad() {
+        return codEspecialidad;
+    }
+
+    public void setCodEspecialidad(Integer codEspecialidad) {
+        this.codEspecialidad = codEspecialidad;
+    }
+
+    public Integer getNumMedico() {
         return numMedico;
     }
 
-    public void setNumMedico(TblMedico numMedico) {
+    public void setNumMedico(Integer numMedico) {
         this.numMedico = numMedico;
+    }
+
+    public TblMedico getTblMedico() {
+        return tblMedico;
+    }
+
+    public void setTblMedico(TblMedico tblMedico) {
+        this.tblMedico = tblMedico;
+    }
+    
+    @PrePersist
+    public void prePersist(){
+        this.fecReferencia = new java.util.Date();
     }
 
     @Override

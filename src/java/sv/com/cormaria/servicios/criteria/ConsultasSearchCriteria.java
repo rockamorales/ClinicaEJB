@@ -5,6 +5,8 @@
 package sv.com.cormaria.servicios.criteria;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +25,10 @@ public class ConsultasSearchCriteria implements SearchCriteria {
     private String dui;
     private Integer numExpediente;
     private Integer numMedico;
+    private Integer codEspecialidad;
+    private Integer jvpm;
+    private Date fechaConsulta;
+    
     private List<String> estadoConsultas = new ArrayList<String>();
 
     public String getNombres() {
@@ -33,6 +39,30 @@ public class ConsultasSearchCriteria implements SearchCriteria {
         this.nombres = nombres;
     }
 
+    public Integer getCodEspecialidad() {
+        return codEspecialidad;
+    }
+
+    public void setCodEspecialidad(Integer codEspecialidad) {
+        this.codEspecialidad = codEspecialidad;
+    }
+
+    public Integer getJvpm() {
+        return jvpm;
+    }
+
+    public void setJvpm(Integer jvpm) {
+        this.jvpm = jvpm;
+    }
+
+    public Date getFechaConsulta() {
+        return fechaConsulta;
+    }
+
+    public void setFechaConsulta(Date fechaConsulta) {
+        this.fechaConsulta = fechaConsulta;
+    }
+    
     public String getPrimerApellido() {
         return primerApellido;
     }
@@ -155,12 +185,33 @@ public class ConsultasSearchCriteria implements SearchCriteria {
             strWhere.append(" c.tblExpediente.numDui = :dui");
         }
 
-        if (this.getNumMedico()!=null){
+        if (this.getNumMedico()!=null && this.getNumMedico()>0){
             if (strWhere.length() > 0){
                     strWhere.append(" and ");
             }
             strWhere.append(" c.numMedico = :numMedico");
         }
+
+        if (this.getCodEspecialidad()!=null && this.getCodEspecialidad()>0){
+            if (strWhere.length() > 0){
+                    strWhere.append(" and ");
+            }
+            strWhere.append(" c.codEspecialidad = :codEspecialidad");
+        }
+
+        if (this.getFechaConsulta()!=null){
+            if (strWhere.length() > 0){
+                    strWhere.append(" and ");
+            }
+            strWhere.append(" c.fecConsulta between :fecInicio and :fecFin");
+        }        
+
+        if (this.getJvpm()!=null && this.getJvpm()>0){
+            if (strWhere.length() > 0){
+                    strWhere.append(" and ");
+            }
+            strWhere.append(" c.tblMedico.numJunta = :jvpm");
+        }        
         
         if (this.getEstadoConsultas()!=null && !this.getEstadoConsultas().isEmpty()){
             if (strWhere.length() > 0){
@@ -200,9 +251,31 @@ public class ConsultasSearchCriteria implements SearchCriteria {
         if (this.getEstadoConsultas()!=null && !this.getEstadoConsultas().isEmpty()){
             parameters.put("estados",this.getEstadoConsultasEnum());
         }
-        if (this.getNumMedico()!=null){
+        if (this.getNumMedico()!=null && this.getNumMedico() > 0){
             parameters.put("numMedico",this.getNumMedico());
         }        
+        if (this.getCodEspecialidad()!=null && this.getCodEspecialidad()>0){
+            parameters.put("codEspecialidad",this.getCodEspecialidad());        
+        }
+        if (this.getFechaConsulta()!=null){
+            Calendar calStart = Calendar.getInstance();
+            calStart.setTime(fechaConsulta);
+            calStart.set(Calendar.HOUR, 0);
+            calStart.set(Calendar.MINUTE, 0);
+            calStart.set(Calendar.SECOND, 0);
+            calStart.set(Calendar.MILLISECOND, 0);
+            Calendar calEnd = Calendar.getInstance();
+            calEnd.setTime(fechaConsulta);
+            calEnd.set(Calendar.HOUR, 23);
+            calEnd.set(Calendar.MINUTE, 59);
+            calEnd.set(Calendar.SECOND, 59);
+            calEnd.set(Calendar.MILLISECOND, 999);
+            parameters.put("fecInicio",calStart.getTime());        
+            parameters.put("fecFin",calEnd.getTime());
+        }
+        if (this.getJvpm()!=null && this.getJvpm()>0){
+            parameters.put("jvpm",this.getJvpm());    
+        }
         return parameters;
     }
 }
