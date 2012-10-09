@@ -30,4 +30,5 @@ public interface TblReferenciaFacadeLocal {
 
     int count() throws ClinicaModelexception;
     
+    public TblReferencia findByNumConsulta(Integer numConsulta) throws ClinicaModelexception;
 }

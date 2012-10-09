@@ -8,6 +8,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblReferencia;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
@@ -27,6 +28,17 @@ public class TblReferenciaFacade extends AbstractFacade<TblReferencia> implement
 
     public TblReferenciaFacade() {
         super(TblReferencia.class);
+    }
+    
+    public TblReferencia findByNumConsulta(Integer numConsulta) throws ClinicaModelexception{
+        try{
+            Query q = em.createNamedQuery("TblReferencia.findByNumConsulta");
+            q.setParameter("numConsulta", numConsulta);
+            return (TblReferencia) q.getSingleResult();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
     }
 
     @Override
