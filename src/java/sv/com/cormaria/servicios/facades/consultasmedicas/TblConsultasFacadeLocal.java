@@ -32,4 +32,6 @@ public interface TblConsultasFacadeLocal extends ISearchable<TblConsultas> {
     int count() throws ClinicaModelexception;
 
     public TblConsultas editSigVitalesInfo(TblConsultas consulta) throws ClinicaModelexception;
+    
+    public void finalizarConsulta(Integer numConsulta) throws ClinicaModelexception;
 }

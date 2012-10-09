@@ -80,4 +80,9 @@ public class TblConsultasFacade extends AbstractFacade<TblConsultas> implements 
         }
     }
     
+    public void finalizarConsulta(Integer numConsulta) throws ClinicaModelexception{
+        TblConsultas consulta = em.find(TblConsultas.class, numConsulta);
+        consulta.setEstConsulta(EstadoConsultas.FINALIZADA);
+    }
+    
 }
