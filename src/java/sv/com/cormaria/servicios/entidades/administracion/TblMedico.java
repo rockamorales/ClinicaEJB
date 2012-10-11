@@ -89,7 +89,9 @@ public class TblMedico implements Serializable {
     public TblMedico(Integer numMedico) {
         this.numMedico = numMedico;
     }
+    
 
+    
     public TblMedico(Integer numMedico, Date fecIngMedico, String nomMedico, String priApeMedico, int numJunta, String dirPerMedico, int duiMedico, long nitMedico, float valConMedico) {
         this.numMedico = numMedico;
         this.fecIngMedico = fecIngMedico;
@@ -117,6 +119,7 @@ public class TblMedico implements Serializable {
     public void setFecIngMedico(Date fecIngMedico) {
         this.fecIngMedico = fecIngMedico;
     }
+    
 
     public String getNomMedico() {
         return nomMedico;

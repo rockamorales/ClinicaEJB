@@ -39,6 +39,15 @@ public class CatRubroFacade extends AbstractFacade<CatRubro> implements CatRubro
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
     }
+    
+    public List<CatRubro> findActive() throws ClinicaModelexception {
+        try{
+            Query q = em.createNamedQuery("CatRubro.findActive");
+            return q.getResultList();
+        }catch(Exception ex){
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    } 
 
     @Override
     public List<CatRubro> findRange(int[] range) throws ClinicaModelexception {

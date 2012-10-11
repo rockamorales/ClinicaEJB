@@ -25,6 +25,8 @@ public interface CatRubroFacadeLocal {
     CatRubro find(Object id) throws ClinicaModelexception;
 
     List<CatRubro> findAll() throws ClinicaModelexception;
+    
+    List<CatRubro> findActive() throws ClinicaModelexception;
 
     List<CatRubro> findRange(int[] range) throws ClinicaModelexception;
 

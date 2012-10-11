@@ -7,21 +7,11 @@ package sv.com.cormaria.servicios.entidades.administracion;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import sv.com.cormaria.servicios.entidades.catalogos.CatEspecialidad;
+import sv.com.cormaria.servicios.enums.Estado;
 
 /**
  *
@@ -78,6 +68,8 @@ public class TblInstitucion implements Serializable {
     @Size(min = 1, max = 100, message = "El nombre del contacto con la institucion no debe ser mayor a 100 caracteres")
     @Column(name = "NOM_CON_INSTITUCION")
     private String nomConInstitucion;
+    @Column(name = "COD_RUBRO")
+    private Integer codRubro;
     @Column(name = "CEL_CON_INSTITUCION")
     private Integer celConInstitucion;
     @Basic(optional = false)
@@ -88,10 +80,14 @@ public class TblInstitucion implements Serializable {
     @NotNull(message = "Ingrese si la institucion es proveedor")
     @Column(name = "ES_PROVEEDOR")
     private boolean esProveedor;
+    @Column(name = "ACT_INSTITUCION")
+    private Estado actInstitucion;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "numInstitucion")
     private Collection<TblOrdenCompra> tblOrdenCompraCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "numInstitucion")
     private Collection<TblSolicitudDonacion> tblSolicitudDonacionCollection;
+    
 
     public TblInstitucion() {
     }
@@ -114,6 +110,23 @@ public class TblInstitucion implements Serializable {
         this.esProveedor = esProveedor;
     }
 
+    public Estado getActInstitucion() {
+        return actInstitucion;
+    }
+
+    public void setActInstitucion(Estado actInstitucion) {
+        this.actInstitucion = actInstitucion;
+    }
+
+    public Integer getCodRubro() {
+        return codRubro;
+    }
+
+    public void setCodRubro(Integer codRubro) {
+        this.codRubro = codRubro;
+    }
+   
+    
     public Integer getNumInstitucion() {
         return numInstitucion;
     }

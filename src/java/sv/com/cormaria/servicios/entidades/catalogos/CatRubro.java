@@ -23,7 +23,7 @@ import sv.com.cormaria.servicios.enums.Estado;
  * @author Claudia
  */
 @Entity
-@Table(name = "cat_rubro")
+@Table(name = "catRubro")
 @NamedQueries({
     @NamedQuery(name = "CatRubro.findAll", query = "SELECT c FROM CatRubro c")})
 public class CatRubro implements Serializable {
