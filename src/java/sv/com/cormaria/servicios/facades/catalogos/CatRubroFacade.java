@@ -40,6 +40,7 @@ public class CatRubroFacade extends AbstractFacade<CatRubro> implements CatRubro
         }
     }
     
+    @Override
     public List<CatRubro> findActive() throws ClinicaModelexception {
         try{
             Query q = em.createNamedQuery("CatRubro.findActive");
