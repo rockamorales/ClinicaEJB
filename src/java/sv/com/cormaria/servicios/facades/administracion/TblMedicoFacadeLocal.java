@@ -30,6 +30,8 @@ public interface TblMedicoFacadeLocal {
 
     int count() throws ClinicaModelexception;
     
-    public void desactivar(TblMedico entity) throws ClinicaModelexception;    
+    public void desactivar(TblMedico entity) throws ClinicaModelexception; 
+    
+    public List<TblMedico> findActive() throws ClinicaModelexception;
     
 }

@@ -21,6 +21,7 @@ import sv.com.cormaria.servicios.enums.Estado;
 @Table(name = "tbl_institucion")
 @NamedQueries({
     @NamedQuery(name = "TblInstitucion.findAll", query = "SELECT t FROM TblInstitucion t")})
+    @NamedQuery(name = "TblInstitucion.findActive", query = "SELECT t FROM TblInstitucion t WHERE t.actInstitucion = 1")
 public class TblInstitucion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
