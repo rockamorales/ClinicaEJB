@@ -25,8 +25,12 @@ public interface TblBeneficiariosFacadeLocal {
     TblBeneficiarios find(Object id) throws ClinicaModelexception;
 
     List<TblBeneficiarios> findAll() throws ClinicaModelexception;
+    
+    public List<TblBeneficiarios> findActive() throws ClinicaModelexception;
 
     List<TblBeneficiarios> findRange(int[] range) throws ClinicaModelexception;
+    
+    public void desactivar(Integer numBeneficiario) throws ClinicaModelexception;    
 
     int count() throws ClinicaModelexception;
     
