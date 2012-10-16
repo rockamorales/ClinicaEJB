@@ -76,6 +76,22 @@ public class TblRequisiciones implements Serializable {
         this.estRequisicion = estRequisicion;
     }
 
+    public Integer getCodTipRequisicion() {
+        return codTipRequisicion;
+    }
+
+    public void setCodTipRequisicion(Integer codTipRequisicion) {
+        this.codTipRequisicion = codTipRequisicion;
+    }
+
+    public CatTipoRequisicion getCatTipoRequisicion() {
+        return catTipoRequisicion;
+    }
+
+    public void setCatTipoRequisicion(CatTipoRequisicion catTipoRequisicion) {
+        this.catTipoRequisicion = catTipoRequisicion;
+    }
+
     public Integer getNumRequisicion() {
         return numRequisicion;
     }

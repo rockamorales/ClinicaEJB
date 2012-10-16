@@ -9,5 +9,5 @@ package sv.com.cormaria.servicios.enums;
  * @author Mackk
  */
 public enum EstadoRequisicion {
-    ACTIVA, EN_PROCESO, DENEGADA, ENTREGADA
+    CREADA, EN_PROCESO, APROBADA, DENEGADA, ENTREGADA, ELIMINADA
 }
