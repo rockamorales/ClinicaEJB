@@ -11,11 +11,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import sv.com.cormaria.servicios.entidades.consultasmedicas.CatCategoriaExamenes;
 import sv.com.cormaria.servicios.enums.Estado;
 
 /**
@@ -41,11 +44,18 @@ public class CatExamenesMedicos implements Serializable {
     @Size(max = 100)
     @Column(name = "DES_EXA_MEDICO")
     private String desExaMedico;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado del Examen Médico")
+    @Basic
     @Column(name = "ACT_EXA_MEDICO")
     private Estado actExaMedico;
 
+    @Basic
+    @Column(name = "COD_EXA_CAT")
+    private Integer codExaCat;
+    
+    @ManyToOne
+    @JoinColumn(name="COD_EXA_CAT", referencedColumnName="COD_EXA_CAT", updatable=false, insertable=false)
+    private CatCategoriaExamenes catCategoriaExamenes;
+    
     public CatExamenesMedicos() {
     }
 
@@ -65,6 +75,22 @@ public class CatExamenesMedicos implements Serializable {
 
     public void setCodExaMedico(Integer codExaMedico) {
         this.codExaMedico = codExaMedico;
+    }
+
+    public Integer getCodExaCat() {
+        return codExaCat;
+    }
+
+    public void setCodExaCat(Integer codExaCat) {
+        this.codExaCat = codExaCat;
+    }
+
+    public CatCategoriaExamenes getCatCategoriaExamenes() {
+        return catCategoriaExamenes;
+    }
+
+    public void setCatCategoriaExamenes(CatCategoriaExamenes catCategoriaExamenes) {
+        this.catCategoriaExamenes = catCategoriaExamenes;
     }
 
     public String getNomExaMedico() {
