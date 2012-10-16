@@ -14,13 +14,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import sv.com.cormaria.servicios.enums.Estado;
 
 /**
  *
@@ -29,7 +29,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "tbl_beneficiarios")
 @NamedQueries({
-    @NamedQuery(name = "TblBeneficiarios.findAll", query = "SELECT t FROM TblBeneficiarios t")})
+    @NamedQuery(name = "TblBeneficiarios.findAll", query = "SELECT t FROM TblBeneficiarios t where t.actBeneficiario=1")})
 public class TblBeneficiarios implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,12 +50,18 @@ public class TblBeneficiarios implements Serializable {
     @Column(name = "TEL_BENEFICIARIO")
     private Integer telBeneficiario;
     @Column(name = "NIT_BENEFICIARIO")
-    private Long nitBeneficiario;
+    private String nitBeneficiario;
     @Column(name = "NRC_BENEFICIARIO")
     private Integer nrcBeneficiario;
     @Size(max = 100, message = "El giro no debe ser mayor de 100 caracteres")
     @Column(name = "GIR_BENEFICIARIO")
     private String girBeneficiario;
+    @Column(name = "COD_RUBRO")
+    private Integer codRubro;
+    @Column(name = "CEL_BENEFICIARIO")
+    private Integer celConBeneficiario;
+    @Column(name = "ACT_BENEFICIARIO")
+    private Estado actBeneficiario;
     @Basic(optional = false)
     @NotNull(message = "Ingrese el nombre del contacto del benenficiario")
     @Size(min = 1, max = 100, message = "El nombre de contacto del beneficiario no debe ser mayor de 100 caracteres")
@@ -78,6 +84,23 @@ public class TblBeneficiarios implements Serializable {
         this.nomConBeneficiario = nomConBeneficiario;
     }
 
+    public Estado getActBeneficiario() {
+        return actBeneficiario;
+    }
+
+    public void setActBeneficiario(Estado actBeneficiario) {
+        this.actBeneficiario = actBeneficiario;
+    }
+
+    public Integer getCelConBeneficiario() {
+        return celConBeneficiario;
+    }
+
+    public void setCelConBeneficiario(Integer celConBeneficiario) {
+        this.celConBeneficiario = celConBeneficiario;
+    }
+    
+
     public Integer getNumBeneficiario() {
         return numBeneficiario;
     }
@@ -86,6 +109,15 @@ public class TblBeneficiarios implements Serializable {
         this.numBeneficiario = numBeneficiario;
     }
 
+    public Integer getCodRubro() {
+        return codRubro;
+    }
+
+    public void setCodRubro(Integer codRubro) {
+        this.codRubro = codRubro;
+    }
+
+    
     public String getNomBeneficiario() {
         return nomBeneficiario;
     }
@@ -110,11 +142,11 @@ public class TblBeneficiarios implements Serializable {
         this.telBeneficiario = telBeneficiario;
     }
 
-    public Long getNitBeneficiario() {
+    public String getNitBeneficiario() {
         return nitBeneficiario;
     }
 
-    public void setNitBeneficiario(Long nitBeneficiario) {
+    public void setNitBeneficiario(String nitBeneficiario) {
         this.nitBeneficiario = nitBeneficiario;
     }
 
