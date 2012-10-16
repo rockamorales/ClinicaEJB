@@ -29,56 +29,31 @@ public class TblInstitucion implements Serializable {
     @Basic(optional = false)
     @Column(name = "NUM_INSTITUCION")
     private Integer numInstitucion;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la fecha de registro de la institucion")
     @Column(name = "FEC_REG_INSTITUTCION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecRegInstitutcion;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el nombre comercial de la institucion")
-    @Size(min = 1, max = 100, message = "El nombre comercial de la institucion no debe ser mayor de 100 caracteres")
     @Column(name = "NOM_COM_INSTITUCION")
     private String nomComInstitucion;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la razon social de la institucion")
-    @Size(min = 1, max = 100, message = "La razon social de la institucion no debe ser mayor a 100 caracteres")
     @Column(name = "RAZ_SOC_INSTITUCION")
     private String razSocInstitucion;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la direccion de la institucion")
-    @Size(min = 1, max = 250, message = "La direccion de la institucion no debe ser mayor de 250 caracteres")
     @Column(name = "DIR_INSTITUCION")
     private String dirInstitucion;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el telefono de la institucion")
     @Column(name = "TEL_INSTITUCION")
     private int telInstitucion;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el NIT de la institucion")
     @Column(name = "NIT_INSTITUCION")
     private long nitInstitucion;
     @Column(name = "NRC_INSTITUCION")
     private Integer nrcInstitucion;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el giro de la institucion")
-    @Size(min = 1, max = 100, message = "El giro de la institucion no debe ser mayor de 100 caracteres")
     @Column(name = "GIR_INSTITUCION")
     private String girInstitucion;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el nombre del contacto con la institucion")
-    @Size(min = 1, max = 100, message = "El nombre del contacto con la institucion no debe ser mayor a 100 caracteres")
     @Column(name = "NOM_CON_INSTITUCION")
     private String nomConInstitucion;
     @Column(name = "COD_RUBRO")
     private Integer codRubro;
     @Column(name = "CEL_CON_INSTITUCION")
     private Integer celConInstitucion;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese si la institucion es donante")
     @Column(name = "ES_DONANTE")
     private boolean esDonante;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese si la institucion es proveedor")
     @Column(name = "ES_PROVEEDOR")
     private boolean esProveedor;
     @Column(name = "ACT_INSTITUCION")
