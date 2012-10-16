@@ -9,5 +9,5 @@ package sv.com.cormaria.servicios.enums;
  * @author Mackk
  */
 public enum EstadoProgramacionCitas {
-    PROGRAMADA, CANCELADA, REPROGRAMADA, ATENDIDA, AUSENCIA
+    PROGRAMADA, CANCELADA, REPROGRAMADA, ATENDIDA, AUSENCIA, RESERVADA
 }

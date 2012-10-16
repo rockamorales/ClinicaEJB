@@ -61,6 +61,7 @@ public class TblMedicoFacade extends AbstractFacade<TblMedico> implements TblMed
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
     } 
+    @Override
     public void desactivar(TblMedico entity) throws ClinicaModelexception{
         try{
             entity.setActMedico(Estado.INACTIVO);
@@ -68,6 +69,15 @@ public class TblMedicoFacade extends AbstractFacade<TblMedico> implements TblMed
         }catch(Exception ex){
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
-    }     
+    }
+
+    public List<TblMedico> findActive() throws ClinicaModelexception {
+        try{
+            Query q = em.createNamedQuery("TblMedico.findActive");
+            return q.getResultList();
+        }catch(Exception ex){
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
     
 }

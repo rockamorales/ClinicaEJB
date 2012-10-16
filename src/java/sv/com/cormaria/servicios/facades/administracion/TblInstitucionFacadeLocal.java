@@ -30,4 +30,7 @@ public interface TblInstitucionFacadeLocal {
 
     int count() throws ClinicaModelexception;
     
+    public void desactivar(TblInstitucion entity) throws ClinicaModelexception; 
+    
+    public List<TblInstitucion> findActive() throws ClinicaModelexception;
 }

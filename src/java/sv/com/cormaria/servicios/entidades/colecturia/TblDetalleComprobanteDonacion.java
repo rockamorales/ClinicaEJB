@@ -51,6 +51,10 @@ public class TblDetalleComprobanteDonacion implements Serializable {
     @Basic
     @Column(name = "NUM_SER_ENFERMERIA")
     private Integer numSerEnfermeria;
+
+    @Basic
+    @Column(name = "NUM_RECETA")
+    private Integer numReceta;
     
     @ManyToOne    
     @JoinColumn(name = "NUM_PRODUCTO", referencedColumnName = "NUM_PRODUCTO", insertable = false, updatable = false)
@@ -81,6 +85,14 @@ public class TblDetalleComprobanteDonacion implements Serializable {
         this.tblDetalleComprobanteDonacionPK = new TblDetalleComprobanteDonacionPK(numComDonacion, numProducto);
     }
 
+    public Integer getNumReceta() {
+        return numReceta;
+    }
+
+    public void setNumReceta(Integer numReceta) {
+        this.numReceta = numReceta;
+    }
+    
     public Integer getNumConsulta() {
         return numConsulta;
     }

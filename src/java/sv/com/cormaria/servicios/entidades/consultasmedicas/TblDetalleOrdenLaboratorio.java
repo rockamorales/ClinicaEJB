@@ -27,7 +27,7 @@ import sv.com.cormaria.servicios.entidades.catalogos.CatExamenesMedicos;
 @Table(name = "tbl_detalle_orden_laboratorio")
 @NamedQueries({
     @NamedQuery(name = "TblDetalleOrdenLaboratorio.findAll", query = "SELECT t FROM TblDetalleOrdenLaboratorio t"),
-    @NamedQuery(name = "TblDetalleOrdenLaboratorio.findByNumOrdenLaboratorio", query = "SELECT t FROM TblDetalleOrdenLaboratorio t where t.tblDetalleOrdenLaboratorioPK.numOrdLaboratorio = :numOrdLaboratorio")
+    @NamedQuery(name = "TblDetalleOrdenLaboratorio.findByNumOrdenLaboratorio", query = "SELECT t FROM TblDetalleOrdenLaboratorio t where t.tblDetalleOrdenLaboratorioPK.numOrdLaboratorio = :numOrdLaboratorio order by t.catExamenesMedicos.catCategoriaExamenes.nomExaCat, t.catExamenesMedicos.nomExaMedico")
 })
 public class TblDetalleOrdenLaboratorio implements Serializable {
     private static final long serialVersionUID = 1L;

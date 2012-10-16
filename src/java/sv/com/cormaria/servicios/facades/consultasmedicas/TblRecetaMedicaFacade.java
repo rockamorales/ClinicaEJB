@@ -7,6 +7,8 @@ package sv.com.cormaria.servicios.facades.consultasmedicas;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblRecetaMedica;
@@ -36,6 +38,9 @@ public class TblRecetaMedicaFacade extends AbstractFacade<TblRecetaMedica> imple
             q.setParameter("numConsulta", numConsulta);
             return (TblRecetaMedica)q.getSingleResult();
         }catch(Exception ex){
+            if (ex instanceof NoResultException || ex instanceof EntityNotFoundException){
+                return null;
+            }
             ex.printStackTrace();
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }

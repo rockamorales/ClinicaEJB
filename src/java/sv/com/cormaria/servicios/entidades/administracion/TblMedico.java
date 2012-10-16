@@ -32,7 +32,7 @@ import sv.com.cormaria.servicios.enums.Estado;
 @Table(name = "tbl_medico")
 @NamedQueries({
     @NamedQuery(name = "TblMedico.findAll", query = "SELECT t FROM TblMedico t"),
-    @NamedQuery(name = "TblMedico.findAllActive", query = "SELECT t FROM TblMedico t where t.actMedico = 1")
+    @NamedQuery(name = "TblMedico.findActive", query = "SELECT t FROM TblMedico t where t.actMedico = 1")
 })
 public class TblMedico implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -64,6 +64,7 @@ public class CatBancosFacade extends AbstractFacade<CatBancos> implements CatBan
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
     }
+    @Override
     public List<CatBancos> findActive() throws ClinicaModelexception {
         try{
             Query q = em.createNamedQuery("CatBancos.findActive");
