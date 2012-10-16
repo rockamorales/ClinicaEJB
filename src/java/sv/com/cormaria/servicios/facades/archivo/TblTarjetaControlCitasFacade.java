@@ -15,7 +15,7 @@ import sv.com.cormaria.servicios.entidades.archivo.TblTarjetaControlCitas;
 import sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacionPK;
-import sv.com.cormaria.servicios.entidades.farmacia.TblProducto;
+import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 import sv.com.cormaria.servicios.enums.Estado;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
 import sv.com.cormaria.servicios.enums.EstadoTarjeta;
@@ -23,7 +23,7 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.colecturia.TblComprobanteDonacionFacadeLocal;
 import sv.com.cormaria.servicios.facades.colecturia.TblDetalleComprobanteDonacionFacadeLocal;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
-import sv.com.cormaria.servicios.facades.farmacia.TblProductoFacadeLocal;
+import sv.com.cormaria.servicios.facades.administracion.TblProductoFacadeLocal;
 
 /**
  *

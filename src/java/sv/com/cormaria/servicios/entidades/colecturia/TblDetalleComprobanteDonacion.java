@@ -16,7 +16,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import sv.com.cormaria.servicios.entidades.farmacia.TblProducto;
+import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 
 /**
  *

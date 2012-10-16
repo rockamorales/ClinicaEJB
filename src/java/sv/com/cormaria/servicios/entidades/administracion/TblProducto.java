@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sv.com.cormaria.servicios.entidades.farmacia;
+package sv.com.cormaria.servicios.entidades.administracion;
 
 import sv.com.cormaria.servicios.enums.CategoriasProducto;
 import java.io.Serializable;

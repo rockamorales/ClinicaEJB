@@ -27,7 +27,7 @@ import sv.com.cormaria.servicios.facades.catalogos.CatTipoServiciosEnfermeriaFac
 import sv.com.cormaria.servicios.facades.colecturia.TblComprobanteDonacionFacadeLocal;
 import sv.com.cormaria.servicios.facades.colecturia.TblDetalleComprobanteDonacionFacadeLocal;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
-import sv.com.cormaria.servicios.facades.farmacia.TblProductoFacadeLocal;
+import sv.com.cormaria.servicios.facades.administracion.TblProductoFacadeLocal;
 import sv.com.cormaria.servicios.facades.security.TblUsuariosSessionFacadeLocal;
 
 /**
