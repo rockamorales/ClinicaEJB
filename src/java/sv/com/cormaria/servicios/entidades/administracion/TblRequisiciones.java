@@ -51,12 +51,12 @@ public class TblRequisiciones implements Serializable {
     @Column (name = "NUM_EMPLEADO")
     private Integer numEmpleado;
     @JoinColumn(name = "NUM_EMPLEADO", referencedColumnName = "NUM_EMPLEADO", updatable=false, insertable=false)
-    @ManyToOne(optional = false)
+    @ManyToOne
     private TblEmpleado tblEmpleado;
     @Column (name = "COD_AREA")
     private Integer codArea;
     @JoinColumn(name = "COD_AREA", referencedColumnName = "COD_AREA", updatable=false, insertable=false)
-    @ManyToOne(optional = false)
+    @ManyToOne
     private CatAreas catArea;
     @Column (name = "COD_TIP_REQUISICION")
     private Integer codTipRequisicion;

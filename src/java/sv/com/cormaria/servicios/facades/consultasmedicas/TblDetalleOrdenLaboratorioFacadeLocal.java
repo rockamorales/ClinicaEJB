@@ -31,4 +31,6 @@ public interface TblDetalleOrdenLaboratorioFacadeLocal {
     int count() throws ClinicaModelexception;
 
     public List<TblDetalleOrdenLaboratorio> findByNumOrdenLaboratorio(Integer numOrdLaboratorio) throws ClinicaModelexception;
+
+    public void addDetalleOrdenLab(List<Integer> ids, Integer ordenLabId) throws ClinicaModelexception;
 }
