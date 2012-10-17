@@ -59,21 +59,21 @@ public class TblInstitucion implements Serializable {
     @Column(name = "ACT_INSTITUCION")
     private Estado actInstitucion;
     @Column(name = "COR_CON_INSTITUCION")
-    private Estado corConInstitucion;    
+    private String corConInstitucion;    
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "numInstitucion")
     private Collection<TblOrdenCompra> tblOrdenCompraCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "numInstitucion")
     private Collection<TblSolicitudDonacion> tblSolicitudDonacionCollection;
 
-    public Estado getCorConInstitucion() {
+    public String getCorConInstitucion() {
         return corConInstitucion;
     }
 
-    public void setCorConInstitucion(Estado corConInstitucion) {
+    public void setCorConInstitucion(String corConInstitucion) {
         this.corConInstitucion = corConInstitucion;
     }
-        
+
     public TblInstitucion() {
     }
 
