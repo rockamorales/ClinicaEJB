@@ -35,16 +35,10 @@ public class CatCarisma implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_CARISMA")
     private Integer codCarisma;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese nombre de nueva dependencia Carisma")
-    @Size(min = 1, max = 50)
     @Column(name = "NOM_CARISMA")
     private String nomCarisma;
-    @Size(max = 100)
     @Column(name = "DES_CARISMA")
     private String desCarisma;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese estado de dependencia Carisma")
     @Column(name = "ACT_CARISMA")
     private Estado actCarisma;
 

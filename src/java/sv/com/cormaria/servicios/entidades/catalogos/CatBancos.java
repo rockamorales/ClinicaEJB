@@ -34,18 +34,10 @@ public class CatBancos implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "COD_BANCO")
     private Integer codBanco;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del Banco")
-    @Size(min = 1, max = 100)
     @Column(name = "NOM_BANCO")
     private String nomBanco;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese una descripción general del Banco")
-    @Size(min = 1, max = 100)
     @Column(name = "DES_BANCO")
     private String desBanco;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado del Banco")
     @Column(name = "ACT_BANCO")
     private Estado actBanco;
 
