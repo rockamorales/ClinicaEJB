@@ -36,16 +36,10 @@ public class CatRubro implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_RUBRO")
     private Integer codRubro;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del nuevo Rubro")
-    @Size(min = 1, max = 50)
     @Column(name = "NOM_RUBRO")
     private String nomRubro;
-    @Size(max = 100)
     @Column(name = "DES_RUBRO")
     private String desRubro;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado del Rubro")
     @Column(name = "ACT_RUBRO")
     private Estado actRubro;
 

@@ -36,16 +36,10 @@ public class CatSexo implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_SEX_PACIENTE")
     private Integer codSexPaciente;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 9)
     @Column(name = "NOM_SEX_PACIENTE")
     private String nomSexPaciente;
-    @Size(max = 40)
     @Column(name = "DES_SEX_PACIENTE")
     private String desSexPaciente;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado de Sexo")
     @Column(name = "ACT_SEX_PACIENTE")
     private Estado actSexPaciente;
 

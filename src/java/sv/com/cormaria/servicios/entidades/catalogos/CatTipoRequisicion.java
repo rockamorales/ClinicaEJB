@@ -36,16 +36,10 @@ public class CatTipoRequisicion implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_TIP_REQUISICION")
     private Integer codTipRequisicion;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del Tipo de Requisición")
-    @Size(min = 1, max = 30)
     @Column(name = "NOM_TIP_REQUISICION")
     private String nomTipRequisicion;
-    @Size(max = 100)
     @Column(name = "DES_TIP_REQUISICION")
     private String desTipRequisicion;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado del Tipo de Requisición")
     @Column(name = "ACT_TIP_REQUISICION")
     private Estado actTipRequisicion;
 

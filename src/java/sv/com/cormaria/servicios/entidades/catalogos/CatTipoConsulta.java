@@ -36,15 +36,10 @@ public class CatTipoConsulta implements Serializable {
     @Column(name = "COD_TIP_CONSULTA")
     private Integer codTipConsulta;
     @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del Tipo de Consulta")
-    @Size(min = 1, max = 50)
     @Column(name = "NOM_TIP_CONSULTA")
     private String nomTipConsulta;
-    @Size(max = 100)
     @Column(name = "DES_TIP_CONSULTA")
     private String desTipConsulta;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado del Tipo de Consulta")
     @Column(name = "ACT_TIP_CONSULTA")
     private Estado actTipConsulta;
 

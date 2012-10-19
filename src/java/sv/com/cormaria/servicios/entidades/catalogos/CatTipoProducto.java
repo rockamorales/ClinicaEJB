@@ -33,18 +33,10 @@ public class CatTipoProducto implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_TIP_PRODUCTO")
     private Integer codTipProducto;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del nuevo Tipo de Producto")
-    @Size(min = 1, max = 50)
     @Column(name = "NOM_TIP_PRODUCTO")
     private String nomTipProducto;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese la descripción del nuevo Tipo de Producto")
-    @Size(min = 1, max = 100)
     @Column(name = "DES_TIP_PRODUCTO")
     private String desTipProducto;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado del nuevo Tipo de Producto")
     @Column(name = "ACT_TIP_PRODUCTO")
     private Estado actTipProducto;
 

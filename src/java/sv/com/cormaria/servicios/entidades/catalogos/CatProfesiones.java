@@ -35,16 +35,10 @@ public class CatProfesiones implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_PROFESION")
     private Integer codProfesion;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre de la nueva Profesión")
-    @Size(min = 1, max = 50)
     @Column(name = "NOM_PROFESION")
     private String nomProfesion;
-    @Size(max = 100)
     @Column(name = "DES_PROFESION")
     private String desProfesion;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado de la Profesión")
     @Column(name = "ACT_PROFESION")
     private Estado actProfesion;
 
