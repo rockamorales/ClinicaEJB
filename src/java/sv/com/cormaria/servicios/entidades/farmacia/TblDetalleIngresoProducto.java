@@ -4,6 +4,7 @@
  */
 package sv.com.cormaria.servicios.entidades.farmacia;
 
+import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;

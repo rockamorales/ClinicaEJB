@@ -37,16 +37,10 @@ public class CatAreas implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_AREA")
     private Integer codArea;
-    @Basic(optional = false)
-    @NotNull(message="Por favor ingrese el nombre del Area")
-    @Size(max = 30, message="El nombre de area no puede tener mas de 30 caracteres")
     @Column(name = "NOM_AREA")
     private String nomArea;
-    @Size(max = 100)
     @Column(name = "DES_AREA")
     private String desArea;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado del Area")
     @Column(name = "ACT_AREA")
     @Enumerated(EnumType.ORDINAL)
     private Estado actArea;
