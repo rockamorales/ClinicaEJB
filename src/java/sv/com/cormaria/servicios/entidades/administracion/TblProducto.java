@@ -15,11 +15,15 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import sv.com.cormaria.servicios.entidades.catalogos.CatCategoriaProducto;
+import sv.com.cormaria.servicios.entidades.catalogos.CatPresentacionProducto;
 import sv.com.cormaria.servicios.enums.CategoriasProducto;
 /**
  *
@@ -117,6 +121,18 @@ public class TblProducto implements Serializable {
 
     @Column(name="COD_TIP_PRODUCTO")
     private Integer codTipProducto;
+    @Column(name="COD_CAT_PRODUCTO")
+    private Integer codCatProducto;
+    @Column(name="COD_PRE_PRODUCTO")
+    private Integer codPreProducto;
+
+    @ManyToOne
+    @JoinColumn(name="CLA_PRODUCTO", referencedColumnName="COD_CAT_PRODUCTO", insertable=false, updatable=false)
+    private CatCategoriaProducto catCategoriaProducto;
+    @ManyToOne
+    @JoinColumn(name="PRE_PRODUCTO", referencedColumnName="COD_PRE_PRODUCTO", insertable=false, updatable=false)
+    private CatPresentacionProducto catPresentacionProducto;
+    
     
     public TblProducto() {
     }
@@ -142,6 +158,7 @@ public class TblProducto implements Serializable {
         this.estProducto = estProducto;
     }
 
+    
     public CategoriasProducto getCatProducto() {
         return catProducto;
     }
@@ -156,6 +173,22 @@ public class TblProducto implements Serializable {
 
     public void setCodTipProducto(Integer codTipProducto) {
         this.codTipProducto = codTipProducto;
+    }
+
+    public Integer getCodCatProducto() {
+        return codCatProducto;
+    }
+
+    public void setCodCatProducto(Integer codCatProducto) {
+        this.codCatProducto = codCatProducto;
+    }
+
+    public Integer getCodPreProducto() {
+        return codPreProducto;
+    }
+
+    public void setCodPreProducto(Integer codPreProducto) {
+        this.codPreProducto = codPreProducto;
     }
 
     public Integer getNumProducto() {

@@ -25,6 +25,8 @@ public interface CatTipoProductoFacadeLocal {
     CatTipoProducto find(Object id) throws ClinicaModelexception;
 
     List<CatTipoProducto> findAll() throws ClinicaModelexception;
+    
+    public List<CatTipoProducto> findActive() throws ClinicaModelexception;
 
     List<CatTipoProducto> findRange(int[] range) throws ClinicaModelexception;
 
