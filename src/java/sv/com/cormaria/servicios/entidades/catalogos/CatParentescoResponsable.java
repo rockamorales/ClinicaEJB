@@ -36,16 +36,10 @@ public class CatParentescoResponsable implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_PAR_RESPONSABLE")
     private Integer codParResponsable;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del nuevo Parentesco de Responsable")
-    @Size(min = 1, max = 15)
     @Column(name = "NOM_PAR_RESPONSABLE")
     private String nomParResponsable;
-    @Size(max = 100)
     @Column(name = "DES_PAR_RESPONSABLE")
     private String desParResponsable;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado de Parentesco de Responsable")
     @Column(name = "ACT_PAR_RESPONSABLE")
     private Estado actParResponsable;
 

@@ -33,16 +33,10 @@ public class CatTipoReferencia implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_TIP_REFERENCIA")
     private Integer codTipReferencia;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del Tipo de Referencia")
-    @Size(min = 1, max = 50)
     @Column(name = "NOM_TIP_REFERENCIA")
     private String nomTipReferencia;
-    @Size(max = 100)
     @Column(name = "DES_TIP_REFERENCIA")
     private String desTipReferencia;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado del Tipo de Referencia")
     @Column(name = "ACT_TIP_REFERENCIA")
     private Estado actTipReferencia;
 

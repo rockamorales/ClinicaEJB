@@ -39,16 +39,10 @@ public class CatTipoTransaccion implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_TIP_TRANSACCION")
     private Integer codTipTransaccion;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del Tipo de Transacción")
-    @Size(min = 1, max = 30)
     @Column(name = "NOM_TIP_TRANSACCION")
     private String nomTipTransaccion;
-    @Size(max = 100)
     @Column(name = "DES_TIP_TRANSACCION")
     private String desTipTransaccion;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado del Tipo de Transacción")
     @Column(name = "ACT_TIP_TRANSACCION")
     private Estado actTipTransaccion;
 

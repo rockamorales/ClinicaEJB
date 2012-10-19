@@ -36,19 +36,12 @@ public class CatExamenesMedicos implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_EXA_MEDICO")
     private Integer codExaMedico;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del Examen Médico")
-    @Size(min = 1, max = 100)
     @Column(name = "NOM_EXA_MEDICO")
     private String nomExaMedico;
-    @Size(max = 100)
     @Column(name = "DES_EXA_MEDICO")
     private String desExaMedico;
-    @Basic
     @Column(name = "ACT_EXA_MEDICO")
     private Estado actExaMedico;
-
-    @Basic
     @Column(name = "COD_EXA_CAT")
     private Integer codExaCat;
     

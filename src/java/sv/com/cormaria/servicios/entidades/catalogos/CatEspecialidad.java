@@ -39,24 +39,12 @@ public class CatEspecialidad implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_ESPECIALIDAD")
     private Integer codEspecialidad;
-
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre de la Especialidad")
-    @Size(min = 1, max = 30)
     @Column(name = "NOM_ESPECIALIDAD")
     private String nomEspecialidad;
-
-    @Size(max = 100)
     @Column(name = "DES_ESPECIALIDAD")
     private String desEspecialidad;
-
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado de la Especialidad")
     @Column(name = "ACT_ESPECIALIDAD")
     private Estado actEspecialidad;
-
-    @Basic(optional = false)
-    @NotNull(message="Por favor especifique el servicio asociado a esta especialidad")
     @Column(name = "NUM_PRODUCTO")
     private Integer numProducto;
 
