@@ -33,20 +33,12 @@ public class CatConsultorio implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_CONSULTORIO")
     private Integer codConsultorio;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del Consultorio")
-    @Size(min = 1, max = 60)
     @Column(name = "NOM_CONSULTORIO")
     private String nomConsultorio;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el tipo del Consultorio")
     @Column(name = "CON_GINECOLOGICO")
     private boolean conGinecologico;
-    @Size(max = 100)
     @Column(name = "DES_CONSULTORIO")
     private String desConsultorio;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado del Consultorio")
     @Column(name = "ACT_CONSULTORIO")
     private Estado actConsultorio;
 

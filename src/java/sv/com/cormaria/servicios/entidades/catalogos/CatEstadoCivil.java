@@ -32,19 +32,12 @@ public class CatEstadoCivil implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "COD_EST_CIVIL")
     private Integer codEstCivil;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del Estado Civil")
-    @Size(min = 1, max = 15)
     @Column(name = "NOM_EST_CIVIL")
     private String nomEstCivil;
-    @Size(max = 100)
     @Column(name = "DES_EST_CIVIL")
     private String desEstCivil;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado de Estado Civil")
     @Column(name = "ACT_EST_CIVIL")
     private Estado actEstCivil;
 
