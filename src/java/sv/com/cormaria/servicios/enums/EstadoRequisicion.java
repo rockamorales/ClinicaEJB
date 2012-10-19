@@ -4,6 +4,7 @@
  */
 package sv.com.cormaria.servicios.enums;
 
+
 /**
  *
  * @author Mackk
