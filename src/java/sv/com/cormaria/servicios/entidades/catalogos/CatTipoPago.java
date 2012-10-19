@@ -37,17 +37,10 @@ public class CatTipoPago implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_TIP_PAGO")
     private Integer codTipPago;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del Tipo de Pago")
-    @Size(min = 1, max = 8)
     @Column(name = "NOM_TIP_PAGO")
     private String nomTipPago;
-    @Size(max = 100)
     @Column(name = "DES_TIP_PAGO")
     private String desTipPago;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado del Tipo de Pago")
-    @Size(min = 1, max = 10)
     @Column(name = "ACT_TIP_PAGO")
     @Enumerated(EnumType.ORDINAL)
     private Estado actTipPago;

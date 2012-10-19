@@ -14,8 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -24,25 +22,27 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "tbl_detalle_requisicion")
 @NamedQueries({
-    @NamedQuery(name = "TblDetalleRequisicion.findAll", query = "SELECT t FROM TblDetalleRequisicion t")})
+        @NamedQuery(name = "TblDetalleRequisicion.findAll", query = "SELECT t FROM TblDetalleRequisicion t"),
+        @NamedQuery(name = "TblDetalleRequisicion.findByNumRequisicion", query = "SELECT t FROM TblDetalleRequisicion t where t.tblDetalleRequisicionPK.numRequisicion=:numRequisicion")
+    })
 public class TblDetalleRequisicion implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected TblDetalleRequisicionPK tblDetalleRequisicionPK;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el correlativo de detalle de producto")
+    protected TblDetalleRequisicionPK tblDetalleRequisicionPK = new TblDetalleRequisicionPK();
+    @Basic
     @Column(name = "COR_DET_PRODUCTO")
     private long corDetProducto;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la cantidad de producto")
+    @Basic
     @Column(name = "CAN_PRO_REQUISICION")
     private int canProRequisicion;
-    @Size(max = 500, message = "El detalle de uso de la requisicion no debe ser mayor de 500 caracteres")
     @Column(name = "DET_USO_REQUISICION")
     private String detUsoRequisicion;
     @JoinColumn(name = "NUM_REQUISICION", referencedColumnName = "NUM_REQUISICION", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne
     private TblRequisiciones tblRequisiciones;
+    @JoinColumn(name = "NUM_PRODUCTO", referencedColumnName = "NUM_PRODUCTO", insertable = false, updatable = false)
+    @ManyToOne
+    private TblProducto tblProducto;
 
     public TblDetalleRequisicion() {
     }
@@ -61,6 +61,14 @@ public class TblDetalleRequisicion implements Serializable {
         this.tblDetalleRequisicionPK = new TblDetalleRequisicionPK(numProducto, numRequisicion);
     }
 
+    public TblProducto getTblProducto() {
+        return tblProducto;
+    }
+
+    public void setTblProducto(TblProducto tblProducto) {
+        this.tblProducto = tblProducto;
+    }
+    
     public TblDetalleRequisicionPK getTblDetalleRequisicionPK() {
         return tblDetalleRequisicionPK;
     }

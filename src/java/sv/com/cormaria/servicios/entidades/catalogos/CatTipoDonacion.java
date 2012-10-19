@@ -35,16 +35,10 @@ public class CatTipoDonacion implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_TIP_DONACION")
     private Integer codTipDonacion;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del Tipo de Donación")
-    @Size(min = 1, max = 50)
     @Column(name = "NOM_TIP_DONACION")
     private String nomTipDonacion;
-    @Size(max = 100)
     @Column(name = "DES_TIP_DONACION")
     private String desTipDonacion;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado del Tipo de Donación")
     @Column(name = "ACT_TIP_DONACION")
     private Estado actTipDonacion;
 

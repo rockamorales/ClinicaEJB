@@ -36,16 +36,10 @@ public class CatTipoServiciosEnfermeria implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_SER_ENFERMERIA")
     private Integer codSerEnfermeria;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del Servicio de Enfermería")
-    @Size(min = 1, max = 30)
     @Column(name = "NOM_SER_ENFERMERIA")
     private String nomSerEnfermeria;
-    @Size(max = 100)
     @Column(name = "DES_SER_ENFERMERIA")
     private String desSerEnfermeria;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado del Servicio de Enfermería")
     @Column(name = "ACT_SER_ENFERMERIA")
     private Estado actSerEnfermeria;
 

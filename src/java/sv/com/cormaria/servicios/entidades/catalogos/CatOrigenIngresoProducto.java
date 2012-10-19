@@ -33,16 +33,10 @@ public class CatOrigenIngresoProducto implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_ORI_INGRESO")
     private Integer codOriIngreso;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el origen de Ingreso del Producto")
-    @Size(min = 1, max = 50)
     @Column(name = "NOM_ORI_INGRESO")
     private String nomOriIngreso;
-    @Size(max = 100)
     @Column(name = "DES_ORI_INGRESO")
     private String desOriIngreso;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado del origen de Ingreso del Producto")
     @Column(name = "ACT_ORI_INGRESO")
     private Estado actOriIngreso;
 

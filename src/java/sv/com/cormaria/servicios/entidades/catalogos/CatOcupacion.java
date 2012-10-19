@@ -36,16 +36,10 @@ public class CatOcupacion implements Serializable {
     
     @Column(name = "COD_OCUPACION")
     private Integer codOcupacion;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre de la Ocupación")
-    @Size(min = 1, max = 100)
     @Column(name = "NOM_OCUPACION")
     private String nomOcupacion;
-    @Size(max = 100)
     @Column(name = "DES_OCUPACION")
     private String desOcupacion;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado de Ocupación")
     @Column(name = "ACT_OCUPACION")
     private Estado actOcupacion;
 

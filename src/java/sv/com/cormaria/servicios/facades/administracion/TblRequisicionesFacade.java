@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import sv.com.cormaria.servicios.entidades.administracion.TblRequisiciones;
+import sv.com.cormaria.servicios.enums.EstadoRequisicion;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
 
@@ -28,6 +29,17 @@ public class TblRequisicionesFacade extends AbstractFacade<TblRequisiciones> imp
     public TblRequisicionesFacade() {
         super(TblRequisiciones.class);
     }
+    
+    @Override
+    public void remove(TblRequisiciones requisicion) throws ClinicaModelexception {
+        try{
+            TblRequisiciones requisicion1 = this.find(requisicion.getNumRequisicion());
+            requisicion1.setEstRequisicion(EstadoRequisicion.ELIMINADA);
+        }catch(Exception ex){
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }        
+    }
+
 
     @Override
     public List<TblRequisiciones> findAll() throws ClinicaModelexception {

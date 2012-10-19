@@ -33,16 +33,10 @@ public class CatTipoSalida implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_TIP_SALIDA")
     private Integer codTipSalida;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del nuevo Tipo de Salida")
-    @Size(min = 1, max = 50)
     @Column(name = "NOM_TIP_SALIDA")
     private String nomTipSalida;
-    @Size(max = 100)
     @Column(name = "DES_TIP_SALIDA")
     private String desTipSalida;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado del Tipo de Salida")
     @Column(name = "ACT_TIP_SALIDA")
     private Estado actTipSalida;
 

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import sv.com.cormaria.servicios.entidades.administracion.TblDetalleRequisicion;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
@@ -21,12 +22,25 @@ public class TblDetalleRequisicionFacade extends AbstractFacade<TblDetalleRequis
     @PersistenceContext(unitName = "ClinicaEJBPU")
     private EntityManager em;
 
+    @Override
     protected EntityManager getEntityManager() {
         return em;
     }
 
     public TblDetalleRequisicionFacade() {
         super(TblDetalleRequisicion.class);
+    }
+    
+    @Override
+    public List<TblDetalleRequisicion> findByNumRequisicion(Integer numRequisicion) throws ClinicaModelexception{
+        try{
+            Query q = em.createNamedQuery("TblDetalleRequisicion.findByNumRequisicion");
+            q.setParameter("numRequisicion", numRequisicion);
+            return q.getResultList();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
     }
 
     @Override

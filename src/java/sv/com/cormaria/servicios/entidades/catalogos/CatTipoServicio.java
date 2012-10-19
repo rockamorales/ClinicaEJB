@@ -35,16 +35,10 @@ public class CatTipoServicio implements Serializable {
     @Basic(optional = false)
     @Column(name = "COD_TIP_SERVICIO")
     private Integer codTipServicio;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del Tipo de Servicio")
-    @Size(min = 1, max = 50)
     @Column(name = "NOM_TIP_SERVICIO")
     private String nomTipServicio;
-    @Size(max = 100)
     @Column(name = "DES_TIP_SERVICIO")
     private String desTipServicio;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el estado del Tipo de Servicio")
     @Column(name = "ACT_TIP_SERVICIO")
     private Estado actTipServicio;
 
