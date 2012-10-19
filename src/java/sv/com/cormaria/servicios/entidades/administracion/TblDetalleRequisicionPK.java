@@ -16,14 +16,12 @@ import javax.validation.constraints.NotNull;
  */
 @Embeddable
 public class TblDetalleRequisicionPK implements Serializable {
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el numero de producto")
+    @Basic
     @Column(name = "NUM_PRODUCTO")
-    private int numProducto;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el numero de requisicion")
+    private Integer numProducto;
+    @Basic
     @Column(name = "NUM_REQUISICION")
-    private int numRequisicion;
+    private Integer numRequisicion;
 
     public TblDetalleRequisicionPK() {
     }
@@ -33,19 +31,19 @@ public class TblDetalleRequisicionPK implements Serializable {
         this.numRequisicion = numRequisicion;
     }
 
-    public int getNumProducto() {
+    public Integer getNumProducto() {
         return numProducto;
     }
 
-    public void setNumProducto(int numProducto) {
+    public void setNumProducto(Integer numProducto) {
         this.numProducto = numProducto;
     }
 
-    public int getNumRequisicion() {
+    public Integer getNumRequisicion() {
         return numRequisicion;
     }
 
-    public void setNumRequisicion(int numRequisicion) {
+    public void setNumRequisicion(Integer numRequisicion) {
         this.numRequisicion = numRequisicion;
     }
 

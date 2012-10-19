@@ -16,12 +16,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import sv.com.cormaria.servicios.entidades.catalogos.CatAreas;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoRequisicion;
+import sv.com.cormaria.servicios.enums.EstadoRequisicion;
 
 /**
  *
@@ -47,7 +49,7 @@ public class TblRequisiciones implements Serializable {
     @Basic(optional = false)
     @NotNull(message = "Ingrese el estado de la requisicion")
     @Column(name = "EST_REQUISICION")
-    private int estRequisicion;
+    private EstadoRequisicion estRequisicion;
     @Column (name = "NUM_EMPLEADO")
     private Integer numEmpleado;
     @JoinColumn(name = "NUM_EMPLEADO", referencedColumnName = "NUM_EMPLEADO", updatable=false, insertable=false)
@@ -70,7 +72,7 @@ public class TblRequisiciones implements Serializable {
         this.numRequisicion = numRequisicion;
     }
 
-    public TblRequisiciones(Integer numRequisicion, Date fecRequisicion, int estRequisicion) {
+    public TblRequisiciones(Integer numRequisicion, Date fecRequisicion, EstadoRequisicion estRequisicion) {
         this.numRequisicion = numRequisicion;
         this.fecRequisicion = fecRequisicion;
         this.estRequisicion = estRequisicion;
@@ -138,17 +140,20 @@ public class TblRequisiciones implements Serializable {
 
     public void setFecRequisicion(Date fecRequisicion) {
         this.fecRequisicion = fecRequisicion;
-    }
+    }    
 
-    public int getEstRequisicion() {
+    public EstadoRequisicion getEstRequisicion() {
         return estRequisicion;
     }
 
-    public void setEstRequisicion(int estRequisicion) {
+    public void setEstRequisicion(EstadoRequisicion estRequisicion) {
         this.estRequisicion = estRequisicion;
     }
-
     
+    @PrePersist
+    public void prePersist(){
+        this.fecRequisicion = new java.util.Date();
+    }
 
     @Override
     public int hashCode() {

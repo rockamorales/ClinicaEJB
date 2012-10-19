@@ -29,5 +29,6 @@ public interface TblDetalleRequisicionFacadeLocal {
     List<TblDetalleRequisicion> findRange(int[] range) throws ClinicaModelexception;
 
     int count() throws ClinicaModelexception;
-    
+
+    public List<TblDetalleRequisicion> findByNumRequisicion(Integer numRequisicion) throws ClinicaModelexception;
 }

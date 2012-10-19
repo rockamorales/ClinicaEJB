@@ -5,10 +5,10 @@
 package sv.com.cormaria.servicios.criteria;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import sv.com.cormaria.servicios.entidades.archivo.EstadoServiciosEnfermeria;
 import sv.com.cormaria.servicios.enums.EstadoRequisicion;
 
 /**
@@ -17,13 +17,15 @@ import sv.com.cormaria.servicios.enums.EstadoRequisicion;
  */
 public class RequisicionesSearchCriteria implements SearchCriteria {
     private static EstadoRequisicion ESTADO_ELIMINADO = EstadoRequisicion.ELIMINADA;
-    private String nombres;
-    private String primerApellido;
-    private String segundoApellido;
-    private String tercerApellido;
-    private String dui;
-    private Integer numExpediente;
-    private Integer codTipoServicio;
+    private String nomEmpleado;
+    private String priApeEmpleado;
+    private String secApeEmpleado;
+    private String terApeEmpleado;
+    private Integer numRequisicion;
+    private Integer codArea;
+    private Date startDate;
+    private Date endDate;
+    private Integer codTipRequisicion;
     private Boolean showDeleted = false;
     private List<String> estados = new ArrayList<String>();
 
@@ -43,140 +45,145 @@ public class RequisicionesSearchCriteria implements SearchCriteria {
         this.showDeleted = showDeleted;
     }
     
-    public List<EstadoServiciosEnfermeria> getEstadosEnum(){
-        List<EstadoServiciosEnfermeria> estadosEnum = new ArrayList<EstadoServiciosEnfermeria>();
+    public List<EstadoRequisicion> getEstadosEnum(){
+        List<EstadoRequisicion> estadosEnum = new ArrayList<EstadoRequisicion>();
         for (String estado : estados) {
-            estadosEnum.add(EstadoServiciosEnfermeria.valueOf(estado));
+            estadosEnum.add(EstadoRequisicion.valueOf(estado));
         }
         return estadosEnum;
     }
 
-    public String getNombres() {
-        return nombres;
+    public String getNomEmpleado() {
+        return nomEmpleado;
     }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public void setNomEmpleado(String nomEmpleado) {
+        this.nomEmpleado = nomEmpleado;
     }
 
-    public String getPrimerApellido() {
-        return primerApellido;
+    public String getPriApeEmpleado() {
+        return priApeEmpleado;
     }
 
-    public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
+    public void setPriApeEmpleado(String priApeEmpleado) {
+        this.priApeEmpleado = priApeEmpleado;
     }
 
-    public String getSegundoApellido() {
-        return segundoApellido;
+    public String getSecApeEmpleado() {
+        return secApeEmpleado;
     }
 
-    public void setSegundoApellido(String segundoApellido) {
-        this.segundoApellido = segundoApellido;
+    public void setSecApeEmpleado(String secApeEmpleado) {
+        this.secApeEmpleado = secApeEmpleado;
     }
 
-    public String getTercerApellido() {
-        return tercerApellido;
+    public String getTerApeEmpleado() {
+        return terApeEmpleado;
     }
 
-    public void setTercerApellido(String tercerApellido) {
-        this.tercerApellido = tercerApellido;
+    public void setTerApeEmpleado(String terApeEmpleado) {
+        this.terApeEmpleado = terApeEmpleado;
     }
 
-    public String getDui() {
-        return dui;
+    public Integer getNumRequisicion() {
+        return numRequisicion;
     }
 
-    public void setDui(String dui) {
-        this.dui = dui;
+    public void setNumRequisicion(Integer numRequisicion) {
+        this.numRequisicion = numRequisicion;
     }
 
-    public Integer getNumExpediente() {
-        return numExpediente;
+    public Integer getCodArea() {
+        return codArea;
     }
 
-    public void setNumExpediente(Integer numExpediente) {
-        this.numExpediente = numExpediente;
+    public void setCodArea(Integer codArea) {
+        this.codArea = codArea;
     }
 
-    public Integer getCodTipoServicio() {
-        return codTipoServicio;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setCodTipoServicio(Integer codTipoServicio) {
-        this.codTipoServicio = codTipoServicio;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
-    
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Integer getCodTipRequisicion() {
+        return codTipRequisicion;
+    }
+
+    public void setCodTipRequisicion(Integer codTipRequisicion) {
+        this.codTipRequisicion = codTipRequisicion;
+    }
+
     @Override
     public String createQuery() {
-        StringBuffer strSelect = new StringBuffer("Select s from TblServiciosEnfermeria s ");
-        StringBuffer strSort = new StringBuffer(" order by s.fecSerEnfermeria ");
+        StringBuffer strSelect = new StringBuffer("Select r from TblRequisiciones r ");
+        StringBuffer strSort = new StringBuffer(" order by r.fecRequisicion ");
         String strWhere = createWhere();
         return strSelect + " " + strWhere + " " + strSort;
     }
 
     @Override
     public String createCountQuery() {
-        StringBuffer strSelect = new StringBuffer("Select count(*) from TblServiciosEnfermeria s ");
+        StringBuffer strSelect = new StringBuffer("Select count(*) from TblRequisiciones r ");
         String strWhere = createWhere();
         return strSelect + " " + strWhere;
     }
 
     private String createWhere(){
         StringBuffer strWhere = new StringBuffer();
-        if (this.getNumExpediente()!=null){
-           strWhere.append(" s.numExpediente = :numExpediente");
+        if (this.getNumRequisicion()!=null && this.getNumRequisicion()>0){
+           strWhere.append(" r.numRequisicion = :numRequisicion");
         }
-        if (this.getNombres()!=null && !this.getNombres().trim().equals("")){
+        if (this.getCodArea()!=null && this.getCodArea()>0){
             if (strWhere.length() > 0){
                     strWhere.append(" and ");
             }
-            strWhere.append(" s.expediente.nomPaciente like :nombres");
+            strWhere.append(" r.codArea like :codArea");
         }
-        if (this.getPrimerApellido()!=null && !this.getPrimerApellido().trim().equals("")){
+        if (this.getCodTipRequisicion()!=null && this.getCodTipRequisicion()>0){
             if (strWhere.length() > 0){
                strWhere.append(" and ");
             }
-            strWhere.append(" s.expediente.priApePaciente like :primerApellido");
+            strWhere.append(" r.codTipRequisicion like :codTipRequisicion");
         }
-        if (this.getSegundoApellido()!=null && !this.getSegundoApellido().trim().equals("")){
+        if (this.getEndDate()!=null && this.getStartDate()!=null){
             if (strWhere.length() > 0){
                     strWhere.append(" and ");
             }
-            strWhere.append(" s.expediente.secApePaciente like :segundoApellido");
-        }
-        if (this.getTercerApellido()!=null && !this.getTercerApellido().trim().equals("")){
+            strWhere.append(" r.fecRequisicion between :startDate and :endDate ");
+        }else if (this.getEndDate()!=null){
             if (strWhere.length() > 0){
                     strWhere.append(" and ");
             }
-            strWhere.append(" s.expediente.terApePaciente like :tecerApellido");
-        }
-        
-        if (this.getDui()!=null && !this.getDui().trim().equals("")){
+            strWhere.append(" r.fecRequisicion <= :endDate");
+        }else if(this.getStartDate()!=null){
             if (strWhere.length() > 0){
                     strWhere.append(" and ");
             }
-            strWhere.append(" s.expediente.numDui = :dui");
+            strWhere.append(" r.fecRequisicion >= :startDate");
         }
-
-        if (this.getCodTipoServicio()!=null && this.getCodTipoServicio()>0){
-            if (strWhere.length() > 0){
-                    strWhere.append(" and ");
-            }
-            strWhere.append(" s.codServEnfermeria = :codTipoServicio");
-        }
-
         if (this.getEstados()!=null && !this.getEstados().isEmpty()){
             if (strWhere.length() > 0){
                     strWhere.append(" and ");
             }
-            strWhere.append(" s.estSerEnfermeria in (:estados)");
+            strWhere.append(" r.estRequisicion in (:estados)");
         }
         if (this.getShowDeleted()!=null && !this.getShowDeleted()){
             if (strWhere.length() > 0){
                     strWhere.append(" and ");
             }
-            strWhere.append(" s.estSerEnfermeria not in (:eliminado)");
+            strWhere.append(" r.estRequisicion not in (:eliminado)");
         }
         
         if (strWhere.length() > 0){
@@ -189,30 +196,23 @@ public class RequisicionesSearchCriteria implements SearchCriteria {
     @Override
     public Map<String, Object> getParameters() {
         Map<String, Object> parameters = new HashMap<String, Object>();
-        if (this.getNumExpediente()!=null){
-            parameters.put("numExpediente",this.getNumExpediente());
+        if (this.getNumRequisicion()!=null && this.getNumRequisicion()>0){
+           parameters.put("numRequisicion", this.getNumRequisicion());
         }
-        if (this.getNombres()!=null && !this.getNombres().trim().equals("")){
-            parameters.put("nombres",this.getNombres());
+        if (this.getCodArea()!=null && this.getCodArea()>0){
+           parameters.put("codArea", this.getCodArea());
         }
-        if (this.getPrimerApellido()!=null && !this.getPrimerApellido().trim().equals("")){
-            parameters.put("primerApellido",this.getPrimerApellido());
+        if (this.getCodTipRequisicion()!=null && this.getCodTipRequisicion()>0){
+           parameters.put("codTipRequisicion", this.getCodTipRequisicion());
         }
-        if (this.getSegundoApellido()!=null && !this.getSegundoApellido().trim().equals("")){
-            parameters.put("segundoApellido",this.getSegundoApellido());
+        if (this.getEndDate()!=null && this.getStartDate()!=null){
+           parameters.put("startDate", this.getStartDate());
+           parameters.put("endDate", this.getEndDate());
+        }else if (this.getEndDate()!=null){
+           parameters.put("endDate", this.getEndDate());
+        }else if(this.getStartDate()!=null){
+           parameters.put("startDate", this.getStartDate());
         }
-        if (this.getTercerApellido()!=null && !this.getTercerApellido().trim().equals("")){
-            parameters.put("tercerApellido",this.getTercerApellido());
-        }
-        
-        if (this.getDui()!=null && !this.getDui().trim().equals("")){
-            parameters.put("dui",this.getDui());
-        }
-        
-        if (this.getCodTipoServicio()!=null && this.getCodTipoServicio()>0){
-            parameters.put("codTipoServicio",this.getCodTipoServicio());
-        }
-        
         if (this.getEstados()!=null && !this.getEstados().isEmpty()){
             parameters.put("estados", this.getEstadosEnum());
         }

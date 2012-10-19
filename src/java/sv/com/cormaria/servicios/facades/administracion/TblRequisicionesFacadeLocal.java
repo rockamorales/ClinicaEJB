@@ -5,7 +5,10 @@
 package sv.com.cormaria.servicios.facades.administracion;
 
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Local;
+import javax.persistence.Query;
+import sv.com.cormaria.servicios.criteria.SearchCriteria;
 import sv.com.cormaria.servicios.entidades.administracion.TblRequisiciones;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 
@@ -30,4 +33,6 @@ public interface TblRequisicionesFacadeLocal {
 
     int count() throws ClinicaModelexception;
     
+    public List<TblRequisiciones> find(SearchCriteria sc, int firstRow, int maxResults);
+    public int count(SearchCriteria sc);    
 }
