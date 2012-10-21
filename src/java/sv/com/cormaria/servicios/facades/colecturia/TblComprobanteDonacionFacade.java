@@ -15,11 +15,11 @@ import javax.persistence.Query;
 import sv.com.cormaria.servicios.entidades.archivo.EstadoServiciosEnfermeria;
 import sv.com.cormaria.servicios.entidades.archivo.TblServiciosEnfermeria;
 import sv.com.cormaria.servicios.entidades.archivo.TblTarjetaControlCitas;
+import sv.com.cormaria.servicios.entidades.catalogos.CatCategoriaProducto;
 import sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
 import sv.com.cormaria.servicios.entidades.security.TblUsuarios;
-import sv.com.cormaria.servicios.enums.CategoriasProducto;
 import sv.com.cormaria.servicios.enums.EstadoConsultas;
 import sv.com.cormaria.servicios.enums.EstadoTarjeta;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelValidationException;
@@ -92,7 +92,7 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
             this.edit(comprobante);
             List<TblDetalleComprobanteDonacion> detalleList = detalleFacade.findByComprobanteDonacion(comprobante.getNumComDonacion());
             for (TblDetalleComprobanteDonacion detalle : detalleList) {
-                if (detalle.getTblProducto().getCatProducto() == CategoriasProducto.TARJETA){
+                if (detalle.getTblProducto().getCodTipProducto() == CatCategoriaProducto.TARJETA_CONTROL){
                     List<TblTarjetaControlCitas> tarjetasList = tarjetaFacade.findNoPagadoByNumExpediente(comprobante.getNumExpediente());
                     if (tarjetasList.isEmpty()){
                         throw new ClinicaModelValidationException("No existe registros de tarjetas pendientes de pago en el expediente");

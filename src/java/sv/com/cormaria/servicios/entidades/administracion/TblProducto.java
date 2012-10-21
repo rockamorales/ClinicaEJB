@@ -4,7 +4,7 @@
  */
 package sv.com.cormaria.servicios.entidades.administracion;
 
-import sv.com.cormaria.servicios.enums.CategoriasProducto;
+
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -15,12 +15,17 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import sv.com.cormaria.servicios.enums.CategoriasProducto;
+import sv.com.cormaria.servicios.entidades.catalogos.CatCategoriaProducto;
+import sv.com.cormaria.servicios.entidades.catalogos.CatClasificacionProducto;
+import sv.com.cormaria.servicios.entidades.catalogos.CatPresentacionProducto;
+import sv.com.cormaria.servicios.entidades.catalogos.CatTipoProducto;
 /**
  *
  * @author Mackk
@@ -31,9 +36,9 @@ import sv.com.cormaria.servicios.enums.CategoriasProducto;
     @NamedQuery(name = "TblProducto.findAll", query = "SELECT t FROM TblProducto t"),
     @NamedQuery(name = "TblProdcuto.findByNombreProducto", query = "SELECT t FROM TblProducto t WHERE t.nomProducto LIKE :nomProducto"),
     @NamedQuery(name = "TblProducto.findActive", query = "SELECT t FROM TblProducto t WHERE t.estProducto = 1"),
-    @NamedQuery(name = "TblProducto.findMedicamentos", query = "SELECT t FROM TblProducto t WHERE t.estProducto = 1 and t.codTipProducto = 1"),
-    @NamedQuery(name = "TblProducto.findActiveServices", query = "SELECT t FROM TblProducto t WHERE t.estProducto = 1 and t.catProducto = 1"),
-    @NamedQuery(name = "TblProducto.findTarjetaControl", query = "SELECT t FROM TblProducto t WHERE t.estProducto = 1 and t.catProducto = 2")
+    @NamedQuery(name = "TblProducto.findMedicamentos", query = "SELECT t FROM TblProducto t WHERE t.estProducto = 1 and t.codTipProducto = 1 "),
+    @NamedQuery(name = "TblProducto.findActiveServices", query = "SELECT t FROM TblProducto t WHERE t.estProducto = 1 and t.codCatProducto = 1 "),
+    @NamedQuery(name = "TblProducto.findTarjetaControl", query = "SELECT t FROM TblProducto t WHERE t.estProducto = 1 and t.codTipProducto = 5")
 })
 public class TblProducto implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -50,14 +55,13 @@ public class TblProducto implements Serializable {
     @Size(max = 100, message = "El nombre generico del producto no debe ser mayor de 100 caracteres")
     @Column(name = "NOM_GEN_PRODUCTO")
     private String nomGenProducto;
-    @Size(max = 100, message = "La clasificacion del producto no deber ser mayor de 100 caracteres")
-    @Column(name = "CLA_PRODUCTO")
-    private String claProducto;
+    @NotNull(message = "Ingrese la clasificacion de producto")
+    @Column(name = "COD_CLA_PRODUCTO")
+    private Integer codClaProducto;
     @Basic(optional = false)
     @NotNull(message = "Ingrese la presentacion del producto")
-    @Size(min = 1, max = 50, message = "La presentacion no debe ser mayor de 50 caracteres")
-    @Column(name = "PRE_PRODUCTO")
-    private String preProducto;
+    @Column(name = "COD_PRE_PRODUCTO")
+    private Integer codPreProducto;
     @Basic(optional = false)
     @NotNull(message = "Ingrese si el producto es perecedero")
     @Column(name = "PER_PRODUCTO")
@@ -111,12 +115,27 @@ public class TblProducto implements Serializable {
     
     @Basic(optional=false)
     @NotNull(message="Por especifique la categoria para el producto")
-    @Column(name="CAT_PRODUCTO")
-    @Enumerated(EnumType.ORDINAL)
-    private CategoriasProducto catProducto;
+    @Column(name="COD_CAT_PRODUCTO")
+    private Integer codCatProducto;
 
     @Column(name="COD_TIP_PRODUCTO")
     private Integer codTipProducto;
+
+    @ManyToOne
+    @JoinColumn(name="COD_TIP_PRODUCTO", referencedColumnName="COD_TIP_PRODUCTO", insertable=false, updatable=false)
+    private CatTipoProducto catTipoProducto;
+    
+    @ManyToOne
+    @JoinColumn(name="COD_CAT_PRODUCTO", referencedColumnName="COD_CAT_PRODUCTO", insertable=false, updatable=false)
+    private CatCategoriaProducto catCategoriaProducto;
+    
+    @ManyToOne
+    @JoinColumn(name="COD_CLA_PRODUCTO", referencedColumnName="COD_CLA_PRODUCTO", insertable=false, updatable=false)
+    private CatClasificacionProducto catClasificacionProducto;
+    @ManyToOne
+    @JoinColumn(name="COD_PRE_PRODUCTO", referencedColumnName="COD_PRE_PRODUCTO", insertable=false, updatable=false)
+    private CatPresentacionProducto catPresentacionProducto;
+    
     
     public TblProducto() {
     }
@@ -125,29 +144,61 @@ public class TblProducto implements Serializable {
         this.numProducto = numProducto;
     }
 
-    public TblProducto(Integer numProducto, String nomProducto, String preProducto, boolean perProducto, String conProducto, String fabProducto, String disProducto, int exiProducto, int exiMinProducto, int resProducto, boolean tipConProducto, float valProducto, float preFinProducto, int estProducto) {
-        this.numProducto = numProducto;
-        this.nomProducto = nomProducto;
-        this.preProducto = preProducto;
-        this.perProducto = perProducto;
-        this.conProducto = conProducto;
-        this.fabProducto = fabProducto;
-        this.disProducto = disProducto;
-        this.exiProducto = exiProducto;
-        this.exiMinProducto = exiMinProducto;
-        this.resProducto = resProducto;
-        this.tipConProducto = tipConProducto;
-        this.valProducto = valProducto;
-        this.preFinProducto = preFinProducto;
-        this.estProducto = estProducto;
+    public Integer getCodClaProducto() {
+        return codClaProducto;
     }
 
-    public CategoriasProducto getCatProducto() {
-        return catProducto;
+    public void setCodClaProducto(Integer codClaProducto) {
+        this.codClaProducto = codClaProducto;
     }
 
-    public void setCatProducto(CategoriasProducto catProducto) {
-        this.catProducto = catProducto;
+    public Integer getCodCatProducto() {
+        return codCatProducto;
+    }
+
+    public Integer getCodPreProducto() {
+        return codPreProducto;
+    }
+
+    public void setCodPreProducto(Integer codPreProducto) {
+        this.codPreProducto = codPreProducto;
+    }
+    
+
+    public void setCodCatProducto(Integer codCatProducto) {
+        this.codCatProducto = codCatProducto;
+    }
+
+    public CatCategoriaProducto getCatCategoriaProducto() {
+        return catCategoriaProducto;
+    }
+
+    public void setCatCategoriaProducto(CatCategoriaProducto catCategoriaProducto) {
+        this.catCategoriaProducto = catCategoriaProducto;
+    }
+
+    public CatClasificacionProducto getCatClasificacionProducto() {
+        return catClasificacionProducto;
+    }
+
+    public CatTipoProducto getCatTipoProducto() {
+        return catTipoProducto;
+    }
+
+    public void setCatTipoProducto(CatTipoProducto catTipoProducto) {
+        this.catTipoProducto = catTipoProducto;
+    }
+
+    public void setCatClasificacionProducto(CatClasificacionProducto catClasificacionProducto) {
+        this.catClasificacionProducto = catClasificacionProducto;
+    }
+
+    public CatPresentacionProducto getCatPresentacionProducto() {
+        return catPresentacionProducto;
+    }
+
+    public void setCatPresentacionProducto(CatPresentacionProducto catPresentacionProducto) {
+        this.catPresentacionProducto = catPresentacionProducto;
     }
 
     public Integer getCodTipProducto() {
@@ -182,21 +233,6 @@ public class TblProducto implements Serializable {
         this.nomGenProducto = nomGenProducto;
     }
 
-    public String getClaProducto() {
-        return claProducto;
-    }
-
-    public void setClaProducto(String claProducto) {
-        this.claProducto = claProducto;
-    }
-
-    public String getPreProducto() {
-        return preProducto;
-    }
-
-    public void setPreProducto(String preProducto) {
-        this.preProducto = preProducto;
-    }
 
     public boolean getPerProducto() {
         return perProducto;

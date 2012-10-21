@@ -45,6 +45,16 @@ public class CatTipoProductoFacade extends AbstractFacade<CatTipoProducto> imple
     }
 
     @Override
+    public List<CatTipoProducto> findActive() throws ClinicaModelexception {
+        try{
+            Query q = em.createNamedQuery("CatTipoProducto.findActive");
+            return q.getResultList();
+        }catch(Exception ex){
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
+    
+    @Override
     public List<CatTipoProducto> findRange(int[] range) throws ClinicaModelexception {
         try{
             Query q = em.createNamedQuery("CatTipoProducto.findAll");

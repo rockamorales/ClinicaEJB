@@ -33,6 +33,8 @@ public interface TblProductoFacadeLocal {
     public List<TblProducto> findByNombreProducto(String nomProducto, int firstRow, int maxResults) throws ClinicaModelexception;    
     
     public List<TblProducto> findActive() throws ClinicaModelexception;
+    
+    public void desactivar(Integer numProducto) throws ClinicaModelexception;
 
     public List<TblProducto> findActiveServices() throws ClinicaModelexception;    
     
