@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -58,7 +59,7 @@ public class TblAlquilerEquipo implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "NUM_EXPEDIENTE", referencedColumnName="NUM_EXPEDIENTE", insertable=false, updatable=false)
-    private TblExpedientePacientes expediente = new TblExpedientePacientes();
+    private TblExpedientePacientes expediente;
 
     public TblAlquilerEquipo() {
     }
@@ -119,6 +120,11 @@ public class TblAlquilerEquipo implements Serializable {
 
     public void setMotSolAlquiler(String motSolAlquiler) {
         this.motSolAlquiler = motSolAlquiler;
+    }
+    
+    @PrePersist
+    public void prePersist(){
+        this.fecRegAlquiler = new java.util.Date();
     }
 
     @Override
