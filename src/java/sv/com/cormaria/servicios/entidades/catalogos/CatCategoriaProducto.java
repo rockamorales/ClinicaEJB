@@ -32,6 +32,7 @@ import sv.com.cormaria.servicios.enums.Estado;
    })    
 public class CatCategoriaProducto implements Serializable {
     private static final long serialVersionUID = 1L;
+    public static final Integer TARJETA_CONTROL=5;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
