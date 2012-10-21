@@ -4,7 +4,6 @@
  */
 package sv.com.cormaria.servicios.entidades.farmacia;
 
-import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -20,8 +19,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
+import sv.com.cormaria.servicios.enums.EstadoAlquiler;
 
 /**
  *
@@ -30,27 +29,36 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "tbl_alquiler_equipo")
 @NamedQueries({
-    @NamedQuery(name = "TblAlquilerEquipo.findAll", query = "SELECT t FROM TblAlquilerEquipo t")})
+    @NamedQuery(name = "TblAlquilerEquipo.findAll", query = "SELECT t FROM TblAlquilerEquipo t")
+})
 public class TblAlquilerEquipo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
+    @Basic
     @Column(name = "NUM_SOL_ALQUILER")
     private Integer numSolAlquiler;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese la fecha de Registro del Alquiler")
+    
+    @Basic
+    @Column(name = "EST_ALQUILER")
+    private EstadoAlquiler estAlquiler;
+
+    @Basic
     @Column(name = "FEC_REG_ALQUILER")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fecRegAlquiler;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese Motivo de Solicitud del alquiler")
-    @Size(min = 1, max = 500)
+    
+    @Basic
     @Column(name = "MOT_SOL_ALQUILER")
     private String motSolAlquiler;
-    @JoinColumn(name = "NUM_EXPEDIENTE", referencedColumnName = "NUM_EXPEDIENTE")
-    @ManyToOne(optional = false)
-    private TblExpedientePacientes numExpediente;
+    
+    @Basic
+    @Column(name = "NUM_EXPEDIENTE")
+    private Integer numExpediente;
+
+    @ManyToOne
+    @JoinColumn(name = "NUM_EXPEDIENTE", referencedColumnName="NUM_EXPEDIENTE", insertable=false, updatable=false)
+    private TblExpedientePacientes expediente = new TblExpedientePacientes();
 
     public TblAlquilerEquipo() {
     }
@@ -63,6 +71,30 @@ public class TblAlquilerEquipo implements Serializable {
         this.numSolAlquiler = numSolAlquiler;
         this.fecRegAlquiler = fecRegAlquiler;
         this.motSolAlquiler = motSolAlquiler;
+    }
+
+    public EstadoAlquiler getEstAlquiler() {
+        return estAlquiler;
+    }
+
+    public void setEstAlquiler(EstadoAlquiler estAlquiler) {
+        this.estAlquiler = estAlquiler;
+    }
+
+    public TblExpedientePacientes getExpediente() {
+        return expediente;
+    }
+
+    public void setExpediente(TblExpedientePacientes expediente) {
+        this.expediente = expediente;
+    }
+
+    public Integer getNumExpediente() {
+        return numExpediente;
+    }
+
+    public void setNumExpediente(Integer numExpediente) {
+        this.numExpediente = numExpediente;
     }
 
     public Integer getNumSolAlquiler() {
@@ -89,14 +121,6 @@ public class TblAlquilerEquipo implements Serializable {
         this.motSolAlquiler = motSolAlquiler;
     }
 
-    public TblExpedientePacientes getNumExpediente() {
-        return numExpediente;
-    }
-
-    public void setNumExpediente(TblExpedientePacientes numExpediente) {
-        this.numExpediente = numExpediente;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -120,6 +144,5 @@ public class TblAlquilerEquipo implements Serializable {
     @Override
     public String toString() {
         return "sv.com.cormaria.servicios.entidades.catalogos.TblAlquilerEquipo[ numSolAlquiler=" + numSolAlquiler + " ]";
-    }
-    
+    }    
 }

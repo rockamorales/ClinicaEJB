@@ -24,11 +24,13 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "tbl_detalle_alquiler_equipo")
 @NamedQueries({
-    @NamedQuery(name = "TblDetalleAlquilerEquipo.findAll", query = "SELECT t FROM TblDetalleAlquilerEquipo t")})
+    @NamedQuery(name = "TblDetalleAlquilerEquipo.findAll", query = "SELECT t FROM TblDetalleAlquilerEquipo t"),
+    @NamedQuery(name = "TblDetalleAlquilerEquipo.findByNumSolAlquiler", query = "SELECT t FROM TblDetalleAlquilerEquipo t where t.tblDetalleAlquilerEquipoPK.numSolAlquiler=:numSolAlquiler")
+})
 public class TblDetalleAlquilerEquipo implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected TblDetalleAlquilerEquipoPK tblDetalleAlquilerEquipoPK;
+    protected TblDetalleAlquilerEquipoPK tblDetalleAlquilerEquipoPK = new TblDetalleAlquilerEquipoPK();
     @Basic(optional = false)
     @NotNull (message="Ingres el correlativo del detalle de alquiler")
     @Column(name = "COR_DET_ALQUILER")

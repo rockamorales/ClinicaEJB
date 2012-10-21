@@ -6,6 +6,7 @@ package sv.com.cormaria.servicios.facades.farmacia;
 
 import java.util.List;
 import javax.ejb.Local;
+import sv.com.cormaria.servicios.criteria.ISearchable;
 import sv.com.cormaria.servicios.entidades.farmacia.TblAlquilerEquipo;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 
@@ -14,7 +15,7 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
  * @author Mackk
  */
 @Local
-public interface TblAlquilerEquipoFacadeLocal {
+public interface TblAlquilerEquipoFacadeLocal extends ISearchable<TblAlquilerEquipo> {
 
     TblAlquilerEquipo create(TblAlquilerEquipo tblAlquilerEquipo) throws ClinicaModelexception;
 

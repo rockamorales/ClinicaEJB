@@ -29,5 +29,6 @@ public interface TblDetalleAlquilerEquipoFacadeLocal {
     List<TblDetalleAlquilerEquipo> findRange(int[] range)  throws ClinicaModelexception;
 
     int count()  throws ClinicaModelexception;
-    
+
+    public List<TblDetalleAlquilerEquipo> findByNumSolAlquiler(Integer numSolAlquiler) throws ClinicaModelexception;
 }

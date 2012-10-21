@@ -8,6 +8,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import sv.com.cormaria.servicios.entidades.farmacia.TblDetalleAlquilerEquipo;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
@@ -27,6 +28,17 @@ public class TblDetalleAlquilerEquipoFacade extends AbstractFacade<TblDetalleAlq
 
     public TblDetalleAlquilerEquipoFacade() {
         super(TblDetalleAlquilerEquipo.class);
+    }
+    
+    public List<TblDetalleAlquilerEquipo> findByNumSolAlquiler(Integer numSolAlquiler) throws ClinicaModelexception{
+        try{
+            Query q = em.createNamedQuery("TblDetalleAlquilerEquipo.findByNumSolAlquiler");
+            q.setParameter("numSolAlquiler", numSolAlquiler);
+            return q.getResultList();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
     }
 
     @Override

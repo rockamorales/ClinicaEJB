@@ -19,41 +19,41 @@ public class TblDetalleAlquilerEquipoPK implements Serializable {
     @Basic(optional = false)
     @NotNull (message = "Ingrese el número de la solicitud de alquiler")
     @Column(name = "NUM_SOL_ALQUILER")
-    private int numSolAlquiler;
+    private Integer numSolAlquiler;
     @Basic(optional = false)
     @NotNull(message = "Ingrese el número del producto")
     @Column(name = "NUM_PRODUCTO")
-    private int numProducto;
+    private Integer numProducto;
 
     public TblDetalleAlquilerEquipoPK() {
     }
 
-    public TblDetalleAlquilerEquipoPK(int numSolAlquiler, int numProducto) {
+    public TblDetalleAlquilerEquipoPK(Integer numSolAlquiler, Integer numProducto) {
         this.numSolAlquiler = numSolAlquiler;
         this.numProducto = numProducto;
     }
 
-    public int getNumSolAlquiler() {
+    public Integer getNumSolAlquiler() {
         return numSolAlquiler;
     }
 
-    public void setNumSolAlquiler(int numSolAlquiler) {
+    public void setNumSolAlquiler(Integer numSolAlquiler) {
         this.numSolAlquiler = numSolAlquiler;
     }
 
-    public int getNumProducto() {
+    public Integer getNumProducto() {
         return numProducto;
     }
 
-    public void setNumProducto(int numProducto) {
+    public void setNumProducto(Integer numProducto) {
         this.numProducto = numProducto;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) numSolAlquiler;
-        hash += (int) numProducto;
+        hash += (Integer) numSolAlquiler;
+        hash += (Integer) numProducto;
         return hash;
     }
 
