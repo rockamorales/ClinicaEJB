@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import sv.com.cormaria.servicios.entidades.farmacia.TblAlquilerEquipo;
+import sv.com.cormaria.servicios.enums.EstadoAlquiler;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
 
@@ -29,6 +30,15 @@ public class TblAlquilerEquipoFacade extends AbstractFacade<TblAlquilerEquipo> i
         super(TblAlquilerEquipo.class);
     }
 
+    public void remove(TblAlquilerEquipo entity) throws ClinicaModelexception {
+        try{
+            TblAlquilerEquipo entity1 = em.find(TblAlquilerEquipo.class, entity.getNumSolAlquiler());
+            entity1.setEstAlquiler(EstadoAlquiler.ELIMINADO);
+        }catch(Exception ex){
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }        
+    }    
+    
     @Override
     public List<TblAlquilerEquipo> findAll() throws ClinicaModelexception {
         throw new UnsupportedOperationException("Not supported yet.");

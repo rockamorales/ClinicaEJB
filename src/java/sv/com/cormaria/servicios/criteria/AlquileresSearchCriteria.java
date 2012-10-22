@@ -119,7 +119,7 @@ public class AlquileresSearchCriteria implements SearchCriteria {
     @Override
     public String createQuery() {
         StringBuffer strSelect = new StringBuffer("Select r from TblAlquilerEquipo r ");
-        StringBuffer strSort = new StringBuffer(" order by r.fecRequisicion ");
+        StringBuffer strSort = new StringBuffer(" order by r.fecRegAlquiler ");
         String strWhere = createWhere();
         return strSelect + " " + strWhere + " " + strSort;
     }
