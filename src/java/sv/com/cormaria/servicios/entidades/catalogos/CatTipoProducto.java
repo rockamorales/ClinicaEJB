@@ -25,7 +25,9 @@ import sv.com.cormaria.servicios.enums.Estado;
 @Entity
 @Table(name = "cat_tipo_producto")
 @NamedQueries({
-    @NamedQuery(name = "CatTipoProducto.findAll", query = "SELECT c FROM CatTipoProducto c")})
+    @NamedQuery(name = "CatTipoProducto.findAll", query = "SELECT c FROM CatTipoProducto c"),
+    @NamedQuery(name = "CatTipoProducto.findActive", query = "SELECT c FROM CatTipoProducto c where c.actTipProducto = 1")
+})
 public class CatTipoProducto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
