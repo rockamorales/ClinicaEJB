@@ -15,7 +15,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 
 /**
@@ -59,6 +58,7 @@ public class TblDetalleComprobanteDonacion implements Serializable {
     @ManyToOne    
     @JoinColumn(name = "NUM_PRODUCTO", referencedColumnName = "NUM_PRODUCTO", insertable = false, updatable = false)
     private TblProducto tblProducto;
+    
     @JoinColumn(name = "NUM_COM_DONACION", referencedColumnName = "NUM_COM_DONACION", insertable = false, updatable = false)
     @ManyToOne
     private TblComprobanteDonacion tblComprobanteDonacion;

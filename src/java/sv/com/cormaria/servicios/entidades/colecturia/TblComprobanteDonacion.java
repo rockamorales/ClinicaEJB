@@ -20,12 +20,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import sv.com.cormaria.servicios.entidades.administracion.TblInstitucion;
 import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
-import sv.com.cormaria.servicios.entidades.catalogos.CatTipoDonacion;
+import sv.com.cormaria.servicios.entidades.catalogos.CatBancos;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoDonante;
+import sv.com.cormaria.servicios.entidades.catalogos.CatTipoPago;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
 
 /**
@@ -43,70 +42,98 @@ public class TblComprobanteDonacion implements Serializable {
     @Basic(optional = false)
     @Column(name = "NUM_COM_DONACION")
     private Integer numComDonacion;
+
     @Basic
     @Column(name = "COD_BANCO")
     private Integer codBanco;
-    @NotNull(message = "Ingrese el codigo de Carisma")
+    
     @Column(name = "COD_CARISMA")
     private Integer codCarisma;    
-    @NotNull(message = "Ingrese el codigo del tipo donante")
+    
     @Column(name = "COD_TIP_DONANTE")
     private Integer codTipDonante;    
-    @NotNull(message = "Ingrese el numero del empleado")
+    
     @Column(name = "NUM_EMPLEADO")
     private Integer numEmpleado;
+    
     @Column(name = "COD_TIP_PAGO")
     private Integer codTipPago;
-    @NotNull(message ="Ingrese el codigo del tipo de donacion")
+    
     @Column(name = "COD_TIP_DONACION")
     private Integer codTipDonacion;    
-    @Basic(optional = false)
-    @NotNull (message = "Ingrese la fecha del comprobante de donacion")
+    
+    @Basic
     @Column(name = "FEC_COM_DONACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecComDonacion;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la cantidad en letras")
-    @Size(min = 1, max = 100, message = "La cantodad en letras no debe ser mayor de 100 caracteres")
+    
+    @Basic
     @Column(name = "CAN_LETRAS")
     private String canLetras;
+    
     @Basic
     @Column(name = "TOT_DONACION")
     private float totDonacion;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el estado de la donacion")
+    
+    @Basic
     @Column(name = "EST_COM_DONACION")
     private EstadoComprobanteDonacion estComDonacion;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el nombre de la persona que realizara el pago")
-    @Size(min = 1, max = 100)
+    
+    @Basic
     @Column(name = "NOM_COM_DONACION")
     private String nomComDonacion;
+    
     @Column(name = "NIT_COM_DONACION")
     private Integer nitComDonacion;
-    @NotNull(message = "Ingrese el numero de expediente")
+    
     @Column(name = "NUM_EXPEDIENTE")
     private Integer numExpediente;    
-    @NotNull(message = "Ingrese el numero de institucion")
+
     @Column(name = "NUM_INSTITUCION")
     private Integer numInstitucion;
+    
     @Transient
     private float montoRecibido;
+    
     @Transient
     private float cambio;
     
     @ManyToOne
     @JoinColumn(name="COD_TIP_DONANTE", referencedColumnName="COD_TIP_DONANTE", insertable=false, updatable=false)
     private CatTipoDonante catTipoDonante;
-    
+
+    @ManyToOne
+    @JoinColumn(name="COD_TIP_PAGO", referencedColumnName="COD_TIP_PAGO", insertable=false, updatable=false)
+    private CatTipoPago catTipoPago;
+
+    @ManyToOne
+    @JoinColumn(name="COD_BANCO", referencedColumnName="COD_BANCO", insertable=false, updatable=false)
+    private CatBancos catBanco;
+        
     @ManyToOne
     @JoinColumn(name="NUM_EXPEDIENTE", referencedColumnName="NUM_EXPEDIENTE", insertable=false, updatable=false)
-    private TblExpedientePacientes tblExpedientePacientes;    
+    private TblExpedientePacientes tblExpedientePacientes;
 
     @ManyToOne
     @JoinColumn(name="NUM_INSTITUCION", referencedColumnName="NUM_INSTITUCION", insertable=false, updatable=false)
     private TblInstitucion tblInstitucion;
-   
+
+    public CatTipoPago getCatTipoPago() {
+        return catTipoPago;
+    }
+
+    public void setCatTipoPago(CatTipoPago catTipoPago) {
+        this.catTipoPago = catTipoPago;
+    }
+
+    public CatBancos getCatBanco() {
+        return catBanco;
+    }
+
+    public void setCatBanco(CatBancos catBanco) {
+        this.catBanco = catBanco;
+    }
+
     public TblExpedientePacientes getTblExpedientePacientes() {
         return tblExpedientePacientes;
     }
@@ -305,13 +332,8 @@ public class TblComprobanteDonacion implements Serializable {
         return hash;
     }
 
-    
-    
-   
-
     @Override
     public String toString() {
         return "sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion[ numComDonacion=" + numComDonacion + " ]";
-    }
-    
+    }    
 }

@@ -4,6 +4,7 @@
  */
 package sv.com.cormaria.servicios.facades.colecturia;
 
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
@@ -12,10 +13,12 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import sv.com.cormaria.servicios.entidades.archivo.EstadoServiciosEnfermeria;
 import sv.com.cormaria.servicios.entidades.archivo.TblServiciosEnfermeria;
 import sv.com.cormaria.servicios.entidades.archivo.TblTarjetaControlCitas;
 import sv.com.cormaria.servicios.entidades.catalogos.CatCategoriaProducto;
+import sv.com.cormaria.servicios.entidades.colecturia.CorteDiario;
 import sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
@@ -45,6 +48,7 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
     @Resource
     SessionContext sessionContext;
 
+    @Override
     protected EntityManager getEntityManager() {
         return em;
     }
@@ -110,8 +114,31 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
                     TblServiciosEnfermeria serviciosEnfermeria = em.find(TblServiciosEnfermeria.class, detalle.getNumSerEnfermeria());
                     serviciosEnfermeria.setEstSerEnfermeria(EstadoServiciosEnfermeria.PAGADO);
                 }
-
             }
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
+    
+    @Override
+    public List<CorteDiario> calcularCorteDiario(Date fecCorte) throws ClinicaModelexception{
+        try{
+            Query q = em.createNamedQuery("CorteDiario.findByDate");
+            q.setParameter("fecComDonacion",fecCorte, TemporalType.DATE);
+            return q.getResultList();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
+
+    @Override
+    public List<CorteDiario> calcularCorteDiario1(Date fecCorte) throws ClinicaModelexception{
+        try{
+            Query q = em.createNamedQuery("CorteDiario.findByDateGroupByCodTipPagoAndCodBanco");
+            q.setParameter("fecComDonacion",fecCorte, TemporalType.DATE);
+            return q.getResultList();
         }catch(Exception ex){
             ex.printStackTrace();
             throw new ClinicaModelexception(ex.getMessage(), ex);

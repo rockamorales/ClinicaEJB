@@ -4,6 +4,7 @@
  */
 package sv.com.cormaria.servicios.facades.colecturia;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 import sv.com.cormaria.servicios.entidades.colecturia.TblLiquidacion;
@@ -29,5 +30,8 @@ public interface TblLiquidacionFacadeLocal {
     List<TblLiquidacion> findRange(int[] range) throws ClinicaModelexception;
 
     int count() throws ClinicaModelexception;
+
+    public TblLiquidacion findByDate(Date fecLiquidacion) throws ClinicaModelexception;
+    public List<TblLiquidacion> findByAll() throws ClinicaModelexception;
     
 }

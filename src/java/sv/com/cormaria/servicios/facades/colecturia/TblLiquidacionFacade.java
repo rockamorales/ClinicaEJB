@@ -4,10 +4,14 @@
  */
 package sv.com.cormaria.servicios.facades.colecturia;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import sv.com.cormaria.servicios.entidades.colecturia.TblLiquidacion;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
@@ -27,6 +31,30 @@ public class TblLiquidacionFacade extends AbstractFacade<TblLiquidacion> impleme
 
     public TblLiquidacionFacade() {
         super(TblLiquidacion.class);
+    }
+    
+    public TblLiquidacion findByDate(Date fecLiquidacion) throws ClinicaModelexception{
+        try{
+            Query q = em.createNamedQuery("TblLiquidacion.findByDate");
+            q.setParameter("fecLiquidacion", fecLiquidacion, TemporalType.DATE);
+            return (TblLiquidacion) q.getSingleResult();
+        }catch(NoResultException ex){
+            return null;
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
+    public List<TblLiquidacion> findByAll() throws ClinicaModelexception{
+        try{
+            Query q = em.createNamedQuery("TblLiquidacion.findAll");
+            return q.getResultList();
+        }catch(NoResultException ex){
+            return null;
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
     }
 
     @Override

@@ -5,10 +5,8 @@
 package sv.com.cormaria.servicios.entidades.colecturia;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,12 +14,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -30,72 +25,67 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "tbl_liquidacion")
 @NamedQueries({
-    @NamedQuery(name = "TblLiquidacion.findAll", query = "SELECT t FROM TblLiquidacion t")})
+    @NamedQuery(name = "TblLiquidacion.findAll", query = "SELECT t FROM TblLiquidacion t"),
+    @NamedQuery(name = "TblLiquidacion.findByDate", query = "SELECT t FROM TblLiquidacion t where t.fecLiquidacion = :fecLiquidacion")
+})
 public class TblLiquidacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
+    @Basic
     @Column(name = "NUM_LIQUIDACION")
     private Integer numLiquidacion;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la fecha de liquifación")
+    @Basic
     @Column(name = "FEC_LIQUIDACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecLiquidacion;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la cantidad de billetes de $100")
+    @Basic
     @Column(name = "CAN_BIL_100")
-    private short canBil100;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la cantidad de billetes de $50")
+    private Integer canBil100;
+    @Basic
     @Column(name = "CAN_BIL_50")
-    private short canBil50;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la cantidad de billetes de $20")
+    private Integer canBil50;
+    @Basic
     @Column(name = "CAN_BIL_20")
-    private short canBil20;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la cantidad de billetes de $10")
+    private Integer canBil20;
+    @Basic
     @Column(name = "CAN_BIL_10")
-    private short canBil10;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la cantidad de billetes de $5")
+    private Integer canBil10;
+    @Basic
     @Column(name = "CAN_BIL_5")
-    private short canBil5;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la cantidad de billetes de $1")
+    private Integer canBil5;
+    @Basic
     @Column(name = "CAN_BIL_1")
-    private short canBil1;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el monto en monedas")
+    private Integer canBil1;
+    @Basic
     @Column(name = "MON_MONEDA")
-    private float monMoneda;
-    @Basic(optional = false)
-    @NotNull(message ="Ingrese la cantidad sobrante")
+    private Double monMoneda;
+    @Basic
     @Column(name = "CAN_SOBRANTE")
-    private float canSobrante;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la cantidad faltante")
+    private Double canSobrante;
+    @Basic
     @Column(name = "CAN_FALTANTE")
-    private float canFaltante;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el total de efectivo")
+    private Double canFaltante;
+    @Basic
     @Column(name = "TOT_EFECTIVO")
-    private float totEfectivo;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el total en cheques")
+    private Double totEfectivo;
+    @Basic
     @Column(name = "TOT_CHEQUES")
-    private float totCheques;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el total del corte")
+    private Double totCheques;
+    @Basic
+    @Column(name = "TOT_COR_EFECTIVO")
+    private Double totCorEfectivo;
+    @Basic
+    @Column(name = "TOT_COR_CHEQUES")
+    private Double totCorCheque;
+    @Basic
     @Column(name = "TOT_CORTE")
-    private float totCorte;
-    @Size(max = 500, message = "La observación no debe ser mayor de 500 caracteres")
+    private Double totCorte;
     @Column(name = "OBS_LIQUIDACION")
     private String obsLiquidacion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblLiquidacion")
-    private Collection<TblDetalleCheques> tblDetalleChequesCollection;
+    
+    @Column(name = "NUM_EMPLEADO")
+    private Integer numEmpleado;
 
     public TblLiquidacion() {
     }
@@ -103,30 +93,21 @@ public class TblLiquidacion implements Serializable {
     public TblLiquidacion(Integer numLiquidacion) {
         this.numLiquidacion = numLiquidacion;
     }
-
-    public TblLiquidacion(Integer numLiquidacion, Date fecLiquidacion, short canBil100, short canBil50, short canBil20, short canBil10, short canBil5, short canBil1, float monMoneda, float canSobrante, float canFaltante, float totEfectivo, float totCheques, float totCorte) {
-        this.numLiquidacion = numLiquidacion;
-        this.fecLiquidacion = fecLiquidacion;
-        this.canBil100 = canBil100;
-        this.canBil50 = canBil50;
-        this.canBil20 = canBil20;
-        this.canBil10 = canBil10;
-        this.canBil5 = canBil5;
-        this.canBil1 = canBil1;
-        this.monMoneda = monMoneda;
-        this.canSobrante = canSobrante;
-        this.canFaltante = canFaltante;
-        this.totEfectivo = totEfectivo;
-        this.totCheques = totCheques;
-        this.totCorte = totCorte;
-    }
-
+        
     public Integer getNumLiquidacion() {
         return numLiquidacion;
     }
 
     public void setNumLiquidacion(Integer numLiquidacion) {
         this.numLiquidacion = numLiquidacion;
+    }
+
+    public Integer getNumEmpleado() {
+        return numEmpleado;
+    }
+
+    public void setNumEmpleado(Integer numEmpleado) {
+        this.numEmpleado = numEmpleado;
     }
 
     public Date getFecLiquidacion() {
@@ -137,102 +118,6 @@ public class TblLiquidacion implements Serializable {
         this.fecLiquidacion = fecLiquidacion;
     }
 
-    public short getCanBil100() {
-        return canBil100;
-    }
-
-    public void setCanBil100(short canBil100) {
-        this.canBil100 = canBil100;
-    }
-
-    public short getCanBil50() {
-        return canBil50;
-    }
-
-    public void setCanBil50(short canBil50) {
-        this.canBil50 = canBil50;
-    }
-
-    public short getCanBil20() {
-        return canBil20;
-    }
-
-    public void setCanBil20(short canBil20) {
-        this.canBil20 = canBil20;
-    }
-
-    public short getCanBil10() {
-        return canBil10;
-    }
-
-    public void setCanBil10(short canBil10) {
-        this.canBil10 = canBil10;
-    }
-
-    public short getCanBil5() {
-        return canBil5;
-    }
-
-    public void setCanBil5(short canBil5) {
-        this.canBil5 = canBil5;
-    }
-
-    public short getCanBil1() {
-        return canBil1;
-    }
-
-    public void setCanBil1(short canBil1) {
-        this.canBil1 = canBil1;
-    }
-
-    public float getMonMoneda() {
-        return monMoneda;
-    }
-
-    public void setMonMoneda(float monMoneda) {
-        this.monMoneda = monMoneda;
-    }
-
-    public float getCanSobrante() {
-        return canSobrante;
-    }
-
-    public void setCanSobrante(float canSobrante) {
-        this.canSobrante = canSobrante;
-    }
-
-    public float getCanFaltante() {
-        return canFaltante;
-    }
-
-    public void setCanFaltante(float canFaltante) {
-        this.canFaltante = canFaltante;
-    }
-
-    public float getTotEfectivo() {
-        return totEfectivo;
-    }
-
-    public void setTotEfectivo(float totEfectivo) {
-        this.totEfectivo = totEfectivo;
-    }
-
-    public float getTotCheques() {
-        return totCheques;
-    }
-
-    public void setTotCheques(float totCheques) {
-        this.totCheques = totCheques;
-    }
-
-    public float getTotCorte() {
-        return totCorte;
-    }
-
-    public void setTotCorte(float totCorte) {
-        this.totCorte = totCorte;
-    }
-
     public String getObsLiquidacion() {
         return obsLiquidacion;
     }
@@ -241,14 +126,118 @@ public class TblLiquidacion implements Serializable {
         this.obsLiquidacion = obsLiquidacion;
     }
 
-    public Collection<TblDetalleCheques> getTblDetalleChequesCollection() {
-        return tblDetalleChequesCollection;
+    public Integer getCanBil100() {
+        return canBil100;
     }
 
-    public void setTblDetalleChequesCollection(Collection<TblDetalleCheques> tblDetalleChequesCollection) {
-        this.tblDetalleChequesCollection = tblDetalleChequesCollection;
+    public void setCanBil100(Integer canBil100) {
+        this.canBil100 = canBil100;
     }
 
+    public Integer getCanBil50() {
+        return canBil50;
+    }
+
+    public void setCanBil50(Integer canBil50) {
+        this.canBil50 = canBil50;
+    }
+
+    public Integer getCanBil20() {
+        return canBil20;
+    }
+
+    public void setCanBil20(Integer canBil20) {
+        this.canBil20 = canBil20;
+    }
+
+    public Integer getCanBil10() {
+        return canBil10;
+    }
+
+    public void setCanBil10(Integer canBil10) {
+        this.canBil10 = canBil10;
+    }
+
+    public Integer getCanBil5() {
+        return canBil5;
+    }
+
+    public void setCanBil5(Integer canBil5) {
+        this.canBil5 = canBil5;
+    }
+
+    public Integer getCanBil1() {
+        return canBil1;
+    }
+
+    public void setCanBil1(Integer canBil1) {
+        this.canBil1 = canBil1;
+    }
+
+    public Double getMonMoneda() {
+        return monMoneda;
+    }
+
+    public void setMonMoneda(Double monMoneda) {
+        this.monMoneda = monMoneda;
+    }
+
+    public Double getCanSobrante() {
+        return canSobrante;
+    }
+
+    public void setCanSobrante(Double canSobrante) {
+        this.canSobrante = canSobrante;
+    }
+
+    public Double getCanFaltante() {
+        return canFaltante;
+    }
+
+    public void setCanFaltante(Double canFaltante) {
+        this.canFaltante = canFaltante;
+    }
+
+    public Double getTotEfectivo() {
+        return totEfectivo;
+    }
+
+    public void setTotEfectivo(Double totEfectivo) {
+        this.totEfectivo = totEfectivo;
+    }
+
+    public Double getTotCheques() {
+        return totCheques;
+    }
+
+    public void setTotCheques(Double totCheques) {
+        this.totCheques = totCheques;
+    }
+
+    public Double getTotCorEfectivo() {
+        return totCorEfectivo;
+    }
+
+    public void setTotCorEfectivo(Double totCorEfectivo) {
+        this.totCorEfectivo = totCorEfectivo;
+    }
+
+    public Double getTotCorCheque() {
+        return totCorCheque;
+    }
+
+    public void setTotCorCheque(Double totCorCheque) {
+        this.totCorCheque = totCorCheque;
+    }
+
+    public Double getTotCorte() {
+        return totCorte;
+    }
+
+    public void setTotCorte(Double totCorte) {
+        this.totCorte = totCorte;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
