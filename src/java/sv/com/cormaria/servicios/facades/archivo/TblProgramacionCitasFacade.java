@@ -102,6 +102,7 @@ public class TblProgramacionCitasFacade extends AbstractFacade<TblProgramacionCi
         throw new UnsupportedOperationException("Not supported yet.");
     }    
     
+    @Override
     public Map<Date, MonthDay> findScheduleByRange(Date startDate, Date endDate) throws ClinicaModelexception{
         Map<Date, MonthDay> scheduleMap = new HashMap<Date, MonthDay>();
         Query q = em.createNamedQuery("TblProgramacionCitas.findByRange");
@@ -153,6 +154,41 @@ public class TblProgramacionCitasFacade extends AbstractFacade<TblProgramacionCi
         //scheduleMap.put(oldDate, new MonthDay(daySchedule, scheduleCount));
         return scheduleMap;
     }
+
+    public Map<Date, MonthDay> findScheduleByRange(Date startDate, Date endDate, Integer numMedico) throws ClinicaModelexception{
+        Map<Date, MonthDay> scheduleMap = new HashMap<Date, MonthDay>();
+        Query q = em.createNamedQuery("TblProgramacionCitas.findByRangeAndNumMedico");
+        q.setParameter("startDate", startDate);
+        q.setParameter("endDate", endDate);
+        q.setParameter("numMedico", numMedico);
+        List<TblProgramacionCitas> citasList = q.getResultList();
+        //List<TblProgramacionCitas> daySchedule = new ArrayList<TblProgramacionCitas>();
+        //Date oldDate = null;
+        Calendar date;
+        MonthDay current;
+        for (TblProgramacionCitas tblProgramacionCitas : citasList) {
+            date = Calendar.getInstance();
+            date.setTime(tblProgramacionCitas.getFecCita());
+            date.set(Calendar.HOUR, 0);
+            date.set(Calendar.MINUTE, 0);
+            date.set(Calendar.SECOND, 0);
+            date.set(Calendar.MILLISECOND, 0);
+            if (scheduleMap.containsKey(date.getTime())){
+                current = scheduleMap.get(date.getTime());
+                current.addCount();
+                if (current.getScheduleCount() <= MonthDay.MAX_SCHEDULE_SHOW){
+                    current.getCitas().add(tblProgramacionCitas);
+                }
+            }else{
+                current = new MonthDay(new ArrayList<TblProgramacionCitas>(), 0);
+                scheduleMap.put(date.getTime(), current);
+                current.getCitas().add(tblProgramacionCitas);
+                current.addCount();
+            }
+        }
+        return scheduleMap;
+    }
+    
     
     public List<TblProgramacionCitas> findByDay(Date fecha) throws ClinicaModelexception{
         Query q = em.createNamedQuery("TblProgramacionCitas.findByRange");
@@ -167,6 +203,22 @@ public class TblProgramacionCitasFacade extends AbstractFacade<TblProgramacionCi
         q.setParameter("startDate", calStart.getTime());
         q.setParameter("endDate", calEnd.getTime());
         return q.getResultList();
-        
     }
+
+    public List<TblProgramacionCitas> findByDay(Date fecha, Integer numMedico) throws ClinicaModelexception{
+        Query q = em.createNamedQuery("TblProgramacionCitas.findByRangeAndNumMedico");
+        Calendar calStart = Calendar.getInstance();
+        Calendar calEnd = Calendar.getInstance();
+        calStart.setTime(fecha);
+        calEnd.setTime(fecha);
+        calEnd.add(Calendar.HOUR, 23);
+        calEnd.add(Calendar.MINUTE, 59);
+        calEnd.add(Calendar.SECOND, 59);
+        calEnd.add(Calendar.MILLISECOND, 999);
+        q.setParameter("startDate", calStart.getTime());
+        q.setParameter("endDate", calEnd.getTime());
+        q.setParameter("numMedico", numMedico);
+        return q.getResultList();
+    }
+
 }

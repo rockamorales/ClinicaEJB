@@ -46,7 +46,6 @@ public class CorteDiario implements Serializable {
 
     public CorteDiario() {
     }
-
     
     public CorteDiario(Integer correlativo, Date fecCorte, Integer codTipPago, Double total, CatTipoPago catTipPago) {
         this.correlativo = correlativo;
