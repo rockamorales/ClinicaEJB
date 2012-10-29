@@ -21,6 +21,7 @@ import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonac
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacionPK;
 import sv.com.cormaria.servicios.entidades.security.TblUsuarios;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
+import sv.com.cormaria.servicios.enums.TipoComprobanteDonacion;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelValidationException;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.catalogos.CatTipoServiciosEnfermeriaFacadeLocal;
@@ -99,6 +100,7 @@ public class TblServiciosEnfermeriaFacade extends AbstractFacade<TblServiciosEnf
            tblComprobante.setCanLetras("Cero");
            tblComprobante.setNumExpediente(expediente.getNumExpediente());
            tblComprobante.setNomComDonacion(expediente.getNomPaciente() + " " + expediente.getPriApePaciente() + " " + expediente.getSecApePaciente());
+           tblComprobante.setTipComprobante(TipoComprobanteDonacion.DONACION);
            comprobanteFacade.create(tblComprobante);
            System.out.println("Numero de comprobante: "+tblComprobante.getNumComDonacion());
            //Agregando la consulta
