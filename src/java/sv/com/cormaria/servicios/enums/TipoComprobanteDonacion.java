@@ -8,6 +8,6 @@ package sv.com.cormaria.servicios.enums;
  *
  * @author Mackk
  */
-public enum EstadoComprobanteDonacion {
-    EMITIDO, PAGADO, ANULADO, ABANDONADO, ELIMINADO
+public enum TipoComprobanteDonacion {
+    DOVOLUCION, DONACION
 }

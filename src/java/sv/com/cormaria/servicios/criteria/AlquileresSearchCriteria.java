@@ -137,6 +137,9 @@ public class AlquileresSearchCriteria implements SearchCriteria {
            strWhere.append(" r.numSolAlquiler = :numSolAlquiler");
         }
         if (this.getNumExpediente()!=null && this.getNumExpediente()>0){
+            if (strWhere.length() > 0){
+                    strWhere.append(" and ");
+            }
            strWhere.append(" r.numExpediente = :numExpediente");
         }
         if (this.getEndDate()!=null && this.getStartDate()!=null){
