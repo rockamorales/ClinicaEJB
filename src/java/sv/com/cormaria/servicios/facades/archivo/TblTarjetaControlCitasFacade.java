@@ -19,6 +19,7 @@ import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 import sv.com.cormaria.servicios.enums.Estado;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
 import sv.com.cormaria.servicios.enums.EstadoTarjeta;
+import sv.com.cormaria.servicios.enums.TipoComprobanteDonacion;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.colecturia.TblComprobanteDonacionFacadeLocal;
 import sv.com.cormaria.servicios.facades.colecturia.TblDetalleComprobanteDonacionFacadeLocal;
@@ -140,6 +141,7 @@ public class TblTarjetaControlCitasFacade extends AbstractFacade<TblTarjetaContr
            tblComprobante.setCanLetras("Cero");
            tblComprobante.setNumExpediente(expediente.getNumExpediente());
            tblComprobante.setNomComDonacion(expediente.getNomPaciente() + " " + expediente.getPriApePaciente() + " " + expediente.getSecApePaciente());
+           tblComprobante.setTipComprobante(TipoComprobanteDonacion.DONACION);
            comprobanteFacade.create(tblComprobante);
 
            TblDetalleComprobanteDonacion detalleComprobante = new TblDetalleComprobanteDonacion();

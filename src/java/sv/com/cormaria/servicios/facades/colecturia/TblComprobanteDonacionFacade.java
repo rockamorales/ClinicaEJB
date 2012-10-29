@@ -23,6 +23,7 @@ import sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
 import sv.com.cormaria.servicios.entidades.security.TblUsuarios;
+import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
 import sv.com.cormaria.servicios.enums.EstadoConsultas;
 import sv.com.cormaria.servicios.enums.EstadoTarjeta;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelValidationException;
@@ -139,6 +140,17 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
             Query q = em.createNamedQuery("CorteDiario.findByDateGroupByCodTipPagoAndCodBanco");
             q.setParameter("fecComDonacion",fecCorte, TemporalType.DATE);
             return q.getResultList();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
+    
+    @Override
+    public void anularComprobante(Integer numComprobante) throws ClinicaModelexception{
+        try{
+            TblComprobanteDonacion donacion = this.find(numComprobante);
+            donacion.setEstComDonacion(EstadoComprobanteDonacion.ANULADO);
         }catch(Exception ex){
             ex.printStackTrace();
             throw new ClinicaModelexception(ex.getMessage(), ex);

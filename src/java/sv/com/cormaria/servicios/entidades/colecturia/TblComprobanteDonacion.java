@@ -26,6 +26,7 @@ import sv.com.cormaria.servicios.entidades.catalogos.CatBancos;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoDonante;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoPago;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
+import sv.com.cormaria.servicios.enums.TipoComprobanteDonacion;
 
 /**
  *
@@ -48,7 +49,7 @@ public class TblComprobanteDonacion implements Serializable {
     private Integer codBanco;
     
     @Column(name = "COD_CARISMA")
-    private Integer codCarisma;    
+    private Integer codCarisma;
     
     @Column(name = "COD_TIP_DONANTE")
     private Integer codTipDonante;    
@@ -91,6 +92,12 @@ public class TblComprobanteDonacion implements Serializable {
 
     @Column(name = "NUM_INSTITUCION")
     private Integer numInstitucion;
+
+    @Column(name = "TIP_COMPROBANTE")
+    private TipoComprobanteDonacion tipComprobante;
+    
+    @Column(name="NUM_FAC_DONACION")
+    private String numFacDonacion;
     
     @Transient
     private float montoRecibido;
@@ -118,6 +125,22 @@ public class TblComprobanteDonacion implements Serializable {
     @JoinColumn(name="NUM_INSTITUCION", referencedColumnName="NUM_INSTITUCION", insertable=false, updatable=false)
     private TblInstitucion tblInstitucion;
 
+    public TipoComprobanteDonacion getTipComprobante() {
+        return tipComprobante;
+    }
+
+    public void setTipComprobante(TipoComprobanteDonacion tipComprobante) {
+        this.tipComprobante = tipComprobante;
+    }
+
+    public String getNumFacDonacion() {
+        return numFacDonacion;
+    }
+
+    public void setNumFacDonacion(String numFacDonacion) {
+        this.numFacDonacion = numFacDonacion;
+    }
+    
     public CatTipoPago getCatTipoPago() {
         return catTipoPago;
     }
