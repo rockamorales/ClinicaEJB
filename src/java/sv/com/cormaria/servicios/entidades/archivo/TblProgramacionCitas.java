@@ -31,7 +31,7 @@ import sv.com.cormaria.servicios.enums.EstadoProgramacionCitas;
 @NamedQueries({
     @NamedQuery(name = "TblProgramacionCitas.findAll", query = "SELECT t FROM TblProgramacionCitas t"),
     @NamedQuery(name = "TblProgramacionCitas.findByRange", query = "SELECT t FROM TblProgramacionCitas t where t.fecCita between :startDate and :endDate and t.estCita not in (1) order by t.fecCita, t.horCita"),
-    @NamedQuery(name = "TblProgramacionCitas.findByRangeAndNumMedico", query = "SELECT t FROM TblProgramacionCitas t where t.fecCita between :startDate and :endDate and t.numMedico = :numMedico and t.estCita not in (1) order by t.fecCita, t.horCita"),
+    @NamedQuery(name = "TblProgramacionCitas.findByRangeAndNumMedico", query = "SELECT t FROM TblProgramacionCitas t where t.fecCita between :startDate and :endDate and t.numMedico = :numMedico and t.estCita not in (1) order by t.fecCita, t.horCita")
 })
 public class TblProgramacionCitas implements Serializable {
     private static final long serialVersionUID = 1L;
