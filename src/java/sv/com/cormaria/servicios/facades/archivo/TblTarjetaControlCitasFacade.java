@@ -25,6 +25,7 @@ import sv.com.cormaria.servicios.facades.colecturia.TblComprobanteDonacionFacade
 import sv.com.cormaria.servicios.facades.colecturia.TblDetalleComprobanteDonacionFacadeLocal;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
 import sv.com.cormaria.servicios.facades.administracion.TblProductoFacadeLocal;
+import sv.com.cormaria.servicios.helpers.NumToText;
 
 /**
  *
@@ -141,7 +142,7 @@ public class TblTarjetaControlCitasFacade extends AbstractFacade<TblTarjetaContr
            tblComprobante.setCanLetras("Cero");
            tblComprobante.setNumExpediente(expediente.getNumExpediente());
            tblComprobante.setNomComDonacion(expediente.getNomPaciente() + " " + expediente.getPriApePaciente() + " " + expediente.getSecApePaciente());
-           tblComprobante.setTipComprobante(TipoComprobanteDonacion.DONACION);
+           tblComprobante.setTipComprobante(TipoComprobanteDonacion.COBRO);
            comprobanteFacade.create(tblComprobante);
 
            TblDetalleComprobanteDonacion detalleComprobante = new TblDetalleComprobanteDonacion();
@@ -155,6 +156,8 @@ public class TblTarjetaControlCitasFacade extends AbstractFacade<TblTarjetaContr
             pk.setNumProducto(tarjeta.getNumProducto());
             detalleComprobante.setTblDetalleComprobanteDonacionPK(pk);
             detalleComprobante.setTotIteComDonacion(tarjeta.getPreFinProducto());
+            tblComprobante.setTotDonacion(tarjeta.getPreFinProducto());
+            tblComprobante.setCanLetras(NumToText.convertirLetras(tblComprobante.getTotDonacion()));
             detalleComprobanteFacade.create(detalleComprobante);
           }
           return entity;
@@ -163,5 +166,3 @@ public class TblTarjetaControlCitasFacade extends AbstractFacade<TblTarjetaContr
         }
     }    
   }
-    
-
