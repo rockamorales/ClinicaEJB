@@ -14,7 +14,6 @@ import javax.persistence.PersistenceContext;
 import sv.com.cormaria.servicios.entidades.archivo.EstadoServiciosEnfermeria;
 import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.entidades.archivo.TblServiciosEnfermeria;
-import sv.com.cormaria.servicios.entidades.catalogos.CatEspecialidad;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoServiciosEnfermeria;
 import sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacion;
@@ -30,6 +29,7 @@ import sv.com.cormaria.servicios.facades.colecturia.TblDetalleComprobanteDonacio
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
 import sv.com.cormaria.servicios.facades.administracion.TblProductoFacadeLocal;
 import sv.com.cormaria.servicios.facades.security.TblUsuariosSessionFacadeLocal;
+import sv.com.cormaria.servicios.helpers.NumToText;
 
 /**
  *
@@ -100,7 +100,7 @@ public class TblServiciosEnfermeriaFacade extends AbstractFacade<TblServiciosEnf
            tblComprobante.setCanLetras("Cero");
            tblComprobante.setNumExpediente(expediente.getNumExpediente());
            tblComprobante.setNomComDonacion(expediente.getNomPaciente() + " " + expediente.getPriApePaciente() + " " + expediente.getSecApePaciente());
-           tblComprobante.setTipComprobante(TipoComprobanteDonacion.DONACION);
+           tblComprobante.setTipComprobante(TipoComprobanteDonacion.COBRO);
            comprobanteFacade.create(tblComprobante);
            System.out.println("Numero de comprobante: "+tblComprobante.getNumComDonacion());
            //Agregando la consulta
@@ -114,6 +114,8 @@ public class TblServiciosEnfermeriaFacade extends AbstractFacade<TblServiciosEnf
            detalleComprobante.setNumSerEnfermeria(servicio.getNumSerEnfermeria());
            detalleComprobante.setTblDetalleComprobanteDonacionPK(pk);
            detalleComprobante.setTotIteComDonacion(tipoServicio.getProducto().getPreFinProducto());
+           tblComprobante.setTotDonacion(tipoServicio.getProducto().getPreFinProducto());
+           tblComprobante.setCanLetras(NumToText.convertirLetras(tblComprobante.getTotDonacion()));
            detalleComprobanteFacade.create(detalleComprobante);
            return servicio;
         }catch(Exception ex){

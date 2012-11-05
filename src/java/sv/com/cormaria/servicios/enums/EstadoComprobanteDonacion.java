@@ -9,5 +9,5 @@ package sv.com.cormaria.servicios.enums;
  * @author Mackk
  */
 public enum EstadoComprobanteDonacion {
-    EMITIDO, PAGADO, ANULADO, ABANDONADO, ELIMINADO
+    EMITIDO, PAGADO, ANULADO, ABANDONADO, ELIMINADO, DEVUELTO
 }

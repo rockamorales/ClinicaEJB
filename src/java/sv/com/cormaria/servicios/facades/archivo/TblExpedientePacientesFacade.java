@@ -30,6 +30,7 @@ import sv.com.cormaria.servicios.facades.common.AbstractFacade;
 import sv.com.cormaria.servicios.facades.consultasmedicas.TblConsultasFacadeLocal;
 import sv.com.cormaria.servicios.facades.administracion.TblProductoFacadeLocal;
 import sv.com.cormaria.servicios.helpers.DateUtils;
+import sv.com.cormaria.servicios.helpers.NumToText;
 
 /**
  *
@@ -117,7 +118,7 @@ public class TblExpedientePacientesFacade extends AbstractFacade<TblExpedientePa
            tblComprobante.setCanLetras("Cero");
            tblComprobante.setNumExpediente(expediente.getNumExpediente());
            tblComprobante.setNomComDonacion(expediente.getNomPaciente() + " " + expediente.getPriApePaciente() + " " + expediente.getSecApePaciente());
-           tblComprobante.setTipComprobante(TipoComprobanteDonacion.DONACION);
+           tblComprobante.setTipComprobante(TipoComprobanteDonacion.COBRO);
            comprobanteFacade.create(tblComprobante);
            System.out.println("Numero de comprobante: "+tblComprobante.getNumComDonacion());
            //Agregando la consulta
@@ -131,6 +132,8 @@ public class TblExpedientePacientesFacade extends AbstractFacade<TblExpedientePa
            detalleComprobante.setNumConsulta(consulta.getNumConsulta());
            detalleComprobante.setTblDetalleComprobanteDonacionPK(pk);
            detalleComprobante.setTotIteComDonacion(especialidad.getTblProducto().getPreFinProducto());
+           tblComprobante.setTotDonacion(especialidad.getTblProducto().getPreFinProducto());
+           tblComprobante.setCanLetras(NumToText.convertirLetras(tblComprobante.getTotDonacion()));
            detalleComprobanteFacade.create(detalleComprobante);
            //Agregando la tarjeta
            List<TblTarjetaControlCitas> tarjetasNoPagadasList = tarjetaFacade.findNoPagadoByNumExpediente(expediente.getNumExpediente());
@@ -150,6 +153,8 @@ public class TblExpedientePacientesFacade extends AbstractFacade<TblExpedientePa
                    pk.setNumProducto(tarjeta.getNumProducto());
                    detalleComprobante.setTblDetalleComprobanteDonacionPK(pk);
                    detalleComprobante.setTotIteComDonacion(tarjeta.getPreFinProducto());
+                   tblComprobante.setTotDonacion(tblComprobante.getTotDonacion()+tarjeta.getPreFinProducto());
+                   tblComprobante.setCanLetras(NumToText.convertirLetras(tblComprobante.getTotDonacion()));
                    detalleComprobanteFacade.create(detalleComprobante);
                }
            }
@@ -158,9 +163,9 @@ public class TblExpedientePacientesFacade extends AbstractFacade<TblExpedientePa
            ex.printStackTrace();
            throw new ClinicaModelexception(ex.getMessage(), ex);
        }
-   } 
+   }
    
-    @Override
+   @Override
    public void remove(TblExpedientePacientes expediente) throws ClinicaModelexception{
        try{
             TblExpedientePacientes expediente1 = em.find(TblExpedientePacientes.class, expediente.getNumExpediente());

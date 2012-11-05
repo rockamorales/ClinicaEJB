@@ -75,6 +75,7 @@ public class TblDetalleComprobanteDonacionFacade extends AbstractFacade<TblDetal
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
     }    
+    
     @Override
     public TblDetalleComprobanteDonacion create(TblDetalleComprobanteDonacion entity) throws ClinicaModelexception{
         try{
@@ -82,7 +83,7 @@ public class TblDetalleComprobanteDonacionFacade extends AbstractFacade<TblDetal
             em.flush();
             double total = this.calcularTotal(entity.getTblDetalleComprobanteDonacionPK().getNumComDonacion());
             TblComprobanteDonacion comprobante = comprobanteFacade.find(entity.getTblDetalleComprobanteDonacionPK().getNumComDonacion());
-            comprobante.setCanLetras(new NumToText().convertirLetras((int)total));
+            comprobante.setCanLetras(NumToText.convertirLetras(total));
             comprobante.setTotDonacion((float)total);
             return entity;
         }catch(Exception ex){
@@ -97,7 +98,8 @@ public class TblDetalleComprobanteDonacionFacade extends AbstractFacade<TblDetal
             em.flush();
             double total = this.calcularTotal(entity.getTblDetalleComprobanteDonacionPK().getNumComDonacion());
             TblComprobanteDonacion comprobante = comprobanteFacade.find(entity.getTblDetalleComprobanteDonacionPK().getNumComDonacion());
-            comprobante.setTotDonacion((float)total);            
+            comprobante.setTotDonacion((float)total);
+            comprobante.setCanLetras(NumToText.convertirLetras(total));
         }catch(Exception ex){
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }        
