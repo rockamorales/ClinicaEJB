@@ -9,24 +9,24 @@ package sv.com.cormaria.servicios.helpers;
  * @author Administrador
  */
 public class NumToText {
-	private int flag;
-	public int numero;
-	public String importe_parcial;
-	public String num;
-	public String num_letra;
-	public String num_letras;
-	public String num_letram;
-	public String num_letradm;
-	public String num_letracm;
-	public String num_letramm;
-	public String num_letradmm;
+	private static int flag = 0;
+	public static int numero = 0;
+	public static String importe_parcial;
+	public static String num;
+	public static String num_letra;
+	public static String num_letras;
+	public static String num_letram;
+	public static String num_letradm;
+	public static String num_letracm;
+	public static String num_letramm;
+	public static String num_letradmm;
 	
 	public NumToText(){
 		numero = 0;
 		flag=0;
 	}
 	
-	private String unidad(int numero){
+	private static String unidad(int numero){
 		
 		switch (numero){
 		case 9:
@@ -66,7 +66,7 @@ public class NumToText {
 		return num;
 	}
 	
-	private String decena(int numero){
+	private static String decena(int numero){
 	
 		if (numero >= 90 && numero <= 99)
 		{
@@ -178,7 +178,7 @@ public class NumToText {
 	return num_letra;
 	}	
 
-	private String centena(int numero){
+	private static String centena(int numero){
 		if (numero >= 100)
 		{
 			if (numero >= 900 && numero <= 999)
@@ -243,7 +243,7 @@ public class NumToText {
 		return num_letra;	
 	}	
 
-	private String miles(int numero){
+	private static String miles(int numero){
 		if (numero >= 1000 && numero <2000){
 			num_letram = ("mil ").concat(centena(numero%1000));
 		}
@@ -257,7 +257,7 @@ public class NumToText {
 		return num_letram;
 	}		
 
-	private String decmiles(int numero){
+	private static String decmiles(int numero){
 		if (numero == 10000)
 			num_letradm = "diez mil";
 		if (numero > 10000 && numero <20000){
@@ -276,7 +276,7 @@ public class NumToText {
 		return num_letradm;
 	}		
 
-	private String cienmiles(int numero){
+	private static String cienmiles(int numero){
 		if (numero == 100000)
 			num_letracm = "cien mil";
 		if (numero >= 100000 && numero <1000000){
@@ -288,7 +288,7 @@ public class NumToText {
 		return num_letracm;
 	}		
 
-	private String millon(int numero){
+	private static String millon(int numero){
 		if (numero >= 1000000 && numero <2000000){
 			flag=1;
 			num_letramm = ("Un millon ").concat(cienmiles(numero%1000000));
@@ -303,9 +303,9 @@ public class NumToText {
 		return num_letramm;
 	}		
 	
-	private String decmillon(int numero){
+	private static String decmillon(int numero){
 		if (numero == 10000000)
-			num_letradmm = "diez millones";
+			num_letradmm = "diez millones ";
 		if (numero > 10000000 && numero <20000000){
 			flag=1;
 			num_letradmm = decena(numero/1000000).concat("millones ").concat(cienmiles(numero%1000000));		
@@ -322,8 +322,45 @@ public class NumToText {
 	}		
 
 	
-	public String convertirLetras(int numero){
+	public static String convertirLetras(int numero){
 		num_letras = decmillon(numero);
 		return num_letras;
 	}
+        
+        public static String capitalize(String parameter){
+            return parameter.substring(0,1).toUpperCase()+parameter.substring(1);
+        }
+        
+        public static String convertirLetras(double value){
+            return capitalize(NumToText.convertirLetras((int)value)+" con "+fill(getDecimalPartAsStringWithoutPeriod((float)(value - Math.floor(value)), 2)+"","0",2)+"/100")+" US Dolares";
+        }
+        
+        public static String fill(String text, String withChar, int desiredLength){
+            StringBuilder strBuilder = new StringBuilder();
+            System.out.println("Text: "+text);
+            System.out.println("withChar: "+withChar);
+            System.out.println("desiredLength: "+desiredLength);
+            System.out.println("Text Length: "+text.length());
+            if (desiredLength - text.length() > 0){
+                for(int i=0;i<(desiredLength - text.length()); i++){
+                    strBuilder.append(withChar);
+                }
+            }
+            strBuilder.append(text);
+            return strBuilder.toString();
+        }
+        
+        public static String getDecimalPartAsStringWithoutPeriod(float value, int howManyDecimals){
+           float value1 = (float)(value*Math.pow(10,howManyDecimals));
+           String returnValue = (int)Math.floor(Math.round(value1))+"";
+           return returnValue;
+        }
+
+        public static String convertirLetras(float value){
+            return capitalize(NumToText.convertirLetras((int)value)+" con "+ fill(getDecimalPartAsStringWithoutPeriod((float)(value - Math.floor(value)), 2)+"","0",2)+"/100")+" US Dolares";
+        }
+        
+        public static void main(String[] args){
+            System.out.println(convertirLetras(38.756462635F));
+        }
 }

@@ -98,7 +98,7 @@ public class TblComprobanteDonacion implements Serializable {
     
     @Column(name="NUM_FAC_DONACION")
     private String numFacDonacion;
-    
+        
     @Transient
     private float montoRecibido;
     

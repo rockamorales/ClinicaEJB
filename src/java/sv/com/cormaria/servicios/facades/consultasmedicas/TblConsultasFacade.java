@@ -27,6 +27,8 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.colecturia.TblComprobanteDonacionFacadeLocal;
 import sv.com.cormaria.servicios.facades.colecturia.TblDetalleComprobanteDonacionFacadeLocal;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
+import sv.com.cormaria.servicios.helpers.NumToText;
+import sv.com.cormaria.servicios.helpers.NumUtils;
 
 /**
  *
@@ -128,7 +130,7 @@ public class TblConsultasFacade extends AbstractFacade<TblConsultas> implements 
                 tblComprobante.setCanLetras("");
                 tblComprobante.setNumExpediente(consulta.getNumExpediente());
                 tblComprobante.setNomComDonacion(consulta.getTblExpediente().getNomPaciente() + " " + consulta.getTblExpediente().getPriApePaciente() + " " + consulta.getTblExpediente().getSecApePaciente());
-                tblComprobante.setTipComprobante(TipoComprobanteDonacion.DONACION);
+                tblComprobante.setTipComprobante(TipoComprobanteDonacion.COBRO);
                 comprobanteFacade.create(tblComprobante);
                 System.out.println("Numero de comprobante: "+tblComprobante.getNumComDonacion());
                 //Agregando la consulta
@@ -144,7 +146,7 @@ public class TblConsultasFacade extends AbstractFacade<TblConsultas> implements 
                 //detalleComprobante.setTotIteComDonacion(especialidad.getTblProducto().getPreFinProducto());
                 //detalleComprobanteFacade.create(detalleComprobante);
                 //Agregando la tarjeta
-
+                float total = 0.00F;
                 for (TblDetalleReceta tblDetalleReceta : detalleRecetaList) {
                     detalleComprobante = new TblDetalleComprobanteDonacion();
                     detalleComprobante.setCanProComDonacion(tblDetalleReceta.getCanDetReceta());
@@ -153,10 +155,13 @@ public class TblConsultasFacade extends AbstractFacade<TblConsultas> implements 
                     pk.setNumComDonacion(tblComprobante.getNumComDonacion());
                     pk.setNumProducto(tblDetalleReceta.getTblProducto().getNumProducto());
                     detalleComprobante.setTblDetalleComprobanteDonacionPK(pk);
-                    detalleComprobante.setTotIteComDonacion(tblDetalleReceta.getTblProducto().getPreFinProducto());
+                    detalleComprobante.setTotIteComDonacion(tblDetalleReceta.getTblProducto().getPreFinProducto()*tblDetalleReceta.getCanDetReceta());
+                    total = total+detalleComprobante.getTotIteComDonacion();
                     detalleComprobante.setNumReceta(recetaMedica.getNumReceta());
                     detalleComprobanteFacade.create(detalleComprobante);
                 }
+                tblComprobante.setTotDonacion(NumUtils.round(total, 4));
+                tblComprobante.setCanLetras(NumToText.convertirLetras(tblComprobante.getTotDonacion()));
            }
-    }    
+    }
 }

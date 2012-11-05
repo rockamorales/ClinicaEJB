@@ -156,4 +156,13 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
     }
+    
+    public void remove(TblComprobanteDonacion entity) throws ClinicaModelexception {
+        try{
+            TblComprobanteDonacion comprobante = em.find(TblComprobanteDonacion.class, entity.getNumComDonacion());
+            comprobante.setEstComDonacion(EstadoComprobanteDonacion.ELIMINADO);
+        }catch(Exception ex){
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }        
+    }    
 }

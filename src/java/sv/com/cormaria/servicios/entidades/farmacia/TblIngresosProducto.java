@@ -30,7 +30,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "tbl_ingresos_producto")
 @NamedQueries({
-    @NamedQuery(name = "TblIngresosProducto.findAll", query = "SELECT t FROM TblIngresosProducto t")})
+    @NamedQuery(name = "TblIngresosProducto.findAll", query = "SELECT t FROM TblIngresosProducto t where t.estIngresoProducto = 1")})
 public class TblIngresosProducto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -57,6 +57,9 @@ public class TblIngresosProducto implements Serializable {
     @NotNull(message = "Ingrese el monto de ingeso")
     @Column(name = "MON_INGRESO")
     private float monIngreso;
+    @NotNull(message = "Estado de ingreso")
+    @Column(name = "EST_ING_PRODUCTO")
+    private int estIngresoProducto;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblIngresosProducto")
     private Collection<TblDetalleIngresoProducto> tblDetalleIngresoProductoCollection;
 
@@ -81,6 +84,14 @@ public class TblIngresosProducto implements Serializable {
 
     public void setNumIngreso(Integer numIngreso) {
         this.numIngreso = numIngreso;
+    }
+
+    public int getEstIngresoProducto() {
+        return estIngresoProducto;
+    }
+
+    public void setEstIngresoProducto(int estIngresoProducto) {
+        this.estIngresoProducto = estIngresoProducto;
     }
 
     public Date getFecIngreso() {
