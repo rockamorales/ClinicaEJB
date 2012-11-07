@@ -9,5 +9,5 @@ package sv.com.cormaria.servicios.enums;
  * @author Mackk
  */
 public enum TipoComprobanteDonacion {
-    DOVOLUCION, DONACION
+    DEVOLUCION, DONACION, COBRO
 }

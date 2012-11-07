@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import sv.com.cormaria.servicios.enums.EstadoAlquiler;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
+import sv.com.cormaria.servicios.enums.TipoComprobanteDonacion;
 
 /**
  *
@@ -31,6 +32,7 @@ public class ComprobanteDonacionSearchCriteria implements SearchCriteria {
     private Date startDate;
     private Date endDate;
     private String numFactura;
+    private TipoComprobanteDonacion tipComprobanteDonacion;
     private Boolean showDeleted = false;
     private List<String> estados = new ArrayList<String>();
 
@@ -38,6 +40,14 @@ public class ComprobanteDonacionSearchCriteria implements SearchCriteria {
         return numFactura;
     }
 
+    public TipoComprobanteDonacion getTipComprobanteDonacion() {
+        return tipComprobanteDonacion;
+    }
+
+    public void setTipComprobanteDonacion(TipoComprobanteDonacion tipComprobanteDonacion) {
+        this.tipComprobanteDonacion = tipComprobanteDonacion;
+    }
+    
     public void setNumFactura(String numFactura) {
         this.numFactura = numFactura;
     }
@@ -178,7 +188,7 @@ public class ComprobanteDonacionSearchCriteria implements SearchCriteria {
     }
 
     private String createWhere(){
-        StringBuffer strWhere = new StringBuffer();
+        StringBuilder strWhere = new StringBuilder();
         if (this.getNumFactura()!=null && !this.getNumFactura().trim().equals("")){
            strWhere.append(" c.numFacDonacion = :numFacDonacion");
         }
@@ -283,13 +293,19 @@ public class ComprobanteDonacionSearchCriteria implements SearchCriteria {
             }
             strWhere.append(" c.estComDonacion not in (:eliminado)");
         }
-        
-        if (strWhere.length() > 0){
-                return " where "+strWhere.toString();
+        if (this.getTipComprobanteDonacion()!=null){
+            if (strWhere.length() > 0){
+                strWhere.append(" and ");
+            }
+            strWhere.append(" c.tipComprobante = :tipComprobante");
         }
         
+        if (strWhere.length() > 0){
+            return " where "+strWhere.toString();
+        }
         return strWhere.toString();
-    }    
+        
+    }
     
     @Override
     public Map<String, Object> getParameters() {
@@ -350,8 +366,9 @@ public class ComprobanteDonacionSearchCriteria implements SearchCriteria {
         if (this.getShowDeleted()!=null && !this.getShowDeleted()){
             parameters.put("eliminado", ESTADO_ELIMINADO);
         }
-        
-        
+        if (this.getTipComprobanteDonacion()!=null){
+            parameters.put("tipComprobante", this.getTipComprobanteDonacion());
+        }
         return parameters;
     }
 }
