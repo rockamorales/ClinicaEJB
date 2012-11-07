@@ -27,6 +27,8 @@ public interface TblDetalleIngresoProductoFacadeLocal {
     List<TblDetalleIngresoProducto> findAll()  throws ClinicaModelexception;
 
     List<TblDetalleIngresoProducto> findRange(int[] range)  throws ClinicaModelexception;
+    
+    public List<TblDetalleIngresoProducto> findByIngresoProducto(Integer numIngreso) throws ClinicaModelexception;
 
     int count()  throws ClinicaModelexception;
     

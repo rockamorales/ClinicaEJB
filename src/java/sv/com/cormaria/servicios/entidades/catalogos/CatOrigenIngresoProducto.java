@@ -25,7 +25,9 @@ import sv.com.cormaria.servicios.enums.Estado;
 @Entity
 @Table(name = "cat_origen_ingreso_producto")
 @NamedQueries({
-    @NamedQuery(name = "CatOrigenIngresoProducto.findAll", query = "SELECT c FROM CatOrigenIngresoProducto c")})
+    @NamedQuery(name = "CatOrigenIngresoProducto.findAll", query = "SELECT c FROM CatOrigenIngresoProducto c "),
+    @NamedQuery(name = "CatOrigenIngresoProducto.findActive", query = "SELECT c FROM CatOrigenIngresoProducto c where c.actOriIngreso = 1")
+})
 public class CatOrigenIngresoProducto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

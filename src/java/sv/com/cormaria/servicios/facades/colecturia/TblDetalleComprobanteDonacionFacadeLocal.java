@@ -7,6 +7,7 @@ package sv.com.cormaria.servicios.facades.colecturia;
 import java.util.List;
 import javax.ejb.Local;
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacion;
+import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacionPK;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 
 /**
@@ -32,4 +33,5 @@ public interface TblDetalleComprobanteDonacionFacadeLocal {
     
     public List<TblDetalleComprobanteDonacion> findByComprobanteDonacion(Integer numComprobanteDonacion) throws ClinicaModelexception;
     
+    public Integer getMaxCorrelativo(TblDetalleComprobanteDonacionPK pk) throws ClinicaModelexception;
 }
