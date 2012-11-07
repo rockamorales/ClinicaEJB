@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacion;
+import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacionPK;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
 import sv.com.cormaria.servicios.helpers.NumToText;
@@ -79,6 +80,7 @@ public class TblDetalleComprobanteDonacionFacade extends AbstractFacade<TblDetal
     @Override
     public TblDetalleComprobanteDonacion create(TblDetalleComprobanteDonacion entity) throws ClinicaModelexception{
         try{
+            //entity.setCorDetComDonacion(this.getMaxCorrelativo(entity.getTblDetalleComprobanteDonacionPK())+1);
             getEntityManager().persist(entity);
             em.flush();
             double total = this.calcularTotal(entity.getTblDetalleComprobanteDonacionPK().getNumComDonacion());
@@ -103,5 +105,18 @@ public class TblDetalleComprobanteDonacionFacade extends AbstractFacade<TblDetal
         }catch(Exception ex){
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }        
-    }    
+    }
+    public Integer getMaxCorrelativo(TblDetalleComprobanteDonacionPK pk) throws ClinicaModelexception{
+        try{
+            Query q = em.createQuery("Select MAX(corDetComDonacion) from TblDetalleComprobanteDonacion t where t.tblDetalleComprobanteDonacionPK = :pk");
+            q.setParameter("pk", pk);
+            Integer max = (Integer) q.getSingleResult();
+            System.out.println("Max: "+max);
+            return max;
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
+    
 }
