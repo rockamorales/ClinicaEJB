@@ -26,8 +26,10 @@ public interface CatOrigenIngresoProductoFacadeLocal {
 
     List<CatOrigenIngresoProducto> findAll() throws ClinicaModelexception;
 
-    List<CatOrigenIngresoProducto> findRange(int[] range) throws ClinicaModelexception;
+    List<CatOrigenIngresoProducto> findActive() throws ClinicaModelexception;
 
+    List<CatOrigenIngresoProducto> findRange(int[] range) throws ClinicaModelexception;
+    
     int count() throws ClinicaModelexception;
     
 }

@@ -57,9 +57,16 @@ public class TblIngresosProducto implements Serializable {
     @NotNull(message = "Ingrese el monto de ingeso")
     @Column(name = "MON_INGRESO")
     private float monIngreso;
+    @Basic(optional = false)
     @NotNull(message = "Estado de ingreso")
     @Column(name = "EST_ING_PRODUCTO")
-    private int estIngresoProducto;
+    private Integer estIngresoProducto;
+    @Column(name = "NUM_INSTITUCION")
+    private Integer numInstitucion;
+    @Column(name = "NUM_EMPLEADO")
+    private Integer numEmpleado;
+    @Column(name = "COD_ORI_INGRESO")
+    private Integer codOriIngreso;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblIngresosProducto")
     private Collection<TblDetalleIngresoProducto> tblDetalleIngresoProductoCollection;
 
@@ -86,11 +93,35 @@ public class TblIngresosProducto implements Serializable {
         this.numIngreso = numIngreso;
     }
 
-    public int getEstIngresoProducto() {
+    public Integer getCodOriIngreso() {
+        return codOriIngreso;
+    }
+
+    public void setCodOriIngreso(Integer codOriIngreso) {
+        this.codOriIngreso = codOriIngreso;
+    }
+
+    public Integer getNumInstitucion() {
+        return numInstitucion;
+    }
+
+    public Integer getNumEmpleado() {
+        return numEmpleado;
+    }
+
+    public void setNumEmpleado(Integer numEmpleado) {
+        this.numEmpleado = numEmpleado;
+    }
+
+    public void setNumInstitucion(Integer numInstitucion) {
+        this.numInstitucion = numInstitucion;
+    }
+
+    public Integer getEstIngresoProducto() {
         return estIngresoProducto;
     }
 
-    public void setEstIngresoProducto(int estIngresoProducto) {
+    public void setEstIngresoProducto(Integer estIngresoProducto) {
         this.estIngresoProducto = estIngresoProducto;
     }
 
