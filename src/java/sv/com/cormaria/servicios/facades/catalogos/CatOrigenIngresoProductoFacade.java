@@ -41,6 +41,16 @@ public class CatOrigenIngresoProductoFacade extends AbstractFacade<CatOrigenIngr
     }
 
     @Override
+    public List<CatOrigenIngresoProducto> findActive() throws ClinicaModelexception {
+          try{
+            Query q = em.createNamedQuery("CatOrigenIngresoProducto.findActive");
+            return q.getResultList();
+        }catch(Exception ex){
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
+
+    @Override
     public List<CatOrigenIngresoProducto> findRange(int[] range) throws ClinicaModelexception {
          try{
             Query q = em.createNamedQuery("CatOrigenIngresoProducto.findAll");
@@ -50,7 +60,7 @@ public class CatOrigenIngresoProductoFacade extends AbstractFacade<CatOrigenIngr
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
     }
-
+    
     @Override
     public int count() throws ClinicaModelexception {
         try{

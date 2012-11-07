@@ -27,25 +27,21 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "tbl_detalle_ingreso_producto")
 @NamedQueries({
-    @NamedQuery(name = "TblDetalleIngresoProducto.findAll", query = "SELECT t FROM TblDetalleIngresoProducto t")})
+    @NamedQuery(name = "TblDetalleIngresoProducto.findAll", query = "SELECT t FROM TblDetalleIngresoProducto t"),
+    @NamedQuery(name = "TblDetalleIngresoProducto.findByIngresoProducto", query = "SELECT t FROM TblDetalleIngresoProducto t WHERE t.tblDetalleIngresoProductoPK.numIngreso = :numIngreso")
+})
 public class TblDetalleIngresoProducto implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected TblDetalleIngresoProductoPK tblDetalleIngresoProductoPK;
-    @Basic(optional = false)
+    protected TblDetalleIngresoProductoPK tblDetalleIngresoProductoPK  = new TblDetalleIngresoProductoPK();
     @NotNull(message = "Ingrese el correlativo del detalle de ingreso")
     @Column(name = "COR_DET_INGRESO")
-    private int corDetIngreso;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la cantidad del detalle de Ingreso")
+    private Integer corDetIngreso;
     @Column(name = "CAN_DET_INGRESO")
     private int canDetIngreso;
-    @Basic(optional = false)
     @NotNull(message = "Inrese el costo unitario del detalle de ingreso")
     @Column(name = "COS_UNI_DET_INGRESO")
     private float cosUniDetIngreso;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la fecha de expiracion del detalle de ingreso")
     @Column(name = "FEC_EXP_DET_INGRESO")
     @Temporal(TemporalType.DATE)
     private Date fecExpDetIngreso;
@@ -83,11 +79,11 @@ public class TblDetalleIngresoProducto implements Serializable {
         this.tblDetalleIngresoProductoPK = tblDetalleIngresoProductoPK;
     }
 
-    public int getCorDetIngreso() {
+    public Integer getCorDetIngreso() {
         return corDetIngreso;
     }
 
-    public void setCorDetIngreso(int corDetIngreso) {
+    public void setCorDetIngreso(Integer corDetIngreso) {
         this.corDetIngreso = corDetIngreso;
     }
 
