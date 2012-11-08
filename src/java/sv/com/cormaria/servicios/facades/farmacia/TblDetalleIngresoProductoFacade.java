@@ -9,9 +9,11 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 import sv.com.cormaria.servicios.entidades.farmacia.TblDetalleIngresoProducto;
 import sv.com.cormaria.servicios.entidades.farmacia.TblDetalleIngresoProductoPK;
 import sv.com.cormaria.servicios.entidades.farmacia.TblIngresosProducto;
+import sv.com.cormaria.servicios.exceptions.ClinicaModelValidationException;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
 
@@ -39,6 +41,8 @@ public class TblDetalleIngresoProductoFacade extends AbstractFacade<TblDetalleIn
             getEntityManager().flush();
             TblIngresosProducto tblIngresosProducto = em.find(TblIngresosProducto.class, entity.getTblDetalleIngresoProductoPK().getNumIngreso());
             tblIngresosProducto.setMonIngreso((float) this.getTotalIngreso(entity.getTblDetalleIngresoProductoPK().getNumIngreso()));
+            TblProducto producto = em.find(TblProducto.class, entity.getTblDetalleIngresoProductoPK().getNumProducto());
+            producto.setExiProducto(producto.getExiProducto()+entity.getCanDetIngreso());
             return entity;
         }catch(Exception ex){
             throw new ClinicaModelexception(ex.getMessage(), ex);
@@ -99,11 +103,17 @@ public class TblDetalleIngresoProductoFacade extends AbstractFacade<TblDetalleIn
     public void remove(TblDetalleIngresoProducto entity) throws ClinicaModelexception {
         try{
             
-            getEntityManager().remove(getEntityManager().merge(entity));
+            getEntityManager().remove(this.find(entity.getTblDetalleIngresoProductoPK()));
             getEntityManager().flush();
             TblIngresosProducto tblIngresosProducto = em.find(TblIngresosProducto.class, entity.getTblDetalleIngresoProductoPK().getNumIngreso());
             tblIngresosProducto.setMonIngreso((float) this.getTotalIngreso(entity.getTblDetalleIngresoProductoPK().getNumIngreso()));
+            TblProducto producto = em.find(TblProducto.class, entity.getTblDetalleIngresoProductoPK().getNumProducto());
+            if(producto.getExiProducto() < entity.getCanDetIngreso()){
+                throw new ClinicaModelValidationException("No se puede eliminar el ingreso debido a que ya se despacho producto: "+producto.getNomProducto());
+            }
+            producto.setExiProducto(producto.getExiProducto()-entity.getCanDetIngreso());
         }catch(Exception ex){
+            ex.printStackTrace();
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }        
     }

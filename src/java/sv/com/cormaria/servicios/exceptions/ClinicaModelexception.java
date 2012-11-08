@@ -4,10 +4,13 @@
  */
 package sv.com.cormaria.servicios.exceptions;
 
+import javax.ejb.ApplicationException;
+
 /**
  *
  * @author Administrador
  */
+@ApplicationException(rollback=true)
 public class ClinicaModelexception extends Exception {
 
     public ClinicaModelexception(String message, Exception ex) {

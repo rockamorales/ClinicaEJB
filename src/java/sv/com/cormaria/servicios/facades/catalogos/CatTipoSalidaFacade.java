@@ -51,6 +51,16 @@ public class CatTipoSalidaFacade extends AbstractFacade<CatTipoSalida> implement
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
     }
+    
+      @Override
+    public List<CatTipoSalida> findActive() throws ClinicaModelexception {
+          try{
+            Query q = em.createNamedQuery("CatTipoSalida.findActive");
+            return q.getResultList();
+        }catch(Exception ex){
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
 
     @Override
     public int count() throws ClinicaModelexception {

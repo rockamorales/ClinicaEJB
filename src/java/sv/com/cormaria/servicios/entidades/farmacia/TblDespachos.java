@@ -50,7 +50,12 @@ public class TblDespachos implements Serializable {
     @NotNull(message="Ingrese el nombre del depacho")
     @Column(name = "MON_DESPACHO")
     private float monDespacho;
-    @Basic(optional = false)
+    @Column(name = "NUM_EMPLEADO")
+    private Integer numEmpleado;
+    @Column(name = "COD_TIP_SALIDA")
+    private Integer codTipSalida;
+    @Column(name = "EST_DESPACHO")
+    private Integer estDespacho;
     @NotNull(message="Ingrese el numero del documento de despacho")
     @Size(min = 1, max = 30, message="El numero de documento de despacho debe ser menor a 30 caracteres")
     @Column(name = "NUM_DOC_DESPACHO")
@@ -78,6 +83,30 @@ public class TblDespachos implements Serializable {
 
     public void setNumDespacho(Integer numDespacho) {
         this.numDespacho = numDespacho;
+    }
+
+    public Integer getNumEmpleado() {
+        return numEmpleado;
+    }
+
+    public void setNumEmpleado(Integer numEmpleado) {
+        this.numEmpleado = numEmpleado;
+    }
+
+    public Integer getCodTipSalida() {
+        return codTipSalida;
+    }
+
+    public void setCodTipSalida(Integer codTipSalida) {
+        this.codTipSalida = codTipSalida;
+    }
+
+    public Integer getEstDespacho() {
+        return estDespacho;
+    }
+
+    public void setEstDespacho(Integer estDespacho) {
+        this.estDespacho = estDespacho;
     }
 
     public Date getFecDespacho() {
