@@ -26,6 +26,7 @@ import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 @NamedQueries({
     @NamedQuery(name = "TblDetalleComprobanteDonacion.findAll", query = "SELECT t FROM TblDetalleComprobanteDonacion t"),
     @NamedQuery(name = "TblDetalleComprobanteDonacion.findByComprobanteDonacion", query = "SELECT t FROM TblDetalleComprobanteDonacion t WHERE t.tblDetalleComprobanteDonacionPK.numComDonacion = :numComDonacion")
+    //@NamedQuery(name = "TblComprobanteDonacion.findByNumFacDonacion", query = "SELECT t FROM TblComprobanteDonacion t where  = :numFacDonacion")    
 })
 public class TblDetalleComprobanteDonacion implements Serializable {
     private static final long serialVersionUID = 1L;
