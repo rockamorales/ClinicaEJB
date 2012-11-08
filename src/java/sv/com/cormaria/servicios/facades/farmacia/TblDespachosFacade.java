@@ -8,7 +8,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import sv.com.cormaria.servicios.entidades.farmacia.TblDespachos;
+import sv.com.cormaria.servicios.entidades.farmacia.TblDetalleDespacho;
+import sv.com.cormaria.servicios.entidades.farmacia.TblDetalleDespachoPK;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
 
@@ -28,7 +31,7 @@ public class TblDespachosFacade extends AbstractFacade<TblDespachos> implements 
     public TblDespachosFacade() {
         super(TblDespachos.class);
     }
-
+    
     @Override
     public List<TblDespachos> findAll() throws ClinicaModelexception {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -43,5 +46,4 @@ public class TblDespachosFacade extends AbstractFacade<TblDespachos> implements 
     public int count() throws ClinicaModelexception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
 }

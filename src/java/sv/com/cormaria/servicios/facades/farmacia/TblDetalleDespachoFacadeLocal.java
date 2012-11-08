@@ -15,7 +15,7 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
  */
 @Local
 public interface TblDetalleDespachoFacadeLocal {
-
+    
     TblDetalleDespacho create(TblDetalleDespacho tblDetalleDespacho)  throws ClinicaModelexception;
 
     TblDetalleDespacho edit(TblDetalleDespacho tblDetalleDespacho)  throws ClinicaModelexception;
@@ -27,6 +27,8 @@ public interface TblDetalleDespachoFacadeLocal {
     List<TblDetalleDespacho> findAll()  throws ClinicaModelexception;
 
     List<TblDetalleDespacho> findRange(int[] range)  throws ClinicaModelexception;
+    
+    public List<TblDetalleDespacho> findByDespachoProducto(Integer numDespacho) throws ClinicaModelexception;
 
     int count()  throws ClinicaModelexception;
     

@@ -24,20 +24,21 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "tbl_detalle_despacho")
 @NamedQueries({
-    @NamedQuery(name = "TblDetalleDespacho.findAll", query = "SELECT t FROM TblDetalleDespacho t")})
+    @NamedQuery(name = "TblDetalleDespacho.findAll", query = "SELECT t FROM TblDetalleDespacho t"),
+    @NamedQuery(name = "TblDetalleDespacho.findByDespachoProducto", query = "SELECT t FROM TblDetalleDespacho t WHERE t.tblDetalleDespachoPK.numDespacho = :numDespacho")
+})
+
 public class TblDetalleDespacho implements Serializable {
+    
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected TblDetalleDespachoPK tblDetalleDespachoPK;
-    @Basic(optional = false)
+    protected TblDetalleDespachoPK tblDetalleDespachoPK = new TblDetalleDespachoPK();
     @NotNull(message = "Ingrese el correlativo del detalle de despacho")
     @Column(name = "COR_DET_DESPACHO")
     private int corDetDespacho;
-    @Basic(optional = false)
     @NotNull(message = "Ingrese la cantidad del detalle de depacho")
     @Column(name = "CAN_DET_DESPACHO")
     private int canDetDespacho;
-    @Basic(optional = false)
     @NotNull(message = "Ingrese el precio unitario del detalle de despacho")
     @Column(name = "PRE_UNI_DET_DESPACHO")
     private float preUniDetDespacho;
