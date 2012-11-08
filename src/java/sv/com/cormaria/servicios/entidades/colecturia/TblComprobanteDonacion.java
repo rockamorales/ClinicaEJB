@@ -35,7 +35,9 @@ import sv.com.cormaria.servicios.enums.TipoComprobanteDonacion;
 @Entity
 @Table(name = "tbl_comprobante_donacion")
 @NamedQueries({
-    @NamedQuery(name = "TblComprobanteDonacion.findAll", query = "SELECT t FROM TblComprobanteDonacion t")})
+    @NamedQuery(name = "TblComprobanteDonacion.findAll", query = "SELECT t FROM TblComprobanteDonacion t"),
+    @NamedQuery(name = "TblComprobanteDonacion.findByNumFacDonacion", query = "SELECT t FROM TblComprobanteDonacion t where t.numFacDonacion = :numFacDonacion")
+})
 public class TblComprobanteDonacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -85,7 +87,7 @@ public class TblComprobanteDonacion implements Serializable {
     private String nomComDonacion;
     
     @Column(name = "NIT_COM_DONACION")
-    private Integer nitComDonacion;
+    private String nitComDonacion;
     
     @Column(name = "NUM_EXPEDIENTE")
     private Integer numExpediente;    
@@ -293,11 +295,11 @@ public class TblComprobanteDonacion implements Serializable {
         this.codTipPago = codTipPago;
     }
 
-    public Integer getNitComDonacion() {
+    public String getNitComDonacion() {
         return nitComDonacion;
     }
 
-    public void setNitComDonacion(Integer nitComDonacion) {
+    public void setNitComDonacion(String nitComDonacion) {
         this.nitComDonacion = nitComDonacion;
     }
 
