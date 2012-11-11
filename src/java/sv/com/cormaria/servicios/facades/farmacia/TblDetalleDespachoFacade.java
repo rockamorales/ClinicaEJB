@@ -95,7 +95,7 @@ public class TblDetalleDespachoFacade extends AbstractFacade<TblDetalleDespacho>
             tblDespachos.setMonDespacho((float) this.getTotalDespacho(entity.getTblDetalleDespachoPK().getNumDespacho()));
             TblProducto producto = em.find(TblProducto.class, entity.getTblDetalleDespachoPK().getNumProducto());
             if(producto.getExiProducto() < entity.getCanDetDespacho()){
-                throw new ClinicaModelValidationException("No hay Existencias Suficientes para la cantidad que desea despachar del producto: "+producto.getNomProducto());
+                throw new ClinicaModelValidationException("No hay Existencias Suficientes para la cantidad que desea despachar del producto: "+producto.getNomProducto() + "Cantidad en Existencia: "+producto.getExiProducto());
             }
             producto.setExiProducto(producto.getExiProducto()-entity.getCanDetDespacho());
             return entity;
