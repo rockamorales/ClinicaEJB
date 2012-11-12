@@ -4,15 +4,23 @@
  */
 package sv.com.cormaria.servicios.facades.administracion;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Resource;
+import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
+import sv.com.cormaria.servicios.entidades.farmacia.TblHistorialAlerta;
 import sv.com.cormaria.servicios.enums.Estado;
+import sv.com.cormaria.servicios.enums.TipoAlertas;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
+import sv.com.cormaria.servicios.facades.farmacia.TblHistorialAlertaFacadeLocal;
 
 /**
  *
@@ -22,6 +30,12 @@ import sv.com.cormaria.servicios.facades.common.AbstractFacade;
 public class TblProductoFacade extends AbstractFacade<TblProducto> implements TblProductoFacadeLocal {
     @PersistenceContext(unitName = "ClinicaEJBPU")
     private EntityManager em;
+    
+    @Resource
+    private SessionContext sessionContext;
+    
+    @EJB
+    private TblHistorialAlertaFacadeLocal historialAlertaFacadeLocal;
 
     protected EntityManager getEntityManager() {
         return em;
@@ -84,6 +98,16 @@ public class TblProductoFacade extends AbstractFacade<TblProducto> implements Tb
         }
     }    
         
+     public List<TblProducto> findAlertas() throws ClinicaModelexception {
+        try{
+            Query q = em.createNamedQuery("TblProducto.findAlertas");
+            q.setParameter("fecha", new java.util.Date(), TemporalType.DATE);
+            return q.getResultList();
+        }catch(Exception ex){
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
+     
     public List<TblProducto> findActiveServices() throws ClinicaModelexception{
         try{
             Query q = em.createNamedQuery("TblProducto.findActiveServices");
@@ -112,5 +136,27 @@ public class TblProductoFacade extends AbstractFacade<TblProducto> implements Tb
             ex.printStackTrace();
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
+    }
+    
+    public void generarAlertas() throws ClinicaModelexception{
+        try{
+            List<TblProducto> productosList = this.findAlertas();
+            TblHistorialAlerta alerta;
+            for (TblProducto tblProducto : productosList) {
+                alerta = new TblHistorialAlerta();
+                alerta.setCanProducto(tblProducto.getExiProducto());
+                alerta.setEstAlerta(Estado.ACTIVO);
+                alerta.setFecHorAlerta(new java.util.Date());
+                alerta.setMinExistencias(tblProducto.getExiMinProducto());
+                alerta.setNumProducto(tblProducto.getNumProducto());
+                alerta.setTipAlerta(TipoAlertas.EXISTENCIA);
+                alerta.setUsuAlertado(sessionContext.getCallerPrincipal().getName());
+                alerta.setCanProducto(tblProducto.getExiProducto());
+                historialAlertaFacadeLocal.create(alerta);
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        } 
     }
 }
