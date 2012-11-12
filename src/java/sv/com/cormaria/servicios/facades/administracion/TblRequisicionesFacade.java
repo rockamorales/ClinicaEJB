@@ -39,6 +39,35 @@ public class TblRequisicionesFacade extends AbstractFacade<TblRequisiciones> imp
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }        
     }
+    
+    @Override
+    public void aprobar(TblRequisiciones requisicion) throws ClinicaModelexception {
+        try{
+            TblRequisiciones requisicion1 = this.find(requisicion.getNumRequisicion());
+            requisicion1.setEstRequisicion(EstadoRequisicion.APROBADA);
+        }catch(Exception ex){
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }        
+    }
+    @Override
+    public void denegar(TblRequisiciones requisicion) throws ClinicaModelexception {
+        try{
+            TblRequisiciones requisicion1 = this.find(requisicion.getNumRequisicion());
+            requisicion1.setEstRequisicion(EstadoRequisicion.DENEGADA);
+        }catch(Exception ex){
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }        
+    }
+    
+    @Override
+    public void entregada(TblRequisiciones requisicion) throws ClinicaModelexception {
+        try{
+            TblRequisiciones requisicion1 = this.find(requisicion.getNumRequisicion());
+            requisicion1.setEstRequisicion(EstadoRequisicion.ENTREGADA);
+        }catch(Exception ex){
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }        
+    }
 
 
     @Override

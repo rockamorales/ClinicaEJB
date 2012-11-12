@@ -41,4 +41,8 @@ public interface TblProductoFacadeLocal {
     public List<TblProducto> findTarjetaControl() throws ClinicaModelexception;
     
     public List<TblProducto> findMedicamentos() throws ClinicaModelexception;
+    
+    public List<TblProducto> findAlertas() throws ClinicaModelexception;
+
+    public void generarAlertas() throws ClinicaModelexception;
 }

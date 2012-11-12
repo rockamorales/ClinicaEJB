@@ -7,6 +7,7 @@ package sv.com.cormaria.servicios.facades.farmacia;
 import java.util.List;
 import javax.ejb.Local;
 import sv.com.cormaria.servicios.entidades.farmacia.TblDespachos;
+import sv.com.cormaria.servicios.entidades.farmacia.TblDetalleDespacho;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 
 /**
@@ -15,12 +16,11 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
  */
 @Local
 public interface TblDespachosFacadeLocal {
+    TblDespachos create(TblDespachos tblIngresosProducto)  throws ClinicaModelexception;
 
-    TblDespachos create(TblDespachos tblDespachos) throws ClinicaModelexception;
+    TblDespachos edit(TblDespachos tblIngresosProducto)  throws ClinicaModelexception;
 
-    TblDespachos edit(TblDespachos tblDespachos) throws ClinicaModelexception;
-
-    void remove(TblDespachos tblDespachos) throws ClinicaModelexception;
+    void remove(TblDespachos tblDespachos)  throws ClinicaModelexception;
 
     TblDespachos find(Object id) throws ClinicaModelexception;
 
