@@ -50,6 +50,18 @@ public class TblDetalleComprobanteDonacionFacade extends AbstractFacade<TblDetal
     public int count() throws ClinicaModelexception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    
+    public List<TblDetalleComprobanteDonacion> findByNumFacDonacion(String numFacDonacion) throws ClinicaModelexception {
+        try{
+            Query q = em.createNamedQuery("TblDetalleComprobanteDonacion.findByNumFacDonacion");
+            q.setParameter("numFacDonacion", numFacDonacion);
+            return q.getResultList();
+        }catch(Exception ex){
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    } 
+    
     public List<TblDetalleComprobanteDonacion> findByComprobanteDonacion(Integer numComprobanteDonacion) throws ClinicaModelexception {
         try{
             Query q = em.createNamedQuery("TblDetalleComprobanteDonacion.findByComprobanteDonacion");
