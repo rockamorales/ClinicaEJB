@@ -22,6 +22,12 @@ public interface TblRequisicionesFacadeLocal extends ISearchable<TblRequisicione
     TblRequisiciones edit(TblRequisiciones tblRequisiciones) throws ClinicaModelexception;
 
     void remove(TblRequisiciones tblRequisiciones) throws ClinicaModelexception;
+    
+    void aprobar(TblRequisiciones tblRequisiciones) throws ClinicaModelexception;
+    
+    void denegar(TblRequisiciones tblRequisiciones) throws ClinicaModelexception;
+    
+    void entregada(TblRequisiciones tblRequisiciones) throws ClinicaModelexception;
 
     TblRequisiciones find(Object id) throws ClinicaModelexception;
 

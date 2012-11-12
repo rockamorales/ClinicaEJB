@@ -33,7 +33,7 @@ import sv.com.cormaria.servicios.enums.EstadoRequisicion;
 @Table(name = "tbl_requisiciones")
 @NamedQueries({
     @NamedQuery(name = "TblRequisiciones.findAll", query = "SELECT t FROM TblRequisiciones t"),
-    @NamedQuery(name = "TblRequisiciones.findActive", query = "SELECT t FROM TblRequisiciones t where t.estRequisicion = 1")
+    @NamedQuery(name = "TblRequisiciones.findActive", query = "SELECT t FROM TblRequisiciones t")
 })
 public class TblRequisiciones implements Serializable {
     private static final long serialVersionUID = 1L;

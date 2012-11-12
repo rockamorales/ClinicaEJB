@@ -38,7 +38,7 @@ import sv.com.cormaria.servicios.enums.TipoAlertas;
     @NamedQuery(name = "TblHistorialAlerta.findAll", query = "SELECT t FROM TblHistorialAlerta t") ,
     @NamedQuery(name = "TblHistorialAlerta.findActive", query = "SELECT u FROM TblHistorialAlerta u where u.estAlerta = 1"),
     @NamedQuery(name = "TblHistorialAlerta.findInactive", query = "SELECT u FROM TblHistorialAlerta u where u.estAlerta = 0"),
-    @NamedQuery(name = "TblHistorialAlerta.findbyProducto", query = "SELECT u FROM TblHistorialAlerta u where u.estAlerta =1"),
+    @NamedQuery(name = "TblHistorialAlerta.findbyProducto", query = "SELECT u FROM TblHistorialAlerta u where u.estAlerta =1")
 })
 
 public class TblHistorialAlerta implements Serializable {
