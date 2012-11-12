@@ -19,6 +19,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.apache.commons.codec.binary.Base64;
+import sun.misc.BASE64Encoder;
 import sv.com.cormaria.servicios.entidades.security.TblUsuarios;
 import sv.com.cormaria.servicios.enums.EstadoUsuario;
 
@@ -86,9 +87,9 @@ public class TblUsuariosSessionFacade implements TblUsuariosSessionFacadeLocal {
     	try{
 	    	TblUsuarios usuario = this.findByCodigoUsuario(codigoUsuario);
 	    	if (((usuario.getConUsuario() == null) && (contrasenaAnt == null || contrasenaAnt.trim().equals("")))
-	    			|| Base64.encodeBase64URLSafeString(Crypto.encrypt(contrasenaAnt)).equals(usuario.getConUsuario())){
+	    			|| new BASE64Encoder().encode(Crypto.encrypt(contrasenaAnt)).equals(usuario.getConUsuario())){
 	    		if (confContrasena.equals(nuevaContrasena)){
-			    	usuario.setConUsuario(Base64.encodeBase64URLSafeString(Crypto.encrypt(nuevaContrasena)));
+			    	usuario.setConUsuario(new BASE64Encoder().encode(Crypto.encrypt(nuevaContrasena)));
 			    	usuario.setFecUltCamContrasena(new java.util.Date());
 			    	return this.updateAll(usuario);
 	    		}else{
@@ -109,7 +110,7 @@ public class TblUsuariosSessionFacade implements TblUsuariosSessionFacadeLocal {
     	try{
 	    	TblUsuarios usuario = this.findByCodigoUsuario(codigousuario);
     		if (confirmacion.equals(contrasena)){
-		    	usuario.setConUsuario(Base64.encodeBase64URLSafeString(Crypto.encrypt(contrasena)));
+		    	usuario.setConUsuario(new BASE64Encoder().encode(Crypto.encrypt(contrasena)));
 		    	usuario.setFecUltCamContrasena(new java.util.Date());
 		    	return this.updateAll(usuario);
     		}else{
@@ -130,8 +131,8 @@ public class TblUsuariosSessionFacade implements TblUsuariosSessionFacadeLocal {
                 usuario.setEstUsuario(EstadoUsuario.ACTIVO);
 	    	if (usuario.getPasswordConfirmation()!=null && usuario.getConUsuario()!=null){
 	    		if (usuario.getPasswordConfirmation().equals(usuario.getConUsuario())){
-                                System.out.println("Tamanio de la contrasena: "+Base64.encodeBase64URLSafeString(Crypto.encrypt(usuario.getConUsuario())).length());
-			    	usuario.setConUsuario(Base64.encodeBase64URLSafeString(Crypto.encrypt(usuario.getConUsuario())));
+                                System.out.println("Tamanio de la contrasena: "+new BASE64Encoder().encode(Crypto.encrypt(usuario.getConUsuario())).length());
+			    	usuario.setConUsuario(new BASE64Encoder().encode(Crypto.encrypt(usuario.getConUsuario())));
 			    	usuario.setFecUltCamContrasena(new java.util.Date());
 	    		}else{
 	    			throw new ClinicaModelValidationException("La confirmacion de la contrasena no es igual a la contrasena ingresada");

@@ -49,32 +49,18 @@ import sv.com.cormaria.servicios.enums.EstadoUsuario;
 public class TblUsuarios implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
     @Column(name = "NUM_USUARIO")
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long numUsuario;
-    @Basic(optional = false)
-    @NotNull(message="Por favor especifique el alias del usuario")
-    @Size(min = 1, max = 100, message="El alias debe tener mas de un caracter y menos de 100")
     @Column(name = "ALI_USUARIO")
     private String aliUsuario;
-    @Basic(optional = false)
-    @NotNull(message="Por favor especifique la contrasena del usuario")
-    @Size(min = 1, max = 25, message="La contrasena debe tener mas de un caracter y menos de 25")
     @Column(name = "CON_USUARIO")
     private String conUsuario;
-    @Basic(optional = false)
-    @NotNull(message="Por favor especifique los nombres del usuario")
-    @Size(min = 1, max = 50, message="El nombre del usuario no puede tener mas de 50 caracteres")
     @Column(name = "NOM_USUARIO")
     private String nomUsuario;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
     @Column(name = "CRE_POR")
     private String crePor;
     @Basic(optional = false)
-    @NotNull(message="Por favor especifique la fecha de creacion")
     @Column(name = "FEC_CRECION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecCrecion;
@@ -90,19 +76,13 @@ public class TblUsuarios implements Serializable {
     @Column(name = "FEC_EXPIRACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecExpiracion;
-    @Basic(optional = false)
-    @NotNull(message="Por favor especifique la fecha de modificacion")
     @Column(name = "FEC_MODIFICACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecModificacion;
     @Basic
-    @NotNull(message="Por favor especifique la ultima fecha de cambio de contrasena")
     @Column(name = "FEC_ULT_CAM_CONTRASENA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecUltCamContrasena;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
     @Column(name = "MOD_POR")
     private String modPor;
     @Column(name = "ULT_FEC_FIN_SESION")
@@ -122,8 +102,6 @@ public class TblUsuarios implements Serializable {
     @OneToMany(mappedBy="usuario",fetch= FetchType.EAGER)
     private Set<CatRolesUsuario> rolesusuario;
 
-    @Basic(optional=false)
-    @NotNull(message="Por favor especifique el estado del usuario")
     @Column(name="est_usuario")
     private EstadoUsuario estUsuario;
     
