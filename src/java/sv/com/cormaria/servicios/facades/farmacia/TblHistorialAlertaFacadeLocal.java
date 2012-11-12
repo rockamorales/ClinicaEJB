@@ -25,9 +25,18 @@ public interface TblHistorialAlertaFacadeLocal {
     TblHistorialAlerta find(Object id)  throws ClinicaModelexception;
 
     List<TblHistorialAlerta> findAll()  throws ClinicaModelexception;
+    
+    List<TblHistorialAlerta> findActive()  throws ClinicaModelexception;
+    
+    List<TblHistorialAlerta> findInactive()  throws ClinicaModelexception;
 
     List<TblHistorialAlerta> findRange(int[] range)  throws ClinicaModelexception;
 
     int count()  throws ClinicaModelexception;
+    
+    void deactive(TblHistorialAlerta alertas) throws ClinicaModelexception;
+    
+    TblHistorialAlerta findAlertaFrmByPk(Integer alertasid) throws ClinicaModelexception;
+
     
 }

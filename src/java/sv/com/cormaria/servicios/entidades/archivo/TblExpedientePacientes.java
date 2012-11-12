@@ -59,7 +59,7 @@ public class TblExpedientePacientes implements Serializable {
     private int codParResponsable;
     @Basic
     @Column(name = "FEC_REG_EXPEDIENTE")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date fecRegExpediente;
     @Basic
     @Column(name = "NOM_PACIENTE")
