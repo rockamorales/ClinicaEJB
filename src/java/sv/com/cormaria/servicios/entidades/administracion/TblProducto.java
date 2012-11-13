@@ -39,6 +39,7 @@ import sv.com.cormaria.servicios.entidades.catalogos.CatTipoProducto;
     @NamedQuery(name = "TblProducto.findMedicamentos", query = "SELECT t FROM TblProducto t WHERE t.estProducto = 1 and t.codTipProducto = 1 "),
     @NamedQuery(name = "TblProducto.findActiveServices", query = "SELECT t FROM TblProducto t WHERE t.estProducto = 1 and t.codCatProducto = 1 "),
     @NamedQuery(name = "TblProducto.findTarjetaControl", query = "SELECT t FROM TblProducto t WHERE t.estProducto = 1 and t.codTipProducto = 5"),
+    @NamedQuery(name = "TblProducto.findProductoAlquiler", query = "SELECT t FROM TblProducto t WHERE t.estProducto = 1 and t.codTipProducto = 3"),
     @NamedQuery(name = "TblProducto.findAlertas", query = "SELECT t FROM TblProducto t WHERE t.estProducto = 1 and t.exiMinProducto > t.exiProducto and not exists (select h.canProducto from TblHistorialAlerta h where t.numProducto=h.numProducto and fec_hor_alerta = :fecha) and not exists (Select h.canProducto from TblHistorialAlerta h where t.numProducto=h.numProducto and h.estAlerta=1)")
 })
 public class TblProducto implements Serializable {

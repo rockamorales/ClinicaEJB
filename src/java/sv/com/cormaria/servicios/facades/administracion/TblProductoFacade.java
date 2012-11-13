@@ -108,6 +108,15 @@ public class TblProductoFacade extends AbstractFacade<TblProducto> implements Tb
         }
     }
      
+    public List<TblProducto> findProductoAlquiler() throws ClinicaModelexception {
+       try{
+            Query q = em.createNamedQuery("TblProducto.findProductoAlquiler");
+            return q.getResultList();
+        }catch(Exception ex){
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
+     
     public List<TblProducto> findActiveServices() throws ClinicaModelexception{
         try{
             Query q = em.createNamedQuery("TblProducto.findActiveServices");
