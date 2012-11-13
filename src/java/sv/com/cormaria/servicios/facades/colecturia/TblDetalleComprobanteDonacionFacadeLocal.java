@@ -34,4 +34,6 @@ public interface TblDetalleComprobanteDonacionFacadeLocal {
     public List<TblDetalleComprobanteDonacion> findByComprobanteDonacion(Integer numComprobanteDonacion) throws ClinicaModelexception;
     
     public Integer getMaxCorrelativo(TblDetalleComprobanteDonacionPK pk) throws ClinicaModelexception;
+    
+    public List<TblDetalleComprobanteDonacion> findByNumFacDonacion(String numFacDonacion) throws ClinicaModelexception;
 }
