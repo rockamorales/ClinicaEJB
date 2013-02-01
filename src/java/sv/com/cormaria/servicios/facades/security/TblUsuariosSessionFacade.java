@@ -86,9 +86,13 @@ public class TblUsuariosSessionFacade implements TblUsuariosSessionFacadeLocal {
     public TblUsuarios cambiarContrasena(String codigoUsuario, String contrasenaAnt, String nuevaContrasena, String confContrasena) throws ClinicaModelexception{
     	try{
 	    	TblUsuarios usuario = this.findByCodigoUsuario(codigoUsuario);
+                System.out.println("Usuario: "+usuario.getConUsuario());
 	    	if (((usuario.getConUsuario() == null) && (contrasenaAnt == null || contrasenaAnt.trim().equals("")))
 	    			|| new BASE64Encoder().encode(Crypto.encrypt(contrasenaAnt)).equals(usuario.getConUsuario())){
+                        System.out.println("nuevaContrasena: "+nuevaContrasena);
+                        System.out.println("confContrasena: "+confContrasena);
 	    		if (confContrasena.equals(nuevaContrasena)){
+                                System.out.println("confContrasena: "+confContrasena);
 			    	usuario.setConUsuario(new BASE64Encoder().encode(Crypto.encrypt(nuevaContrasena)));
 			    	usuario.setFecUltCamContrasena(new java.util.Date());
 			    	return this.updateAll(usuario);
