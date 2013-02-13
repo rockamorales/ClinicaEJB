@@ -48,7 +48,7 @@ public class TblDetalleDespachoFacade extends AbstractFacade<TblDetalleDespacho>
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-        @Override
+    @Override
     public List<TblDetalleDespacho> findByDespachoProducto(Integer numDespacho) throws ClinicaModelexception {
         try{
             Query q = em.createNamedQuery("TblDetalleDespacho.findByDespachoProducto");
@@ -59,7 +59,7 @@ public class TblDetalleDespachoFacade extends AbstractFacade<TblDetalleDespacho>
         }
     }
         
-            public float getTotalDespacho(Integer numDespacho) throws ClinicaModelexception {
+    public float getTotalDespacho(Integer numDespacho) throws ClinicaModelexception {
         try{
             Query q = em.createQuery("Select sum(t.preUniDetDespacho*t.canDetDespacho)  from TblDetalleDespacho t where t.tblDetalleDespachoPK.numDespacho = :numDespacho");
             q.setParameter("numDespacho", numDespacho);
@@ -102,6 +102,5 @@ public class TblDetalleDespachoFacade extends AbstractFacade<TblDetalleDespacho>
         }catch(Exception ex){
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
-    }
-    
+    }   
 }

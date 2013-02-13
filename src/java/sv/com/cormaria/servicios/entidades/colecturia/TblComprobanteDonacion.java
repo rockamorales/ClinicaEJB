@@ -26,6 +26,7 @@ import sv.com.cormaria.servicios.entidades.catalogos.CatBancos;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoDonante;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoPago;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
+import sv.com.cormaria.servicios.enums.OrigenDonacionEnum;
 import sv.com.cormaria.servicios.enums.TipoComprobanteDonacion;
 
 /**
@@ -100,7 +101,10 @@ public class TblComprobanteDonacion implements Serializable {
     
     @Column(name="NUM_FAC_DONACION")
     private String numFacDonacion;
-        
+    
+    @Column(name="ORI_DONACION")
+    private OrigenDonacionEnum oriDonacion;
+    
     @Transient
     private float montoRecibido;
     
@@ -131,6 +135,14 @@ public class TblComprobanteDonacion implements Serializable {
         return tipComprobante;
     }
 
+    public OrigenDonacionEnum getOriDonacion() {
+        return oriDonacion;
+    }
+
+    public void setOriDonacion(OrigenDonacionEnum oriDonacion) {
+        this.oriDonacion = oriDonacion;
+    }
+    
     public void setTipComprobante(TipoComprobanteDonacion tipComprobante) {
         this.tipComprobante = tipComprobante;
     }
