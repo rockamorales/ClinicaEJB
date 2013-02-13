@@ -22,9 +22,13 @@ import sv.com.cormaria.servicios.entidades.colecturia.CorteDiario;
 import sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
+import sv.com.cormaria.servicios.entidades.consultasmedicas.TblDetalleReceta;
+import sv.com.cormaria.servicios.entidades.consultasmedicas.TblDetalleRecetaPK;
+import sv.com.cormaria.servicios.entidades.consultasmedicas.TblRecetaMedica;
 import sv.com.cormaria.servicios.entidades.security.TblUsuarios;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
 import sv.com.cormaria.servicios.enums.EstadoConsultas;
+import sv.com.cormaria.servicios.enums.EstadoRecetaMedica;
 import sv.com.cormaria.servicios.enums.EstadoTarjeta;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelValidationException;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
@@ -114,6 +118,15 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
                 if (detalle.getNumSerEnfermeria()!=null){
                     TblServiciosEnfermeria serviciosEnfermeria = em.find(TblServiciosEnfermeria.class, detalle.getNumSerEnfermeria());
                     serviciosEnfermeria.setEstSerEnfermeria(EstadoServiciosEnfermeria.PAGADO);
+                }
+                if (detalle.getNumReceta()!=null){
+                    TblRecetaMedica receta = em.find(TblRecetaMedica.class, detalle.getNumReceta());
+                    receta.setEstReceta(EstadoRecetaMedica.PAGADA);
+                    TblDetalleRecetaPK PK = new TblDetalleRecetaPK();
+                    PK.setNumProducto(detalle.getTblProducto().getNumProducto());
+                    TblDetalleReceta detalleReceta = em.find(TblDetalleReceta.class, PK);
+                    detalleReceta.setEstDetReceta(EstadoRecetaMedica.PAGADA);
+                    //em.remove(detalleReceta);
                 }
             }
         }catch(Exception ex){

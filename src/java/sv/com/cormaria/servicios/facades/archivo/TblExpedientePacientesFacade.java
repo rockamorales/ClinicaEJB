@@ -21,6 +21,7 @@ import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 import sv.com.cormaria.servicios.enums.Estado;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
 import sv.com.cormaria.servicios.enums.EstadoConsultas;
+import sv.com.cormaria.servicios.enums.OrigenDonacionEnum;
 import sv.com.cormaria.servicios.enums.TipoComprobanteDonacion;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.catalogos.CatEspecialidadFacadeLocal;
@@ -111,6 +112,7 @@ public class TblExpedientePacientesFacade extends AbstractFacade<TblExpedientePa
            //Generando el pago
            TblComprobanteDonacion tblComprobante = new TblComprobanteDonacion();
            tblComprobante.setCodCarisma(1);
+           tblComprobante.setOriDonacion(OrigenDonacionEnum.CONSULTA);
            tblComprobante.setCodTipDonacion(2);
            tblComprobante.setCodTipDonante(2);
            tblComprobante.setEstComDonacion(EstadoComprobanteDonacion.EMITIDO);
