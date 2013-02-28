@@ -6,8 +6,8 @@ package sv.com.cormaria.servicios.enums;
 
 /**
  *
- * @author Mackk
+ * @author romorales
  */
-public enum EstadoRecetaMedica {
-    CREADA, PAGADA, ENTREGADA, CANCELADA
+public enum EstadoDetalleDespacho {
+    CREADO, RESERVADO, ENTREGADO, CANCELADO
 }

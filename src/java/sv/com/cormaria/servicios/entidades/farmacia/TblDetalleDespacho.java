@@ -10,12 +10,15 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import sv.com.cormaria.servicios.enums.EstadoDetalleDespacho;
 
 /**
  *
@@ -42,6 +45,10 @@ public class TblDetalleDespacho implements Serializable {
     @NotNull(message = "Ingrese el precio unitario del detalle de despacho")
     @Column(name = "PRE_UNI_DET_DESPACHO")
     private float preUniDetDespacho;
+    @Column(name = "EST_DESPACHO")
+    @Enumerated(EnumType.ORDINAL)
+    private EstadoDetalleDespacho estDespacho;
+    
     @JoinColumn(name = "NUM_DESPACHO", referencedColumnName = "NUM_DESPACHO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private TblDespachos tblDespachos;
@@ -73,6 +80,14 @@ public class TblDetalleDespacho implements Serializable {
 
     public void setTblDetalleDespachoPK(TblDetalleDespachoPK tblDetalleDespachoPK) {
         this.tblDetalleDespachoPK = tblDetalleDespachoPK;
+    }
+
+    public EstadoDetalleDespacho getEstDespacho() {
+        return estDespacho;
+    }
+
+    public void setEstDespacho(EstadoDetalleDespacho estDespacho) {
+        this.estDespacho = estDespacho;
     }
 
     public int getCorDetDespacho() {

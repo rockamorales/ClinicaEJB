@@ -8,12 +8,14 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
+import sv.com.cormaria.servicios.enums.EstadoRecetaMedica;
 
 /**
  *
@@ -40,9 +42,17 @@ public class TblDetalleReceta implements Serializable {
     private String freDetReceta;
     @Column(name = "DUR_TRATAMIENTO")
     private String durTratamiento;
+    
+    @Column(name = "NO_CONTRIBUIBLE")
+    private Boolean noContribuible;
+    
     @JoinColumn(name = "NUM_RECETA", referencedColumnName = "NUM_RECETA", insertable = false, updatable = false)
     @ManyToOne
     private TblRecetaMedica tblRecetaMedica;
+    
+    @Column(name="EST_DET_RECETA")
+    @Enumerated
+    private EstadoRecetaMedica estDetReceta;
 
     @JoinColumn(name = "NUM_PRODUCTO", referencedColumnName = "NUM_PRODUCTO", insertable = false, updatable = false)
     @ManyToOne
@@ -76,6 +86,22 @@ public class TblDetalleReceta implements Serializable {
         this.tblDetalleRecetaPK = tblDetalleRecetaPK;
     }
 
+    public Boolean getNoContribuible() {
+        return noContribuible;
+    }
+
+    public void setNoContribuible(Boolean noContribuible) {
+        this.noContribuible = noContribuible;
+    }
+
+    public EstadoRecetaMedica getEstDetReceta() {
+        return estDetReceta;
+    }
+
+    public void setEstDetReceta(EstadoRecetaMedica estDetReceta) {
+        this.estDetReceta = estDetReceta;
+    }
+    
     public TblProducto getTblProducto() {
         return tblProducto;
     }

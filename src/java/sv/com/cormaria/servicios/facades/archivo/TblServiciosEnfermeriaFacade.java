@@ -20,6 +20,7 @@ import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonac
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacionPK;
 import sv.com.cormaria.servicios.entidades.security.TblUsuarios;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
+import sv.com.cormaria.servicios.enums.OrigenDonacionEnum;
 import sv.com.cormaria.servicios.enums.TipoComprobanteDonacion;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelValidationException;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
@@ -93,6 +94,7 @@ public class TblServiciosEnfermeriaFacade extends AbstractFacade<TblServiciosEnf
            this.create(servicio);
            TblComprobanteDonacion tblComprobante = new TblComprobanteDonacion();
            tblComprobante.setCodCarisma(1);
+           tblComprobante.setOriDonacion(OrigenDonacionEnum.SERVICIOS_ENF);
            tblComprobante.setCodTipDonacion(2);
            tblComprobante.setCodTipDonante(2);
            tblComprobante.setEstComDonacion(EstadoComprobanteDonacion.EMITIDO);
