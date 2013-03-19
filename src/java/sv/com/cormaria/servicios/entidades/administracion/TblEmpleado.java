@@ -29,54 +29,31 @@ public class TblEmpleado implements Serializable {
     @Basic(optional = false)
     @Column(name = "NUM_EMPLEADO")
     private Integer numEmpleado;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la fecha de registro del empleado")
     @Column(name = "FEC_REG_EMPLEADO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecRegEmpleado;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el nombre del empleado")
-    @Size(min = 1, max = 30, message = "El nombre del empleado no debe ser mayor de 30 caracteres")
     @Column(name = "NOM_EMPLEADO")
     private String nomEmpleado;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el primer apellido del empleado")
-    @Size(min = 1, max = 15, message = "El primer apellido del empleado no debe ser mayor de 15 caracteres")
     @Column(name = "PRI_APE_EMPLEADO")
     private String priApeEmpleado;
-    @Size(max = 15, message = "El segundo apellido del empleado no debe ser mayor de 15 caracteres")
     @Column(name = "SEC_APE_EMPLEADO")
     private String secApeEmpleado;
-    @Size(max = 15, message = "El tercer apellido del empleado no debe ser mayor de 15 caracteres")
     @Column(name = "TER_APE_EMPLEADO")
     private String terApeEmpleado;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la direccion del empleado")
-    @Size(min = 1, max = 250, message = "La direccion del empleado no debe ser mayor de 250 caracteres")
     @Column(name = "DIR_EMPLEADO")
     private String dirEmpleado;
     @Column(name = "TEL_EMPLEADO")
     private Integer telEmpleado;
     @Column(name = "CEL_EMPLEADO")
     private Integer celEmpleado;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el NIT del empleado")
     @Column(name = "NIT_EMPLEADO")
     private long nitEmpleado;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el DUI del empleado")
     @Column(name = "DUI_EMPLEADO")
     private int duiEmpleado;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el codigo de Profesion de Empleado")
     @Column(name = "COD_PROFESION")
     private int codProfesion;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el codigo de tipo de Servicio")
     @Column(name = "COD_TIP_SERVICIO")
     private int codTipServicio;
-    @Basic(optional = false)
-    @NotNull(message="Ingrese el codigo del area")
     @Column(name = "COD_AREA")
     private int codArea;
     @Column(name = "ACT_EMPLEADO")
