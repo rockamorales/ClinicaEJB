@@ -9,5 +9,5 @@ package sv.com.cormaria.servicios.enums;
  * @author romorales
  */
 public enum EstadoDetalleDespacho {
-    CREADO, RESERVADO, ENTREGADO, CANCELADO
+    CREADO, RESERVADO, ENTREGADO, CANCELADO, ESPERANDO_PAGO
 }
