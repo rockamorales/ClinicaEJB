@@ -110,6 +110,7 @@ public class TblConsultasFacade extends AbstractFacade<TblConsultas> implements 
         TblConsultas consulta = em.find(TblConsultas.class, numConsulta);
         consulta.setEstConsulta(EstadoConsultas.FINALIZADA);
         precargarCobroReceta(consulta);
+        precargarDespacho(consulta);
     }
     
     public void precargarCobroReceta(TblConsultas consulta) throws ClinicaModelexception{
@@ -138,7 +139,52 @@ public class TblConsultasFacade extends AbstractFacade<TblConsultas> implements 
                 float total = 0.00F;
                 for (TblDetalleReceta tblDetalleReceta : detalleRecetaList) {
                     //No deberiamos verificar si es contribuible o no
-                    if (!tblDetalleReceta.getNoContribuible()){
+                    if (tblDetalleReceta.getNoContribuible()==null || !tblDetalleReceta.getNoContribuible()){
+                        detalleComprobante = new TblDetalleComprobanteDonacion();
+                        detalleComprobante.setCanProComDonacion(tblDetalleReceta.getCanDetReceta());
+                        detalleComprobante.setPreUniComDonacion(tblDetalleReceta.getTblProducto().getPreFinProducto());
+                        pk = new TblDetalleComprobanteDonacionPK();
+                        pk.setNumComDonacion(tblComprobante.getNumComDonacion());
+                        pk.setNumProducto(tblDetalleReceta.getTblProducto().getNumProducto());
+                        detalleComprobante.setTblDetalleComprobanteDonacionPK(pk);
+                        detalleComprobante.setTotIteComDonacion(tblDetalleReceta.getTblProducto().getPreFinProducto()*tblDetalleReceta.getCanDetReceta());
+                        total = total+detalleComprobante.getTotIteComDonacion();
+                        detalleComprobante.setNumReceta(recetaMedica.getNumReceta());
+                        detalleComprobanteFacade.create(detalleComprobante);
+                    }
+                }
+                tblComprobante.setTotDonacion(NumUtils.round(total, 4));
+                tblComprobante.setCanLetras(NumToText.convertirLetras(tblComprobante.getTotDonacion()));
+           }
+    }
+
+    private void precargarDespacho(TblConsultas consulta) throws ClinicaModelexception {
+           TblRecetaMedica recetaMedica = recetaFacade.findByNumConsulta(consulta.getNumConsulta());
+           List<TblDetalleReceta> detalleRecetaList = new ArrayList<TblDetalleReceta>();
+           if (recetaMedica!=null){
+               detalleRecetaList = detalleRecetaFacade.findByNumReceta(recetaMedica.getNumReceta());
+           }
+           if (!detalleRecetaList.isEmpty()){
+                TblComprobanteDonacion tblComprobante = new TblComprobanteDonacion();
+                tblComprobante.setCodCarisma(1);
+                tblComprobante.setCodTipDonacion(2);
+                tblComprobante.setCodTipDonante(2);
+                tblComprobante.setEstComDonacion(EstadoComprobanteDonacion.EMITIDO);
+                tblComprobante.setFecComDonacion(new java.util.Date());
+                tblComprobante.setCanLetras("");
+                tblComprobante.setOriDonacion(OrigenDonacionEnum.RECETA);
+                tblComprobante.setNumExpediente(consulta.getNumExpediente());
+                tblComprobante.setNomComDonacion(consulta.getTblExpediente().getNomPaciente() + " " + consulta.getTblExpediente().getPriApePaciente() + " " + consulta.getTblExpediente().getSecApePaciente());
+                tblComprobante.setTipComprobante(TipoComprobanteDonacion.COBRO);
+                comprobanteFacade.create(tblComprobante);
+                System.out.println("Numero de comprobante: "+tblComprobante.getNumComDonacion());
+                //Agregando la consulta
+                TblDetalleComprobanteDonacion detalleComprobante = null;
+                TblDetalleComprobanteDonacionPK pk = null;
+                float total = 0.00F;
+                for (TblDetalleReceta tblDetalleReceta : detalleRecetaList) {
+                    //No deberiamos verificar si es contribuible o no
+                    if (tblDetalleReceta.getNoContribuible()==null || !tblDetalleReceta.getNoContribuible()){
                         detalleComprobante = new TblDetalleComprobanteDonacion();
                         detalleComprobante.setCanProComDonacion(tblDetalleReceta.getCanDetReceta());
                         detalleComprobante.setPreUniComDonacion(tblDetalleReceta.getTblProducto().getPreFinProducto());

@@ -8,10 +8,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import sv.com.cormaria.servicios.entidades.farmacia.TblDespachos;
-import sv.com.cormaria.servicios.entidades.farmacia.TblDetalleDespacho;
-import sv.com.cormaria.servicios.entidades.farmacia.TblDetalleDespachoPK;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
 
