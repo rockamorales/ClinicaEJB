@@ -49,7 +49,7 @@ public class TblEmpleado implements Serializable {
     @Column(name = "NIT_EMPLEADO")
     private long nitEmpleado;
     @Column(name = "DUI_EMPLEADO")
-    private int duiEmpleado;
+    private String duiEmpleado;
     @Column(name = "COD_PROFESION")
     private int codProfesion;
     @Column(name = "COD_TIP_SERVICIO")
@@ -101,7 +101,7 @@ public class TblEmpleado implements Serializable {
         this.numEmpleado = numEmpleado;
     }
 
-    public TblEmpleado(Integer numEmpleado, Date fecRegEmpleado, String nomEmpleado, String priApeEmpleado, String dirEmpleado, long nitEmpleado, int duiEmpleado) {
+    public TblEmpleado(Integer numEmpleado, Date fecRegEmpleado, String nomEmpleado, String priApeEmpleado, String dirEmpleado, long nitEmpleado, String duiEmpleado) {
         this.numEmpleado = numEmpleado;
         this.fecRegEmpleado = fecRegEmpleado;
         this.nomEmpleado = nomEmpleado;
@@ -191,11 +191,11 @@ public class TblEmpleado implements Serializable {
         this.nitEmpleado = nitEmpleado;
     }
 
-    public int getDuiEmpleado() {
+    public String getDuiEmpleado() {
         return duiEmpleado;
     }
 
-    public void setDuiEmpleado(int duiEmpleado) {
+    public void setDuiEmpleado(String duiEmpleado) {
         this.duiEmpleado = duiEmpleado;
     }
 
