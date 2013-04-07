@@ -49,65 +49,34 @@ public class TblProducto implements Serializable {
     @Basic(optional = false)
     @Column(name = "NUM_PRODUCTO")
     private Integer numProducto;
-    @Basic(optional = false)
-    @NotNull(message = "Introduzca el nombre del producto")
-    @Size(min = 1, max = 100, message = "El nombre del producto no debe ser mayor de 100 caracteres")
     @Column(name = "NOM_PRODUCTO")
     private String nomProducto;
-    @Size(max = 100, message = "El nombre generico del producto no debe ser mayor de 100 caracteres")
     @Column(name = "NOM_GEN_PRODUCTO")
     private String nomGenProducto;
-    @NotNull(message = "Ingrese la clasificacion de producto")
     @Column(name = "COD_CLA_PRODUCTO")
     private Integer codClaProducto;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la presentacion del producto")
     @Column(name = "COD_PRE_PRODUCTO")
     private Integer codPreProducto;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese si el producto es perecedero")
     @Column(name = "PER_PRODUCTO")
     private boolean perProducto;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el contenido del producto")
-    @Size(min = 1, max = 250, message = "El contenido del producto no debe ser mayor de 250 caracteres")
     @Column(name = "CON_PRODUCTO")
     private String conProducto;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el fabricante del producto")
-    @Size(min = 1, max = 100, message = "El nombre del fabricante no debe ser mayor de 100 caracteres")
     @Column(name = "FAB_PRODUCTO")
     private String fabProducto;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el distribuidor del producto")
-    @Size(min = 1, max = 100, message = "El nombre del distribuidor no debe ser mayor de 100 caracteres")
     @Column(name = "DIS_PRODUCTO")
     private String disProducto;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese las existencias del producto")
     @Column(name = "EXI_PRODUCTO")
     private int exiProducto;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese las existencias minimas del producto")
     @Column(name = "EXI_MIN_PRODUCTO")
     private int exiMinProducto;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese si el producto esta en reserva")
     @Column(name = "RES_PRODUCTO")
     private int resProducto;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese si el producto es de tipo contribuible")
     @Column(name = "TIP_CON_PRODUCTO")
     private boolean tipConProducto;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el valor del producto")
     @Column(name = "VAL_PRODUCTO")
     private float valProducto;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el precio final(venta) del producto")
     @Column(name = "PRE_FIN_PRODUCTO")
     private float preFinProducto;
-    @Size(max = 500, message = "La descripción del producto no debe ser mayor de 500 careacteres")
     @Column(name = "DES_PRODUCTO")
     private String desProducto;
     @Basic(optional = false)
