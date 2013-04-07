@@ -37,14 +37,8 @@ public class TblBeneficiarios implements Serializable {
     @Basic(optional = false)
     @Column(name = "NUM_BENEFICIARIO")
     private Integer numBeneficiario;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el nombre del beneficiario")
-    @Size(min = 1, max = 100, message = "El nombre del beneficiario no debe ser mayor de 100 caracteres")
     @Column(name = "NOM_BENEFICIARIO")
     private String nomBeneficiario;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese la dirección del beneficiario")
-    @Size(min = 1, max = 250, message = "la dirección no debe ser mayor de 250  caracteres")
     @Column(name = "DIR_BENEFICIARIO")
     private String dirBeneficiario;
     @Column(name = "TEL_BENEFICIARIO")
@@ -53,7 +47,6 @@ public class TblBeneficiarios implements Serializable {
     private String nitBeneficiario;
     @Column(name = "NRC_BENEFICIARIO")
     private Integer nrcBeneficiario;
-    @Size(max = 100, message = "El giro no debe ser mayor de 100 caracteres")
     @Column(name = "GIR_BENEFICIARIO")
     private String girBeneficiario;
     @Column(name = "COD_RUBRO")
@@ -62,9 +55,6 @@ public class TblBeneficiarios implements Serializable {
     private Integer celConBeneficiario;
     @Column(name = "ACT_BENEFICIARIO")
     private Estado actBeneficiario;
-    @Basic(optional = false)
-    @NotNull(message = "Ingrese el nombre del contacto del benenficiario")
-    @Size(min = 1, max = 100, message = "El nombre de contacto del beneficiario no debe ser mayor de 100 caracteres")
     @Column(name = "NOM_CON_BENEFICIARIO")
     private String nomConBeneficiario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "numBeneficiario")
