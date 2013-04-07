@@ -82,7 +82,7 @@ public class TblProducto implements Serializable {
     @Basic(optional = false)
     @NotNull(message = "Ingrese el estado del producto")
     @Column(name = "EST_PRODUCTO")
-    private int estProducto;
+    private Integer estProducto;
     
     @Basic(optional=false)
     @NotNull(message="Por especifique la categoria para el producto")
@@ -293,13 +293,15 @@ public class TblProducto implements Serializable {
         this.desProducto = desProducto;
     }
 
-    public int getEstProducto() {
+    public Integer getEstProducto() {
         return estProducto;
     }
 
-    public void setEstProducto(int estProducto) {
+    public void setEstProducto(Integer estProducto) {
         this.estProducto = estProducto;
     }
+
+
 
     @Override
     public int hashCode() {
