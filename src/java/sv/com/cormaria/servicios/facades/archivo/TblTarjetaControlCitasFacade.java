@@ -19,6 +19,7 @@ import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 import sv.com.cormaria.servicios.enums.Estado;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
 import sv.com.cormaria.servicios.enums.EstadoTarjeta;
+import sv.com.cormaria.servicios.enums.OrigenDonacionEnum;
 import sv.com.cormaria.servicios.enums.TipoComprobanteDonacion;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.colecturia.TblComprobanteDonacionFacadeLocal;
@@ -137,6 +138,7 @@ public class TblTarjetaControlCitasFacade extends AbstractFacade<TblTarjetaContr
            tblComprobante.setCodCarisma(1);
            tblComprobante.setCodTipDonacion(2);
            tblComprobante.setCodTipDonante(2);
+           tblComprobante.setOriDonacion(OrigenDonacionEnum.TARJETA);
            tblComprobante.setEstComDonacion(EstadoComprobanteDonacion.EMITIDO);
            tblComprobante.setFecComDonacion(new java.util.Date());
            tblComprobante.setCanLetras("Cero");
