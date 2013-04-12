@@ -21,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -100,6 +101,7 @@ public class TblUsuarios implements Serializable {
     private TblEmpleado empleado;
     
     @OneToMany(mappedBy="usuario",fetch= FetchType.EAGER)
+    @OrderBy("id.codRol asc")
     private Set<CatRolesUsuario> rolesusuario;
 
     @Column(name="est_usuario")
