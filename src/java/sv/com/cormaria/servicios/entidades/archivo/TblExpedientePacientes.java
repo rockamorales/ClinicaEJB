@@ -113,6 +113,7 @@ public class TblExpedientePacientes implements Serializable {
     @Basic
     @Column(name = "EST_PACIENTE")
     private Estado estPaciente;
+    
     @JoinColumn(name = "COD_UBI_FISICA", referencedColumnName = "COD_UBI_FISICA", insertable=false, updatable=false)
     @ManyToOne
     private CatUbicacionFisica catUbicacionFisica;
