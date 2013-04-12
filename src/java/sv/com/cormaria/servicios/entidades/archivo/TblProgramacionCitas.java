@@ -5,6 +5,7 @@
 package sv.com.cormaria.servicios.entidades.archivo;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Column;
@@ -20,6 +21,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import sv.com.cormaria.servicios.enums.EstadoProgramacionCitas;
 
 /**
@@ -61,6 +63,8 @@ public class TblProgramacionCitas implements Serializable {
     private Integer codConsultorio;
     @Column(name = "NUM_MEDICO")
     private Integer numMedico;
+    @Transient 
+    private String horCita1;
     
     @ManyToOne
     @JoinColumn(name="NUM_EXPEDIENTE", referencedColumnName="NUM_EXPEDIENTE", insertable=false, updatable=false)
@@ -163,6 +167,21 @@ public class TblProgramacionCitas implements Serializable {
         this.estCita = estCita;
     }
 
+    public String getHorCita1() {
+        return horCita1;
+    }
+
+    public void setHorCita1(String horCita1) {
+        SimpleDateFormat formatter=new SimpleDateFormat("HH:mm:ss");
+        try{
+            this.setHorCita(formatter.parse(horCita1));
+        }catch(ParseException ex){
+        }
+        this.horCita1 = horCita1;
+        
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;
