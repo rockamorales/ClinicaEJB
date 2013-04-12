@@ -33,6 +33,7 @@ public class CatRoles implements Serializable {
     private String desRol;
 
     @OneToMany(mappedBy="catRole", fetch=FetchType.EAGER)
+    @OrderBy("id.codMenu desc")
     private Set<CatRolesMenu> rolesMenu;
 
     public CatRoles() {
