@@ -125,6 +125,7 @@ public class ExpedientesSearchCriteria implements SearchCriteria{
         }
         if (this.getTercerApellido()!=null && !this.getTercerApellido().trim().equals("")){
             parameters.put("tercerApellido",this.getTercerApellido());
+                            
         }
         
         if (this.getDui()!=null && !this.getDui().trim().equals("")){
@@ -163,7 +164,7 @@ public class ExpedientesSearchCriteria implements SearchCriteria{
             if (strWhere.length() > 0){
                     strWhere.append(" and ");
             }
-            strWhere.append(" e.terApePaciente like :tecerApellido");
+            strWhere.append(" e.terApePaciente like :tercerApellido");
         }
         
         if (this.getDui()!=null && !this.getDui().trim().equals("")){

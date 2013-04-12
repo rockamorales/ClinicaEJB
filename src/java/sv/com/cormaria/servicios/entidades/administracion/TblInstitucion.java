@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import sv.com.cormaria.servicios.entidades.catalogos.CatEspecialidad;
+import sv.com.cormaria.servicios.entidades.catalogos.CatRubro;
 import sv.com.cormaria.servicios.enums.Estado;
 
 /**
@@ -65,6 +66,17 @@ public class TblInstitucion implements Serializable {
     private Collection<TblOrdenCompra> tblOrdenCompraCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "numInstitucion")
     private Collection<TblSolicitudDonacion> tblSolicitudDonacionCollection;
+    @ManyToOne
+    @JoinColumn(name="COD_RUBRO",referencedColumnName="COD_RUBRO",insertable=false, updatable=false)
+    private CatRubro catRubro;
+
+    public CatRubro getCatRubro() {
+        return catRubro;
+    }
+
+    public void setCatRubro(CatRubro catRubro) {
+        this.catRubro = catRubro;
+    }
 
     public String getCorConInstitucion() {
         return corConInstitucion;
