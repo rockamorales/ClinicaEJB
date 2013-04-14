@@ -139,6 +139,7 @@ public class TblTarjetaControlCitasFacade extends AbstractFacade<TblTarjetaContr
            tblComprobante.setCodCarisma(1);
            tblComprobante.setCodTipDonacion(2);
            tblComprobante.setCodTipDonante(2);
+           tblComprobante.setOriDonacion(OrigenDonacionEnum.TARJETA);
            tblComprobante.setEstComDonacion(EstadoComprobanteDonacion.EMITIDO);
            tblComprobante.setFecComDonacion(new java.util.Date());
            tblComprobante.setCanLetras("Cero");
