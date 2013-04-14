@@ -30,6 +30,7 @@ import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
 import sv.com.cormaria.servicios.enums.EstadoConsultas;
 import sv.com.cormaria.servicios.enums.EstadoRecetaMedica;
 import sv.com.cormaria.servicios.enums.EstadoTarjeta;
+import sv.com.cormaria.servicios.enums.OrigenDonacionEnum;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelValidationException;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.archivo.TblTarjetaControlCitasFacadeLocal;
@@ -88,6 +89,7 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
             System.out.println("Codigo: "+sessionContext.getCallerPrincipal().getName());
             TblUsuarios usuario = usuarioFacade.findByCodigoUsuario(sessionContext.getCallerPrincipal().getName());
             System.out.println("Usuario: "+ usuario);
+            entity.setOriDonacion(OrigenDonacionEnum.OTROS);
             entity.setNumEmpleado(usuario.getNumEmpleado());
             getEntityManager().persist(entity);
             return entity;
@@ -101,13 +103,16 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
             this.edit(comprobante);
             List<TblDetalleComprobanteDonacion> detalleList = detalleFacade.findByComprobanteDonacion(comprobante.getNumComDonacion());
             for (TblDetalleComprobanteDonacion detalle : detalleList) {
-                if (detalle.getTblProducto().getCodTipProducto() == CatCategoriaProducto.TARJETA_CONTROL){
+                    System.out.println("Codtipproducto: "+detalle.getTblProducto().getCodTipProducto());
+                if (detalle.getTblProducto().getCodTipProducto().equals(CatCategoriaProducto.TARJETA_CONTROL)){
                     List<TblTarjetaControlCitas> tarjetasList = tarjetaFacade.findNoPagadoByNumExpediente(comprobante.getNumExpediente());
                     if (tarjetasList.isEmpty()){
                         throw new ClinicaModelValidationException("No existe registros de tarjetas pendientes de pago en el expediente");
                     }
+                    System.out.println("Cambiando el estado de la TARJETA");
                     TblTarjetaControlCitas tarjeta = tarjetasList.get(0);
                     tarjeta.setEstTarjeta(EstadoTarjeta.PAGADO);
+                    em.merge(tarjeta);
                 }
                 if (detalle.getNumConsulta()!=null){
                     System.out.println("Cambiando el estado de la consulta");

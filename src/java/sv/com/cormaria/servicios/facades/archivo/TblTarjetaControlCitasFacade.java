@@ -19,7 +19,9 @@ import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 import sv.com.cormaria.servicios.enums.Estado;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
 import sv.com.cormaria.servicios.enums.EstadoTarjeta;
+import sv.com.cormaria.servicios.enums.OrigenDonacionEnum;
 import sv.com.cormaria.servicios.enums.TipoComprobanteDonacion;
+import sv.com.cormaria.servicios.exceptions.ClinicaModelValidationException;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.colecturia.TblComprobanteDonacionFacadeLocal;
 import sv.com.cormaria.servicios.facades.colecturia.TblDetalleComprobanteDonacionFacadeLocal;
@@ -143,11 +145,12 @@ public class TblTarjetaControlCitasFacade extends AbstractFacade<TblTarjetaContr
            tblComprobante.setNumExpediente(expediente.getNumExpediente());
            tblComprobante.setNomComDonacion(expediente.getNomPaciente() + " " + expediente.getPriApePaciente() + " " + expediente.getSecApePaciente());
            tblComprobante.setTipComprobante(TipoComprobanteDonacion.COBRO);
+           tblComprobante.setOriDonacion(OrigenDonacionEnum.TARJETA);
            comprobanteFacade.create(tblComprobante);
 
            TblDetalleComprobanteDonacion detalleComprobante = new TblDetalleComprobanteDonacion();
            List<TblProducto> productosList = productoFacade.findTarjetaControl();
-           if (!tarjetasList.isEmpty()){
+           if (!productosList.isEmpty()){
             TblProducto tarjeta = productosList.get(0);
             detalleComprobante.setCanProComDonacion(1);
             detalleComprobante.setPreUniComDonacion(tarjeta.getPreFinProducto());
@@ -159,7 +162,9 @@ public class TblTarjetaControlCitasFacade extends AbstractFacade<TblTarjetaContr
             tblComprobante.setTotDonacion(tarjeta.getPreFinProducto());
             tblComprobante.setCanLetras(NumToText.convertirLetras(tblComprobante.getTotDonacion()));
             detalleComprobanteFacade.create(detalleComprobante);
-          }
+          }else{
+               throw new ClinicaModelValidationException("No se encontro un producto configurado para la tarjeta de control");
+           }
           return entity;
         }catch(Exception ex){
             throw new ClinicaModelexception(ex.getMessage(), ex);
