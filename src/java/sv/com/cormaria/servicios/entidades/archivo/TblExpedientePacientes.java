@@ -258,7 +258,7 @@ public class TblExpedientePacientes implements Serializable {
     public short getEdaPaciente() {
         return edaPaciente;
     } 
-    
+     
     public int getEdadPaciente() {
         if(fecNacPaciente != null){
             return DateUtils.yearDateDiff(fecNacPaciente, new java.util.Date());
