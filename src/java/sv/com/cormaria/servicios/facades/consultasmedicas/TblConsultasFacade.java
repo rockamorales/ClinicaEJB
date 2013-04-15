@@ -98,6 +98,11 @@ public class TblConsultasFacade extends AbstractFacade<TblConsultas> implements 
     
     public TblConsultas editSigVitalesInfo(TblConsultas consulta) throws ClinicaModelexception{
         try{
+            System.out.println("Peso:"+consulta.getPesPaciente());
+            System.out.println("Talla:"+consulta.getTalPaciente());
+            System.out.println("Temp:"+consulta.getTemPaciente());
+            System.out.println("pulso:"+consulta.getPulPaciente());
+            System.out.println("Presion:"+consulta.getPreArterial());
             consulta.setEstConsulta(EstadoConsultas.SIGNOS_VITALES);
             return em.merge(consulta);
         }catch(Exception ex){

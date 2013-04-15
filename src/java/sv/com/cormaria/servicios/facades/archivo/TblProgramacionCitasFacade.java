@@ -71,6 +71,7 @@ public class TblProgramacionCitasFacade extends AbstractFacade<TblProgramacionCi
     @Override
     public TblProgramacionCitas edit(TblProgramacionCitas entity) throws ClinicaModelexception {
         try{
+            System.out.println ("Hora:"+entity.getHorCita());
             return getEntityManager().merge(entity);
          }catch(Exception ex){
             throw new ClinicaModelexception(ex.getMessage(), ex);
