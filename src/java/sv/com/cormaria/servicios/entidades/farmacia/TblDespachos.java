@@ -30,7 +30,9 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "tbl_despachos")
 @NamedQueries({
-    @NamedQuery(name = "TblDespachos.findAll", query = "SELECT t FROM TblDespachos t")})
+    @NamedQuery(name = "TblDespachos.findAll", query = "SELECT t FROM TblDespachos t"),
+    @NamedQuery(name = "TblDespachos.findByNumReceta", query = "SELECT t FROM TblDespachos t where t.numReceta = :numReceta")
+})
 public class TblDespachos implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,6 +58,8 @@ public class TblDespachos implements Serializable {
     private Integer codTipSalida;
     @Column(name = "EST_DESPACHO")
     private Integer estDespacho;
+    @Column(name = "NUM_RECETA")
+    private Integer numReceta;
     @NotNull(message="Ingrese el numero del documento de despacho")
     @Size(min = 1, max = 30, message="El numero de documento de despacho debe ser menor a 30 caracteres")
     @Column(name = "NUM_DOC_DESPACHO")
@@ -93,6 +97,14 @@ public class TblDespachos implements Serializable {
         this.numEmpleado = numEmpleado;
     }
 
+    public Integer getNumReceta() {
+        return numReceta;
+    }
+
+    public void setNumReceta(Integer numReceta) {
+        this.numReceta = numReceta;
+    }
+    
     public Integer getCodTipSalida() {
         return codTipSalida;
     }

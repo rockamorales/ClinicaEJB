@@ -41,6 +41,28 @@ public class TblDetalleRecetaFacade extends AbstractFacade<TblDetalleReceta> imp
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }
     }
+    
+    public List<TblDetalleReceta> findNoContribuibleByNumReceta(Integer numReceta) throws ClinicaModelexception {
+        try{
+            Query q = em.createNamedQuery("TblDetalleReceta.findNoContribuibleByNumReceta");
+            q.setParameter("numReceta", numReceta);
+            return q.getResultList();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
+    public List<TblDetalleReceta> findContribuibleByNumReceta(Integer numReceta) throws ClinicaModelexception {
+        try{
+            Query q = em.createNamedQuery("TblDetalleReceta.findContribuibleByNumReceta");
+            q.setParameter("numReceta", numReceta);
+            return q.getResultList();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
+
 
     @Override
     public List<TblDetalleReceta> findAll() throws ClinicaModelexception {
