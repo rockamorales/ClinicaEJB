@@ -8,6 +8,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import sv.com.cormaria.servicios.entidades.farmacia.TblDespachos;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
@@ -32,6 +33,17 @@ public class TblDespachosFacade extends AbstractFacade<TblDespachos> implements 
     @Override
     public List<TblDespachos> findAll() throws ClinicaModelexception {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public TblDespachos findByNumReceta(Integer numReceta) throws ClinicaModelexception {
+        try{
+            Query q = em.createNamedQuery("TblDespachos.findByNumReceta");
+            q.setParameter("numReceta", numReceta);
+            return (TblDespachos) q.getSingleResult();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
     }
 
     @Override

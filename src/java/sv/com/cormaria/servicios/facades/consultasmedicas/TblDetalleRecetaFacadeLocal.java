@@ -31,4 +31,6 @@ public interface TblDetalleRecetaFacadeLocal {
     int count() throws ClinicaModelexception;
 
     public List<TblDetalleReceta> findByNumReceta(Integer numReceta) throws ClinicaModelexception;
+    public List<TblDetalleReceta> findNoContribuibleByNumReceta(Integer numReceta) throws ClinicaModelexception;
+    public List<TblDetalleReceta> findContribuibleByNumReceta(Integer numReceta) throws ClinicaModelexception;    
 }

@@ -23,7 +23,9 @@ import sv.com.cormaria.servicios.enums.EstadoRecetaMedica;
  */
 @NamedQueries({
     @NamedQuery(name = "TblDetalleReceta.findAll", query = "SELECT t FROM TblDetalleReceta t"),
-    @NamedQuery(name = "TblDetalleReceta.findByNumReceta", query = "SELECT t FROM TblDetalleReceta t where t.tblDetalleRecetaPK.numReceta = :numReceta")
+    @NamedQuery(name = "TblDetalleReceta.findByNumReceta", query = "SELECT t FROM TblDetalleReceta t where t.tblDetalleRecetaPK.numReceta = :numReceta"),
+    @NamedQuery(name = "TblDetalleReceta.findNoContribuibleByNumReceta", query = "SELECT t FROM TblDetalleReceta t where t.tblDetalleRecetaPK.numReceta = :numReceta and t.noContribuible = true"),
+    @NamedQuery(name = "TblDetalleReceta.findContribuibleByNumReceta", query = "SELECT t FROM TblDetalleReceta t where t.tblDetalleRecetaPK.numReceta = :numReceta and t.noContribuible = false")
 })
 
 @Entity
