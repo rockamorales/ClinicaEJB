@@ -4,6 +4,7 @@
  */
 package sv.com.cormaria.servicios.facades.colecturia;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
@@ -25,9 +26,13 @@ import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblDetalleReceta;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblDetalleRecetaPK;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblRecetaMedica;
+import sv.com.cormaria.servicios.entidades.farmacia.TblDespachos;
+import sv.com.cormaria.servicios.entidades.farmacia.TblDetalleDespacho;
+import sv.com.cormaria.servicios.entidades.farmacia.TblDetalleDespachoPK;
 import sv.com.cormaria.servicios.entidades.security.TblUsuarios;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
 import sv.com.cormaria.servicios.enums.EstadoConsultas;
+import sv.com.cormaria.servicios.enums.EstadoDetalleDespacho;
 import sv.com.cormaria.servicios.enums.EstadoRecetaMedica;
 import sv.com.cormaria.servicios.enums.EstadoTarjeta;
 import sv.com.cormaria.servicios.enums.OrigenDonacionEnum;
@@ -35,6 +40,9 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelValidationException;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.archivo.TblTarjetaControlCitasFacadeLocal;
 import sv.com.cormaria.servicios.facades.common.AbstractFacade;
+import sv.com.cormaria.servicios.facades.consultasmedicas.TblDetalleRecetaFacadeLocal;
+import sv.com.cormaria.servicios.facades.farmacia.TblDespachosFacadeLocal;
+import sv.com.cormaria.servicios.facades.farmacia.TblDetalleDespachoFacadeLocal;
 import sv.com.cormaria.servicios.facades.security.TblUsuariosSessionFacadeLocal;
 
 /**
@@ -51,6 +59,16 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
     TblDetalleComprobanteDonacionFacadeLocal detalleFacade;
     @EJB
     TblTarjetaControlCitasFacadeLocal tarjetaFacade;
+    @EJB
+    TblDespachosFacadeLocal despachoFacade;
+    @EJB
+    TblDetalleDespachoFacadeLocal detalleDespachoFacade;
+    @EJB
+    TblDetalleRecetaFacadeLocal detalleRecetaFacade;
+    
+    @EJB
+    TblUsuariosSessionFacadeLocal usuariosFacade;
+    
     @Resource
     SessionContext sessionContext;
 
@@ -131,8 +149,10 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
                     PK.setNumProducto(detalle.getTblProducto().getNumProducto());
                     TblDetalleReceta detalleReceta = em.find(TblDetalleReceta.class, PK);
                     detalleReceta.setEstDetReceta(EstadoRecetaMedica.PAGADA);
+                    precargarDespacho(receta);
                     //em.remove(detalleReceta);
                 }
+                
             }
         }catch(Exception ex){
             ex.printStackTrace();
@@ -183,4 +203,46 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
             throw new ClinicaModelexception(ex.getMessage(), ex);
         }        
     }    
+
+    private void precargarDespacho(TblRecetaMedica recetaMedica) throws ClinicaModelexception{
+           List<TblDetalleReceta> detalleRecetaList = new ArrayList<TblDetalleReceta>();
+           if (recetaMedica!=null){
+               detalleRecetaList = detalleRecetaFacade.findNoContribuibleByNumReceta(recetaMedica.getNumReceta());
+           }
+           if (!detalleRecetaList.isEmpty()){
+                TblDespachos tblDespacho = despachoFacade.findByNumReceta(recetaMedica.getNumReceta());
+                if (tblDespacho==null){
+                    tblDespacho = new TblDespachos();
+                    tblDespacho.setNumReceta(recetaMedica.getNumReceta());
+                    tblDespacho.setCodTipSalida(1);
+                    tblDespacho.setEstDespacho(EstadoDetalleDespacho.CREADO.ordinal());
+                    tblDespacho.setFecDespacho(new java.util.Date());
+                    tblDespacho.setMonDespacho(0);
+                    TblUsuarios usuario = usuariosFacade.findByCodigoUsuario(sessionContext.getCallerPrincipal().getName());
+                    tblDespacho.setNumEmpleado(usuario.getNumEmpleado());
+                    tblDespacho.setObsDespacho("Despacho generado a partir de la receta #"+recetaMedica.getNumReceta());
+                    despachoFacade.create(tblDespacho);
+                }
+                System.out.println("Numero despacho: "+tblDespacho.getNumDespacho());
+                //Agregando la consulta
+                TblDetalleDespacho detalleDespacho = null;
+                TblDetalleDespachoPK pk = null;
+                float total = 0.00F;
+                for (TblDetalleReceta tblDetalleReceta : detalleRecetaList) {
+                    //No deberiamos verificar si es contribuible o no
+                    if (tblDetalleReceta.getNoContribuible()==null || !tblDetalleReceta.getNoContribuible()){
+                        detalleDespacho = new TblDetalleDespacho();
+                        detalleDespacho.setCanDetDespacho(tblDetalleReceta.getCanDetReceta());
+                        detalleDespacho.setEstDespacho(EstadoDetalleDespacho.RESERVADO);
+                        pk = new TblDetalleDespachoPK();
+                        pk.setNumDespacho(tblDespacho.getNumDespacho());
+                        pk.setNumProducto(tblDetalleReceta.getTblProducto().getNumProducto());
+                        detalleDespacho.setTblDetalleDespachoPK(pk);
+                        detalleDespacho.setPreUniDetDespacho(0);
+                        detalleDespachoFacade.create(detalleDespacho);
+                    }
+                }
+           }
+        
+    }
 }
