@@ -209,7 +209,7 @@ public class TblConsultasFacade extends AbstractFacade<TblConsultas> implements 
                 float total = 0.00F;
                 for (TblDetalleReceta tblDetalleReceta : detalleRecetaList) {
                     //No deberiamos verificar si es contribuible o no
-                    if (tblDetalleReceta.getNoContribuible()==null || !tblDetalleReceta.getNoContribuible()){
+                    if (tblDetalleReceta.getNoContribuible()==null || tblDetalleReceta.getNoContribuible()){
                         detalleDespacho = new TblDetalleDespacho();
                         detalleDespacho.setCanDetDespacho(tblDetalleReceta.getCanDetReceta());
                         detalleDespacho.setEstDespacho(EstadoDetalleDespacho.RESERVADO);
