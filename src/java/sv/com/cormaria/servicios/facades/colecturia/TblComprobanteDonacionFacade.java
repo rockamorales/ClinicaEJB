@@ -120,6 +120,7 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
         try{
             this.edit(comprobante);
             List<TblDetalleComprobanteDonacion> detalleList = detalleFacade.findByComprobanteDonacion(comprobante.getNumComDonacion());
+            TblRecetaMedica receta = null;
             for (TblDetalleComprobanteDonacion detalle : detalleList) {
                     System.out.println("Codtipproducto: "+detalle.getTblProducto().getCodTipProducto());
                 if (detalle.getTblProducto().getCodTipProducto().equals(CatCategoriaProducto.TARJETA_CONTROL)){
@@ -143,16 +144,21 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
                     serviciosEnfermeria.setEstSerEnfermeria(EstadoServiciosEnfermeria.PAGADO);
                 }
                 if (detalle.getNumReceta()!=null){
-                    TblRecetaMedica receta = em.find(TblRecetaMedica.class, detalle.getNumReceta());
+                    receta = em.find(TblRecetaMedica.class, detalle.getNumReceta());
                     receta.setEstReceta(EstadoRecetaMedica.PAGADA);
                     TblDetalleRecetaPK PK = new TblDetalleRecetaPK();
                     PK.setNumProducto(detalle.getTblProducto().getNumProducto());
+                    PK.setNumReceta(receta.getNumReceta());
                     TblDetalleReceta detalleReceta = em.find(TblDetalleReceta.class, PK);
                     detalleReceta.setEstDetReceta(EstadoRecetaMedica.PAGADA);
-                    precargarDespacho(receta);
                     //em.remove(detalleReceta);
                 }
-                
+            }
+            if (comprobante.getOriDonacion() == OrigenDonacionEnum.RECETA){
+                    System.out.println("Precargando despacho...");
+                    if (receta != null){
+                        precargarDespacho(receta);
+                    }
             }
         }catch(Exception ex){
             ex.printStackTrace();
@@ -207,11 +213,14 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
     private void precargarDespacho(TblRecetaMedica recetaMedica) throws ClinicaModelexception{
            List<TblDetalleReceta> detalleRecetaList = new ArrayList<TblDetalleReceta>();
            if (recetaMedica!=null){
-               detalleRecetaList = detalleRecetaFacade.findNoContribuibleByNumReceta(recetaMedica.getNumReceta());
+               detalleRecetaList = detalleRecetaFacade.findContribuibleByNumReceta(recetaMedica.getNumReceta());
+               System.out.println("Lista de medicamentos no contribuibles recuperada: "+detalleRecetaList.size());
            }
            if (!detalleRecetaList.isEmpty()){
                 TblDespachos tblDespacho = despachoFacade.findByNumReceta(recetaMedica.getNumReceta());
+               System.out.println("Buscando despacho... ");
                 if (tblDespacho==null){
+                    System.out.println("No existe ningun despacho. Creando uno nuevo ");
                     tblDespacho = new TblDespachos();
                     tblDespacho.setNumReceta(recetaMedica.getNumReceta());
                     tblDespacho.setCodTipSalida(1);
@@ -230,18 +239,19 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
                 float total = 0.00F;
                 for (TblDetalleReceta tblDetalleReceta : detalleRecetaList) {
                     //No deberiamos verificar si es contribuible o no
-                    if (tblDetalleReceta.getNoContribuible()==null || !tblDetalleReceta.getNoContribuible()){
-                        detalleDespacho = new TblDetalleDespacho();
-                        detalleDespacho.setCanDetDespacho(tblDetalleReceta.getCanDetReceta());
-                        detalleDespacho.setEstDespacho(EstadoDetalleDespacho.RESERVADO);
-                        pk = new TblDetalleDespachoPK();
-                        pk.setNumDespacho(tblDespacho.getNumDespacho());
-                        pk.setNumProducto(tblDetalleReceta.getTblProducto().getNumProducto());
-                        detalleDespacho.setTblDetalleDespachoPK(pk);
-                        detalleDespacho.setPreUniDetDespacho(0);
-                        detalleDespachoFacade.create(detalleDespacho);
-                    }
+                    System.out.println("Num producto: "+tblDetalleReceta.getTblProducto().getNumProducto());
+                    detalleDespacho = new TblDetalleDespacho();
+                    detalleDespacho.setCanDetDespacho(tblDetalleReceta.getCanDetReceta());
+                    detalleDespacho.setEstDespacho(EstadoDetalleDespacho.RESERVADO);
+                    pk = new TblDetalleDespachoPK();
+                    pk.setNumDespacho(tblDespacho.getNumDespacho());
+                    pk.setNumProducto(tblDetalleReceta.getTblProducto().getNumProducto());
+                    detalleDespacho.setTblDetalleDespachoPK(pk);
+                    detalleDespacho.setPreUniDetDespacho(tblDetalleReceta.getTblProducto().getPreFinProducto());
+                    total = total + tblDetalleReceta.getTblProducto().getPreFinProducto()*tblDetalleReceta.getCanDetReceta();
+                    detalleDespachoFacade.create(detalleDespacho);
                 }
+                tblDespacho.setMonDespacho(tblDespacho.getMonDespacho()+total);
            }
         
     }
