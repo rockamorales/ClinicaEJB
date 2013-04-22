@@ -195,7 +195,7 @@ public class TblConsultasFacade extends AbstractFacade<TblConsultas> implements 
                 TblDespachos tblDespacho = new TblDespachos();
                 tblDespacho.setNumReceta(recetaMedica.getNumReceta());
                 tblDespacho.setCodTipSalida(1);
-                tblDespacho.setEstDespacho(EstadoDetalleDespacho.CREADO.ordinal());
+                tblDespacho.setEstDespacho(EstadoDetalleDespacho.CREADO);
                 tblDespacho.setFecDespacho(new java.util.Date());
                 tblDespacho.setMonDespacho(0);
                 TblUsuarios usuario = usuariosFacade.findByCodigoUsuario(sessionContext.getCallerPrincipal().getName());

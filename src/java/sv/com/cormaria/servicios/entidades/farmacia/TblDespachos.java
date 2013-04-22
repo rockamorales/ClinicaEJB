@@ -22,6 +22,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import sv.com.cormaria.servicios.enums.EstadoDetalleDespacho;
 
 /**
  *
@@ -57,7 +58,7 @@ public class TblDespachos implements Serializable {
     @Column(name = "COD_TIP_SALIDA")
     private Integer codTipSalida;
     @Column(name = "EST_DESPACHO")
-    private Integer estDespacho;
+    private EstadoDetalleDespacho estDespacho;
     @Column(name = "NUM_RECETA")
     private Integer numReceta;
     @NotNull(message="Ingrese el numero del documento de despacho")
@@ -113,11 +114,11 @@ public class TblDespachos implements Serializable {
         this.codTipSalida = codTipSalida;
     }
 
-    public Integer getEstDespacho() {
+    public EstadoDetalleDespacho getEstDespacho() {
         return estDespacho;
     }
 
-    public void setEstDespacho(Integer estDespacho) {
+    public void setEstDespacho(EstadoDetalleDespacho estDespacho) {
         this.estDespacho = estDespacho;
     }
 
