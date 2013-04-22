@@ -11,17 +11,19 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import sv.com.cormaria.servicios.entidades.consultasmedicas.TblRecetaMedica;
 import sv.com.cormaria.servicios.enums.EstadoDetalleDespacho;
 
 /**
@@ -32,25 +34,21 @@ import sv.com.cormaria.servicios.enums.EstadoDetalleDespacho;
 @Table(name = "tbl_despachos")
 @NamedQueries({
     @NamedQuery(name = "TblDespachos.findAll", query = "SELECT t FROM TblDespachos t"),
-    @NamedQuery(name = "TblDespachos.findByNumReceta", query = "SELECT t FROM TblDespachos t where t.numReceta = :numReceta")
+    @NamedQuery(name = "TblDespachos.findByNumReceta", query = "SELECT t FROM TblDespachos t where t.numReceta = :numReceta"),
+    @NamedQuery(name = "tblDespachos.findDespachosCreados", query = "SELECT t FROM TblDespachos t where t.estDespacho = 0 and t.numReceta is not null"),
 })
 public class TblDespachos implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "NUM_DESPACHO")
     private Integer numDespacho;
-    @Basic(optional = false)
-    @NotNull (message="Ingrese la fecha de despacho")
     @Column(name = "FEC_DESPACHO")
     @Temporal(TemporalType.DATE)
     private Date fecDespacho;
-    @Size(max = 500, message="Las observaciones no deben se mayores a 500 caracteres") 
     @Column(name = "OBS_DESPACHO")
     private String obsDespacho;
     @Basic(optional = false)
-    @NotNull(message="Ingrese el nombre del depacho")
     @Column(name = "MON_DESPACHO")
     private float monDespacho;
     @Column(name = "NUM_EMPLEADO")
@@ -61,12 +59,14 @@ public class TblDespachos implements Serializable {
     private EstadoDetalleDespacho estDespacho;
     @Column(name = "NUM_RECETA")
     private Integer numReceta;
-    @NotNull(message="Ingrese el numero del documento de despacho")
-    @Size(min = 1, max = 30, message="El numero de documento de despacho debe ser menor a 30 caracteres")
     @Column(name = "NUM_DOC_DESPACHO")
     private String numDocDespacho;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblDespachos")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblDespachos", fetch = FetchType.EAGER)
     private Collection<TblDetalleDespacho> tblDetalleDespachoCollection;
+    
+    @ManyToOne
+    @JoinColumn(name = "NUM_RECETA", referencedColumnName = "NUM_RECETA", insertable = false, updatable = false)
+    private TblRecetaMedica recetaMedica;
 
     public TblDespachos() {
     }
@@ -162,6 +162,18 @@ public class TblDespachos implements Serializable {
         this.tblDetalleDespachoCollection = tblDetalleDespachoCollection;
     }
 
+    public TblRecetaMedica getRecetaMedica() {
+        return recetaMedica;
+    }
+
+    public void setRecetaMedica(TblRecetaMedica recetaMedica) {
+        this.recetaMedica = recetaMedica;
+    }
+    
+    public Integer getCantidadArticulos(){
+        return this.getTblDetalleDespachoCollection().size();
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -185,6 +197,5 @@ public class TblDespachos implements Serializable {
     @Override
     public String toString() {
         return "sv.com.cormaria.servicios.entidades.farmacia.TblDespachos[ numDespacho=" + numDespacho + " ]";
-    }
-    
+    }    
 }

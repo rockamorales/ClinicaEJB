@@ -55,4 +55,14 @@ public class TblDespachosFacade extends AbstractFacade<TblDespachos> implements 
     public int count() throws ClinicaModelexception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    public List<TblDespachos> findDespachosCreados() throws ClinicaModelexception{
+        try{
+            Query q = em.createNamedQuery("tblDespachos.findDespachosCreados");
+            return q.getResultList();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new ClinicaModelexception(ex.getMessage(), ex);
+        }
+    }
 }
