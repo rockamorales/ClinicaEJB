@@ -7,7 +7,6 @@ package sv.com.cormaria.servicios.facades.farmacia;
 import java.util.List;
 import javax.ejb.Local;
 import sv.com.cormaria.servicios.entidades.farmacia.TblDespachos;
-import sv.com.cormaria.servicios.entidades.farmacia.TblDetalleDespacho;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 
 /**
@@ -30,5 +29,6 @@ public interface TblDespachosFacadeLocal {
 
     int count() throws ClinicaModelexception;
     public TblDespachos findByNumReceta(Integer numReceta) throws ClinicaModelexception;
-    
+
+    public List<TblDespachos> findDespachosCreados() throws ClinicaModelexception;
 }

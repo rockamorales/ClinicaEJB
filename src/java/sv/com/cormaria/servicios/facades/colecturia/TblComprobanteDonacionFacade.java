@@ -107,7 +107,6 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
             System.out.println("Codigo: "+sessionContext.getCallerPrincipal().getName());
             TblUsuarios usuario = usuarioFacade.findByCodigoUsuario(sessionContext.getCallerPrincipal().getName());
             System.out.println("Usuario: "+ usuario);
-            entity.setOriDonacion(OrigenDonacionEnum.OTROS);
             entity.setNumEmpleado(usuario.getNumEmpleado());
             getEntityManager().persist(entity);
             return entity;
@@ -214,7 +213,7 @@ public class TblComprobanteDonacionFacade extends AbstractFacade<TblComprobanteD
            List<TblDetalleReceta> detalleRecetaList = new ArrayList<TblDetalleReceta>();
            if (recetaMedica!=null){
                detalleRecetaList = detalleRecetaFacade.findContribuibleByNumReceta(recetaMedica.getNumReceta());
-               System.out.println("Lista de medicamentos no contribuibles recuperada: "+detalleRecetaList.size());
+               System.out.println("Lista de medicamentos contribuibles recuperada: "+detalleRecetaList.size());
            }
            if (!detalleRecetaList.isEmpty()){
                 TblDespachos tblDespacho = despachoFacade.findByNumReceta(recetaMedica.getNumReceta());
