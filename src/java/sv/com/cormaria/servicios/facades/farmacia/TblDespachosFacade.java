@@ -7,6 +7,8 @@ package sv.com.cormaria.servicios.facades.farmacia;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import sv.com.cormaria.servicios.entidades.farmacia.TblDespachos;
@@ -40,6 +42,10 @@ public class TblDespachosFacade extends AbstractFacade<TblDespachos> implements 
             Query q = em.createNamedQuery("TblDespachos.findByNumReceta");
             q.setParameter("numReceta", numReceta);
             return (TblDespachos) q.getSingleResult();
+        }catch(EntityNotFoundException ex){
+            return null;
+        }catch(NoResultException ex){
+            return null;
         }catch(Exception ex){
             ex.printStackTrace();
             throw new ClinicaModelexception(ex.getMessage(), ex);
