@@ -7,9 +7,11 @@ package sv.com.cormaria.servicios.entidades.archivo;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,10 +19,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Where;
+import org.hibernate.annotations.WhereJoinTable;
+import sv.com.cormaria.servicios.criteria.ExpedientesSearchCriteria;
 import sv.com.cormaria.servicios.entidades.catalogos.CatSexo;
 import sv.com.cormaria.servicios.entidades.catalogos.CatUbicacionFisica;
 import sv.com.cormaria.servicios.enums.Estado;
@@ -45,71 +51,93 @@ public class TblExpedientePacientes implements Serializable {
     @Basic 
     @Column(name = "NUM_EXPEDIENTE")
     private Integer numExpediente;
+    
     @Basic
     @Column(name = "COD_OCUPACION")
     private int codOcupacion;
+    
     @Basic
     @Column(name = "COD_EST_CIVIL")
     private int codEstCivil;
+    
     @Basic
     @Column(name = "COD_SEX_PACIENTE")
     private int codSexPaciente;
+    
     @Basic
     @Column(name = "COD_PAR_RESPONSABLE")
     private int codParResponsable;
+    
     @Basic
     @Column(name = "FEC_REG_EXPEDIENTE")
     @Temporal(TemporalType.DATE)
     private Date fecRegExpediente;
+    
     @Basic
     @Column(name = "NOM_PACIENTE")
     private String nomPaciente;
+    
     @Basic
     @Column(name = "PRI_APE_PACIENTE")
     private String priApePaciente;
+    
     @Basic
     @Column(name = "SEC_APE_PACIENTE")
     private String secApePaciente;
+    
     @Basic
     @Column(name = "TER_APE_PACIENTE")
     private String terApePaciente;
+    
     @Basic
     @Column(name = "FEC_NAC_PACIENTE")
     @Temporal(TemporalType.DATE)
     private Date fecNacPaciente;
+    
     @Basic
     @Column(name = "EDA_PACIENTE")
     private short edaPaciente;
+    
     @Basic
     @Column(name = "NUM_DUI")
     private String numDui;
+    
     @Basic
     @Column(name = "LUG_PROC_PACIENTE")
     private String lugProcPaciente;
+    
     @Basic
     @Column(name = "DIR_PACIENTE")
     private String dirPaciente;
+    
     @Basic
     @Column(name = "TEL_PACIENTE")
     private Integer telPaciente;
+    
     @Basic
     @Column(name = "NOM_PAD_PACIENTE")
     private String nomPadPaciente;
+    
     @Basic
     @Column(name = "NOM_MAD_PACIENTE")
     private String nomMadPaciente;
+    
     @Basic
     @Column(name = "NOM_CON_PACIENTE")
     private String nomConPaciente;
+    
     @Basic
     @Column(name = "NOM_RES_PACIENTE")
     private String nomResPaciente;
+    
     @Basic
     @Column(name = "DIR_RES_PACIENTE")
     private String dirResPaciente;
+    
     @Basic
     @Column(name = "TEL_RES_PACIENTE")
     private Integer telResPaciente;
+    
     @Basic
     @Column(name = "EST_PACIENTE")
     private Estado estPaciente;
@@ -117,8 +145,10 @@ public class TblExpedientePacientes implements Serializable {
     @JoinColumn(name = "COD_UBI_FISICA", referencedColumnName = "COD_UBI_FISICA", insertable=false, updatable=false)
     @ManyToOne
     private CatUbicacionFisica catUbicacionFisica;
+    
     @Column(name = "COD_UBI_FISICA")
     private Integer codUbiFisica;
+
     @ManyToOne
     @JoinColumn(name="COD_SEX_PACIENTE",referencedColumnName="COD_SEX_PACIENTE",insertable=false, updatable=false)
     private CatSexo catSexo;
@@ -128,10 +158,22 @@ public class TblExpedientePacientes implements Serializable {
     
     @Column(name = "ALE_PACIENTE")
     private String alePaciente;
-
+    
+    @OneToMany(mappedBy = "numExpediente",fetch = FetchType.EAGER)
+    @Where(clause = "ACT_TARJETA=1")
+    private List<TblTarjetaControlCitas> tarjetas; 
+    
     public TblExpedientePacientes() {
     }
 
+    public List<TblTarjetaControlCitas> getTarjetas() {
+        return tarjetas;
+    }
+
+    public void setTarjetas(List<TblTarjetaControlCitas> tarjetas) {
+        this.tarjetas = tarjetas;
+    }
+    
     public CatSexo getCatSexo() {
         return catSexo;
     }
@@ -388,6 +430,13 @@ public class TblExpedientePacientes implements Serializable {
 
     public void setAlePaciente(String alePaciente) {
         this.alePaciente = alePaciente;
+    }
+    
+    public TblTarjetaControlCitas getTarjetaControlCitas(){
+        if (this.getTarjetas().size()>0){
+            return this.getTarjetas().get(0);
+        }
+        return null;
     }
     
     @PrePersist

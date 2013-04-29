@@ -145,12 +145,16 @@ public class ConsultasSearchCriteria implements SearchCriteria {
 
     private String createWhere(){
         System.out.println("Creando el where: ");
-        if (this.getEstadoConsultas().isEmpty()){
+        if (!this.getEstadoConsultas().isEmpty()){
             System.out.println("Estado: "+getEstadoConsultas().get(0));
         }
         System.out.println("Num medico: "+getNumMedico());
         StringBuffer strWhere = new StringBuffer();
+        strWhere.append(" c.estConsulta not in (5,6) ");
         if (this.getNumExpediente()!=null){
+            if (strWhere.length() > 0){
+                    strWhere.append(" and ");
+            }
            strWhere.append(" c.numExpediente = :numExpediente");
         }
         if (this.getNombres()!=null && !this.getNombres().trim().equals("")){
