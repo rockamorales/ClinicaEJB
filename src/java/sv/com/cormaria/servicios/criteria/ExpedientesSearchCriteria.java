@@ -22,12 +22,20 @@ public class ExpedientesSearchCriteria implements SearchCriteria{
     public String segundoApellido;
     public String tercerApellido;
     public String dui;
+    public Integer numeroTarjeta;
     public List<String> estado = new ArrayList<String>();
 
     public ExpedientesSearchCriteria() {
         estado.add("ACTIVO");
     }
 
+    public Integer getNumeroTarjeta() {
+        return numeroTarjeta;
+    }
+
+    public void setNumeroTarjeta(Integer numeroTarjeta) {
+        this.numeroTarjeta = numeroTarjeta;
+    }
     
     public Integer getNumExpediente() {
         return numExpediente;
@@ -95,7 +103,7 @@ public class ExpedientesSearchCriteria implements SearchCriteria{
     
     @Override
     public String createQuery() {
-        StringBuffer strSelect = new StringBuffer("Select e from TblExpedientePacientes e ");
+        StringBuffer strSelect = new StringBuffer("Select e from TblExpedientePacientes e left outer join e.tarjetas t");
         StringBuffer strSort = new StringBuffer("Order by e.numExpediente desc ");
         String strWhere = createWhere();
         return strSelect + " " + strWhere + " " + strSort;        
@@ -103,7 +111,7 @@ public class ExpedientesSearchCriteria implements SearchCriteria{
 
     @Override
     public String createCountQuery() {
-        StringBuffer strSelect = new StringBuffer("Select count(*) from TblExpedientePacientes e ");
+        StringBuffer strSelect = new StringBuffer("Select count(*) from TblExpedientePacientes e left outer join e.tarjetas t");
         String strWhere = createWhere();
         return strSelect + " " + strWhere;
     }
@@ -133,6 +141,11 @@ public class ExpedientesSearchCriteria implements SearchCriteria{
         }
         if (this.getEstado()!=null && !this.getEstado().isEmpty()){
             parameters.put("estado",this.getEstados());
+        }
+
+        System.out.println("Numero de tarjeta: "+this.getNumeroTarjeta());
+        if (this.getNumeroTarjeta()!=null && this.getNumeroTarjeta()>0){
+            parameters.put("numTarjeta",this.getNumeroTarjeta());
         }        
         return parameters;
     }
@@ -148,6 +161,12 @@ public class ExpedientesSearchCriteria implements SearchCriteria{
             }
             strWhere.append(" e.nomPaciente like :nombres");
         }
+        if (this.getNumeroTarjeta()!=null && this.getNumeroTarjeta()>0){
+            if (strWhere.length() > 0){
+               strWhere.append(" and ");
+            }
+            strWhere.append(" t.numTarjeta like :numTarjeta");
+        }        
         if (this.getPrimerApellido()!=null && !this.getPrimerApellido().trim().equals("")){
             if (strWhere.length() > 0){
                strWhere.append(" and ");
